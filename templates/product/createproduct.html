@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+{% block block_body %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <select name="category" id="">
+    {% for category in categorys %}
+    <option value="{{category.name}}"> {{category.name}}</option>
+    {% endfor %}
+    {{form.as_p}}
+    </select>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

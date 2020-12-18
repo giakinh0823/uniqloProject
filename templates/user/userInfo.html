@@ -1,0 +1,13 @@
+{% extends "base/base.html" %}
+{% block block_body %}
+{% load static %}
+<h3>{{userInfo.user.username}}</h3>
+<h3>{{userInfo.first_name}} {{userInfo.last_name}}</h3>
+<h3>{{userInfo.birth_date}}</h3>
+<h3>{{userInfo.site}}</h3>
+{% if userInfo.avatar %}
+<img src="{{userInfo.avatar.url}}" alt=""  class="img-thumbnail">
+{% endif %}
+{% endblock %}
+
+

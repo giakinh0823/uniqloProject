@@ -1,0 +1,18 @@
+{% extends "base/base.html" %}
+{% block block_body %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <select name="type" id="">
+    {% for type in types  %}
+    {% if product.type == type %}
+    <option value="{{type.name}}" selected> {{type.name}}</option>
+    {% else %}
+    <option value="{{type.name}}"> {{type.name}}</option>
+    {% endif %}
+    {% endfor %}
+    {{form.as_p}}
+    </select>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
