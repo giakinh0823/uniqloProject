@@ -27,7 +27,30 @@ def createproduct(request):
         category = str(request.POST['category'])
         product.category = Category.objects.filter(name = category)[0]
         product.save()
-        return redirect('appProduct:product')
+        return redirect('appProduct:productuser')
+
+@login_required
+def editproduct(request , product_pk):
+    product = get_object_or_404(Product, pk=product_pk, user= request.user)
+    if request.method == "GET": 
+        form = ProductForm(instance=product)
+        categorys = Category.objects.all()
+        return render(request, 'product/createproduct.html', {'product' : product , 'form': form, 'categorys': categorys})
+    else:
+        category = str(request.POST['category'])
+        product.category = Category.objects.filter(name = category)[0]
+        product.save()
+        form = ProductForm(request.POST, instance = product)
+        form.save()
+        return redirect('appProduct:productuser')
+
+
+@login_required
+def deleteproduct(request, product_pk):
+    product = get_object_or_404(Product, pk=product_pk, user=request.user) #lấy thông tin todo nếu ko có trả về 404
+    if request.method == "POST": 
+        product.delete()
+        return redirect('appProduct:productuser')
 
 def detailproduct(request, product_pk):
     product = get_object_or_404(Product, pk=product_pk)

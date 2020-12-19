@@ -1,14 +1,11 @@
 {% extends "base/base.html" %}
 {% block block_body %}
-
-<h1>Signup</h1>
+<h1>Edit Info</h1>
 <form enctype="multipart/form-data" method="POST" class="form">
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
+    {{ form.as_p }}
     {% csrf_token %}
-    <input type="submit" value="Register">
+    <input type="submit" value="Save" class="btn btn-primary">
 </form>
-
 {% endblock  %}
 
 

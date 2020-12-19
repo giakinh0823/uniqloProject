@@ -8,6 +8,8 @@
 {% if userInfo.avatar %}
 <img src="{{userInfo.avatar.url}}" alt=""  class="img-thumbnail">
 {% endif %}
+<a href="{% url 'appUser:editInfo' %}" class="btn btn-primary">Edit Info</a>
+<a href="{% url 'appUser:change_password' %}" class="btn btn-primary">change password</a>
 {% endblock %}
 
 

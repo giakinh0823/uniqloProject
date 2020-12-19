@@ -5,7 +5,7 @@
     {% csrf_token %}
     <select name="category" id="">
     {% for category in categorys %}
-    <option value="{{category.name}}"> {{category.name}}</option>
+    <option value="{{category.name}}" {% if product.category == category %} selected {% endif %}> {{category.name}}</option>
     {% endfor %}
     {{form.as_p}}
     </select>
