@@ -4,8 +4,18 @@
 <ul>
 {% for product in products  %}
     <li>
-        <a href="{% url 'appProduct:detailproduct' product.id %}">{{ product.name }}</a>
+        <a href="{% url 'appProduct:detailproduct' product.id %}">
+            <div class="card" style="width: 18rem;">
+                <!-- <img class="card-img-top" src="" alt="Card image cap"> -->
+                <div class="card-body">
+                  <h5 class="card-title">{{ product.name }}</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a onclick="addCart({{ product.id }})"  class="btn btn-primary">Add to card</a>
+                </div>
+            </div>
+        </a>
     </li>
 {% endfor %}
 </ul>
+
 {% endblock %}

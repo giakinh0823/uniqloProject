@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+{% block block_body %}
+<form action="" method="POST">
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>quantity</th>
+    </tr>
+    {% for key, value in carts.items %}
+    <tr>
+        <td>{{value.name}}</td>
+        <td>{{value.price}}</td>   
+        <td> <input type="number" name="quantitys" value="{{value.num}}" min="1" id = "number"></td>
+    </tr>    
+    {% endfor %}
+    <tr>
+        <td>Toltal</td>
+        <td>{{totalprice}}</td>
+        <td></td>
+    </tr>
+</table>
+    <a class="btn btn-primary" href="{% url 'appProduct:checkout' %}">Checkout</a>
+</form>
+{% endblock %}

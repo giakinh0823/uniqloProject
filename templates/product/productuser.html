@@ -7,9 +7,10 @@
         <a href="{% url 'appProduct:detailproduct' product.id %}">{{ product.name }}</a>
         <a href="{% url 'appProduct:editproduct' product.id %}" class="btn btn-primary">Edit</a>
         <form action="{% url 'appProduct:deleteproduct' product.id %}" method="POST">
-            <button class="btn btn-danger">delete</button>
             {% csrf_token %}
+            <button class="btn btn-danger" type="submit">delete</button>
         </form>
+        <!-- <a href="{% url 'appProduct:deleteproduct' product.id %}" class="delete btn btn-danger" name="delete" id="delete">delete</a> -->
     </li>
 {% endfor %}
 </ul>

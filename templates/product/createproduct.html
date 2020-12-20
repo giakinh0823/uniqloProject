@@ -1,7 +1,7 @@
 {% extends "base/base.html" %}
 {% block block_body %}
 
-<form action="" method="POST">
+<form action="" method="POST" id="createproduct">
     {% csrf_token %}
     <select name="category" id="">
     {% for category in categorys %}

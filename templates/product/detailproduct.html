@@ -1,5 +1,6 @@
 {% extends "base/base.html" %}
 {% block block_body %}
+<h3>id: {{product.id}}</h3> 
 <h3>Name: {{product.name}}</h3> 
 <h3>Shop: {{product.user}}</h3>
 <h3>Loại: {{product.category}}</h3>
@@ -8,5 +9,8 @@
 <h3>Ngày Bán: {{product.datecreated}}</h3>
 {% if product.user == request.user %}
 <a href="{% url 'appProduct:editproduct' product.id %}" class="btn btn-primary">Edit</a>
+{% else %}
+    <input type="number" name="quantitys" value="1" min="1" id = "number">
+    <button onclick="addCart({{ product.id }})"  class="btn btn-primary">Add to card</button>   
 {% endif %}
 {% endblock %}
