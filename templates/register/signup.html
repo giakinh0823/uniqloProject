@@ -1,14 +1,59 @@
 {% extends "base/base.html" %}
-{% block block_body %}
+{% block block_body_not_nav %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-md">
+    <a class="navbar-brand" href="{% url 'home:index' %}">Uniqlo</a>
+  </div>
+</nav>
 
-<h1>Signup</h1>
-<form enctype="multipart/form-data" method="POST" class="form">
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
-    {% csrf_token %}
-    <input type="submit" value="Register">
+<h1 class="text-center mt-5 mb-4 display-3">Signup</h1>
+
+{% if error %}
+  <div class="alert alert-warning" role="alert">
+    <span>{{ error }}</span> 
+</div>
+{% endif %}
+<form enctype="multipart/form-data" method="POST" class="d-flex flex-column align-items-center mb-5">
+  {% csrf_token %}
+  <div class="mb-3 w-50">
+    <label for="id_username" class="form-label">Username</label>
+    <input type="text" name="username" maxlength="150" autofocus="" required="" id="id_username" class="form-control" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3 w-50">
+    <label for="id_email" class="form-label">Email</label>
+    <input type="email" name="email" autofocus="" required="" id="id_email" class="form-control" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3 w-50">
+    <label for="id_password" class="form-label">Password</label>
+    <input type="password" name="password" required="" id="id_password" class="form-control">
+  </div>
+  <div class="mb-3 w-50">
+    <label for="id_password1" class="form-label">Password</label>
+    <input type="password" name="password1" required="" id="id_password1" class="form-control">
+  </div>
+  <div class="mb-3 w-50">
+    <label for="id_first_name" class="form-label">First Name</label>
+    <input  type="text" name="first_name" maxlength="256" required="" id="id_first_name" class="form-control" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3 w-50">
+    <label for="id_last_name" class="form-label">Last Name</label>
+    <input  type="text" name="last_name" maxlength="256" required="" id="id_last_name" class="form-control" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3 w-50">
+    <label for="id_birth_date" class="form-label">Birth Day</label>
+    <input type="text" name="birth_date" required="" id="id_birth_date" class="form-control" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3 w-50">
+    <label for="id_site" class="form-label">Url</label>
+    <input type="url" name="site" maxlength="200" id="id_site" class="form-control" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3 w-50">
+    <label for="id_avatar" class="form-label">Default file input example</label>
+    <input class="form-control"  type="file" name="avatar" accept="image/*" id="id_avatar">
+  </div>
+  <button type="submit" class="btn btn-outline-dark mb-5">Register</button>
 </form>
 
-{% endblock  %}
+{% endblock block_body_not_nav %}
 
 

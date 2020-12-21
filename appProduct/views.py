@@ -137,8 +137,7 @@ def addcartdetail(request, product_pk):
         quantity=0
         for key, value in cartInfo.items():
             quantity += int(value['num'])
-        html = render_to_string('product/product.html',{'carts': cartInfo, 'quantity': quantity})
-    return HttpResponse(html)
+    return JsonResponse({'quantity':quantity})
 
 
 def basket(request):

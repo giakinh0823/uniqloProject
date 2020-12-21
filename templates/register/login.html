@@ -1,17 +1,30 @@
 {% extends "base/base.html" %}
-{% block block_body %}
+{% block block_body_not_nav %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-md">
+    <a class="navbar-brand" href="{% url 'home:index' %}">Uniqlo</a>
+  </div>
+</nav>
 
 
-<h1>Login</h1>
+<h1 class="text-center mt-5 mb-4 display-3">Login</h1>
 
 {% if error %}
-  <div class="alert alert-warning" role="alert">
-    <span>{{ error }}</span> 
-</div>
+  <div class="mb-3 mt-5 w-100 d-flex justify-content-center align-items-center" role="alert" >
+    <div class="w-50 alert alert-secondary">{{ error }}</div> 
+  </div>
 {% endif %}
-<form action="" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">login</button>
+<form action="" method="POST" class="d-flex flex-column align-items-center">
+  {% csrf_token %}
+  <div class="mb-3 w-50">
+    <label for="id_username" class="form-label">Username</label>
+    <input type="text" name="username" autofocus="" required="" id="id_username" class="form-control" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3 w-50">
+    <label for="id_password" class="form-label">Password</label>
+    <input type="password" name="password" required="" id="id_password" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-outline-dark">login</button>
 </form>
-{% endblock %}
+   
+{% endblock block_body_not_nav %}

@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    {% block block_body_not_nav %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'home:index' %}">Uniqlo</a>
@@ -24,15 +25,15 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav w-100">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'home:index' %}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'appProduct:product' %}">Product</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'appProduct:basket' %}" id="cartquantity">Cart = {{request.session.quantity}}</a>
+                    <li class="nav-item  ms-auto">
+                        <a class="nav-link active" aria-current="page" href="{% url 'appProduct:basket' %}">Cart <span id="cartquantity">{{request.session.quantity}}</span></a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
@@ -50,15 +51,15 @@
                     <li class="nav-item">
                         <form action="{% url 'register:logout' %}" method="POST">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">Logout</button>
+                            <button type="submit" class="btn btn-outline-dark">Logout</button>
                         </form>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'register:signup' %}">Signup</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'register:login' %}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'register:login' %}">Login</a>
+                        <a class="nav-link active " aria-current="page" href="{% url 'register:signup' %}">Signup</a>
                     </li>
                     <li class="nav-item">
                         <a href="{% url 'password_reset' %}" class="nav-link active"
@@ -73,6 +74,7 @@
         {% block block_body %}
 
         {% endblock %}
+        {% endblock block_body_not_nav %}
     </div>
     <script type="text/javascript">window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
