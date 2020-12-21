@@ -3,7 +3,6 @@
 
 <ul class="d-flex overflow-auto m-0 list-unstyled" style="">
 {% for product in products  %}
-{% if product.category.name == 'Anime' %}
 <li class="ms-3">
     <a href="{% url 'appProduct:detailproduct' product.id %}">
         <div class="card" style="width: 18rem;">
@@ -16,7 +15,6 @@
         </div>
     </a>
 </li>
-{% endif %}
 {% endfor %}
 </ul>
 
