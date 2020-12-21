@@ -8,6 +8,7 @@ app_name = 'appUser'
 urlpatterns = [
     path('userInfo/', views.userInfo, name ='userInfo'),
     path('editInfo/', views.editInfo, name ='editInfo'),
+    path('order/', views.orderUser, name ='order'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

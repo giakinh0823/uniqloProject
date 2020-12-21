@@ -2,6 +2,10 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
 
+#appProduct
+from appProduct.models import Order, OrderDetail, Product
+
+
 #import register
 from register.models import UserProfile
 from register.forms import UserProfileForm , UserForm
@@ -39,3 +43,13 @@ def editInfo(request):
             return redirect('appUser:userInfo')
         except:
             return render(request, 'user/editInfo.html', {'userProfile' : userProfile ,'form':form, 'error': "Wrong fomat"})
+        
+@login_required
+def orderUser(request):
+    orders = Order.objects.filter(user=request.user)
+    totalprice=0
+    quantity=0
+    for order in orders:
+        totalprice += order.totalprice 
+        quantity += order.quantity
+    return render(request, 'user/order.html', {'orders': orders, 'totalprice': totalprice, 'quantity': quantity})

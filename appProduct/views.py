@@ -193,7 +193,7 @@ def confirmcheckout(request):
         totalprice +=  int(value['num']) * int(float(value['price']))
     CODERANDOM = "1234567890QWERTYUIOPASDFGHJKLZXCVBNM"
     code = "";
-    for i in range(10):
+    for i in range(8):
         code += random.choice(CODERANDOM)
     order = Order(user = request.user, state = "Waiting",code = code, totalprice = totalprice, quantity = quantity)
     order.save()

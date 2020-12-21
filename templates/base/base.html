@@ -46,7 +46,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
-                            href="{% url 'appUser:userInfo' %}">{{user.username }}</a>
+                            href="{% url 'appUser:order' %}">Order</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"
+                            href="{% url 'appUser:userInfo' %}">{{user.username }}
+                        </a>
                     </li>
                     <li class="nav-item">
                         <form action="{% url 'register:logout' %}" method="POST">
