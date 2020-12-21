@@ -1,6 +1,6 @@
 from django.http.response import HttpResponse,JsonResponse
 from django.shortcuts import render, redirect,get_object_or_404, render_to_response
-from .models import Order, OrderDetail, Product
+from .models import Order, OrderDetail, Product, Cart
 from .forms import ProductForm, Category
 from django.contrib.auth.decorators import login_required,user_passes_test ,permission_required
 from django.template.loader import render_to_string, get_template
@@ -175,8 +175,10 @@ def basket(request):
     if  request.session.get('carts'): #kiếm trong trong session có carts không
         listcarts = request.session['carts']
     for key, value in listcarts.items():
+        cart = Cart(product = Product.objects.get(id=key))
+        cart.save()
         totalprice +=  int(value['num']) * int(float(value['price']))
-    return render(request, 'product/basket.html', {'carts': listcarts, 'totalprice': totalprice} )
+    return render(request, 'product/basket.html', {'carts': listcarts, 'totalprice': totalprice, 'carts': cart} )
 
 @login_required
 def checkout(request):
