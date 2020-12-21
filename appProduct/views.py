@@ -34,6 +34,8 @@ def createproduct(request):
     #     product.category = Category.objects.filter(name = category)[0]
     #     product.save()
     #     return redirect('appProduct:productuser')
+    
+    
     #ở đây dùng ajax
     categorys = Category.objects.all()
     if request.is_ajax(): #nếu như yêu cầu nhận được là ajax
@@ -52,24 +54,11 @@ def createproduct(request):
 @login_required
 def editproduct(request , product_pk):
     product = get_object_or_404(Product, pk=product_pk, user= request.user)
-    if request.method == "GET": 
-        form = ProductForm(instance=product)
-        categorys = Category.objects.all()
-        return render(request, 'product/editproduct.html', {'product' : product , 'form': form, 'categorys': categorys})
-    else:
-        category = str(request.POST['category'])
-        product.category = Category.objects.filter(name = category)[0]
-        if 'image' in request.FILES:
-            product.image = request.FILES['image']
-        product.save()
-        form = ProductForm(request.POST, instance = product)
-        form.save()
-        return redirect('appProduct:productuser')
-    
-    #ajax edit 
-    # form = ProductForm(instance=product)
-    # categorys = Category.objects.all()
-    # if request.is_ajax():
+    # if request.method == "GET": 
+    #     form = ProductForm(instance=product)
+    #     categorys = Category.objects.all()
+    #     return render(request, 'product/editproduct.html', {'product' : product , 'form': form, 'categorys': categorys})
+    # else:
     #     category = str(request.POST['category'])
     #     product.category = Category.objects.filter(name = category)[0]
     #     if 'image' in request.FILES:
@@ -77,16 +66,38 @@ def editproduct(request , product_pk):
     #     product.save()
     #     form = ProductForm(request.POST, instance = product)
     #     form.save()
-    #     return JsonResponse({'response':"Success"})
-    # return render(request, 'product/editproduct.html', {'product' : product , 'form': form, 'categorys': categorys})
+    #     return redirect('appProduct:productuser')
+    
+    # ajax edit 
+    form = ProductForm(instance=product)
+    categorys = Category.objects.all()
+    if request.is_ajax():
+        category = str(request.POST['category'])
+        product.category = Category.objects.filter(name = category)[0]
+        if 'image' in request.FILES:
+            product.image = request.FILES['image']
+        product.save()
+        form = ProductForm(request.POST, instance = product)
+        form.save()
+        return JsonResponse({'response': "Success"})
+    else:
+        return render(request, 'product/editproduct.html', {'product' : product , 'form': form, 'categorys': categorys})
 
 
 @login_required
 def deleteproduct(request, product_pk):
-    product = get_object_or_404(Product, pk=product_pk, user=request.user) #lấy thông tin todo nếu ko có trả về 404
-    if request.method == "POST": 
-        product.delete()
-        return redirect('appProduct:productuser')
+    # product = get_object_or_404(Product, pk=product_pk, user=request.user) #lấy thông tin todo nếu ko có trả về 404
+    # if request.method == "POST": 
+    #     product.delete()
+    #     return redirect('appProduct:productuser')
+    
+    #ở đây dùng ajax
+    product = get_object_or_404(Product, pk=product_pk, user=request.user)
+    product.delete()
+    data = {
+            'deleted': True
+        }
+    return JsonResponse(data)
 
 def detailproduct(request, product_pk):
     product = get_object_or_404(Product, pk=product_pk)

@@ -1,17 +1,15 @@
 {% extends "base/base.html" %}
 {% block block_body %}
 
-<ul>
+<ul class="#productuser">
 {% for product in products  %}
     <li>
         <a href="{% url 'appProduct:detailproduct' product.id %}">{{ product.name }}</a>
-        <a href="{% url 'appProduct:editproduct' product.id %}" class="btn btn-primary" id="{{product.id}}">Edit</a>
-        <form action="{% url 'appProduct:deleteproduct' product.id %}" method="POST">
-            {% csrf_token %}
-            <button class="btn btn-danger" type="submit">delete</button>
-        </form>
-        <!-- <a href="{% url 'appProduct:deleteproduct' product.id %}" class="delete btn btn-danger" name="delete" id="delete">delete</a> -->
+        <a href="{% url 'appProduct:editproduct' product.id %}" class="btn btn-primary" id="{{product.id}}" >Edit</a>
+        <!-- <button class="btn btn-danger edit" data-id= '{{product.id}}'>edit</button> -->
+        <button class="btn btn-danger delete" data-id= '{{product.id}}'>delete</button>
     </li>
 {% endfor %}
 </ul>
+
 {% endblock %}
