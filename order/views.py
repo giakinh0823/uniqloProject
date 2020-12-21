@@ -1,3 +1,4 @@
+from django.contrib.auth import SESSION_KEY
 from django.http.response import HttpResponse,JsonResponse
 from django.shortcuts import render, redirect,get_object_or_404, render_to_response
 from .models import Order, OrderDetail, Cart
@@ -128,7 +129,8 @@ def basket(request):
 def checkout(request):
     return render(request,'order/checkout.html')
 
-def confirmcheckout(request):
+def confirmcheckout(request): 
+    carts.clear()
     Cart.objects.filter(user = request.user).delete()
     request.session['quantity']=0
     listcarts={}
@@ -148,5 +150,9 @@ def confirmcheckout(request):
     for key, value in listcarts.items():
         orderDetail = OrderDetail(order = order, product = Product.objects.get(id=key),quantity=int(value['num']), totalprice = int(value['num']) * int(float(value['price'])))
         orderDetail.save()
-    request.session.modified = True
+    try:
+        del request.session['carts']
+    except KeyError:
+        pass
     return  redirect('home:index')
+

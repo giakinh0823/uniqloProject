@@ -24,8 +24,8 @@ function addCart(id) {
     }
     $.ajax({
         type: "POST",
-        url: "addcart/",
-        data: {'id':id, 'num': num, 'csrfmiddlewaretoken': csrftoken},
+        url: 'addcart/',
+        data: { 'id':id, 'num': num, 'csrfmiddlewaretoken': csrftoken},
         dataType: "json",
         success: function (data) {
             $("#cartquantity").text(data.quantity)

@@ -5,6 +5,8 @@ from .forms import UserProfileForm , UserForm
 from django.contrib.auth.decorators import login_required,user_passes_test
 from order.models import Cart
 from appProduct.models import Product
+from django.contrib import messages
+
 
 @user_passes_test(lambda u: u.is_anonymous, login_url='home:index')
 def signup(request):
@@ -70,7 +72,16 @@ def loginuser(request):
         
 @login_required
 def logoutuser(request):
-    request.session.modified = True
+    try:
+        for key in list(request.session.keys()):
+            del request.session[key]
+    except KeyError:
+        pass
+    if request.session.test_cookie_worked():
+        request.session.delete_test_cookie()
+    else:
+        request.session.set_test_cookie()
+        messages.error(request, 'Please enable cookie')
     if request.method=="POST":
         logout(request)
         return redirect('home:index')
