@@ -33,7 +33,10 @@
                         <a class="nav-link active" aria-current="page" href="{% url 'appProduct:product' %}">Product</a>
                     </li>
                     <li class="nav-item  ms-auto">
-                        <a class="nav-link active" aria-current="page" href="{% url 'appProduct:basket' %}">Cart <span id="cartquantity">{{request.session.quantity}}</span></a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'order:basket' %}">Cart 
+                            <span id="cartquantity">
+                                {{request.session.quantity}}
+                            </span></a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">

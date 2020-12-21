@@ -30,11 +30,13 @@ urlpatterns = [
     #product
     path('',include('appProduct.urls')),
     #auth
-     path('change-password/',auth_views.PasswordChangeView.as_view(template_name='user/change-password.html',
+    path('change-password/',auth_views.PasswordChangeView.as_view(template_name='user/change-password.html',
             success_url = '/'
         ),
         name='change_password'
     ),
+    #order
+    path('', include('order.urls')),
     # Forget Password
     path('password-reset/',
          auth_views.PasswordResetView.as_view(

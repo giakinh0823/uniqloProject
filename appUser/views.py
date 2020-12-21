@@ -3,7 +3,11 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
 
 #appProduct
-from appProduct.models import Order, OrderDetail, Product
+from appProduct.models import  Product
+
+#order
+
+from order.models import Order
 
 
 #import register

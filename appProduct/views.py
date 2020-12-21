@@ -1,6 +1,6 @@
 from django.http.response import HttpResponse,JsonResponse
 from django.shortcuts import render, redirect,get_object_or_404, render_to_response
-from .models import Order, OrderDetail, Product, Cart
+from .models import Product
 from .forms import ProductForm, Category
 from django.contrib.auth.decorators import login_required,user_passes_test ,permission_required
 from django.template.loader import render_to_string, get_template
@@ -104,104 +104,6 @@ def detailproduct(request, product_pk):
     return render(request, 'product/detailproduct.html', {'product': product})
 
 
-# for key, value in request.session.carts.items
-#     key: value
-carts = {}
-def addcart(request):
-    if request.is_ajax():
-        id_product = request.POST.get('id')
-        num = request.POST.get('num')
-        productDetail = Product.objects.get(id=id_product)
-        if id_product in carts.keys():
-            itemCart = {
-                'name': productDetail.name,
-                'price': str(productDetail.price),
-            #   'image': str(productDetail.image)  #nếu có hình ảnh thì convert sang string
-                'num': int(carts[id_product]['num'])+1,
-            }
-        else:
-            itemCart = {
-                'name': productDetail.name,
-                'price': str(productDetail.price),
-            #   'image': str(productDetail.image)  #nếu có hình ảnh thì convert sang string
-                'num': num,
-            }
 
-        carts[id_product]= itemCart
-        request.session['carts'] = carts
-        cartInfo = request.session['carts']
-        quantity=0
-        for key, value in cartInfo.items():
-            quantity += int(value['num'])
-        request.session['quantity'] = quantity
-        # html = render_to_string('product/addcart.html',{'carts': cartInfo})
-    return JsonResponse({'quantity':quantity})
-
-def addcartdetail(request, product_pk):
-    if request.is_ajax():
-        id_product = request.POST.get('id')
-        num = request.POST.get('num')
-        if num:
-            num=num
-        else:
-            num=1
-        productDetail = Product.objects.get(id=id_product)
-        if id_product in carts.keys():
-            itemCart = {
-                'name': productDetail.name,
-                'price': str(productDetail.price),
-            #   'image': str(productDetail.image)  #nếu có hình ảnh thì convert sang string
-                'num': int(carts[id_product]['num']) + int(num),
-            }
-        else:
-            itemCart = {
-                'name': productDetail.name,
-                'price': str(productDetail.price),
-            #   'image': str(productDetail.image)  #nếu có hình ảnh thì convert sang string
-                'num': num,
-            }
-        carts[id_product]= itemCart
-        request.session['carts'] = carts
-        cartInfo = request.session['carts']
-        quantity=0
-        for key, value in cartInfo.items():
-            quantity += int(value['num'])
-    return JsonResponse({'quantity':quantity})
-
-
-def basket(request):
-    totalprice = 0;
-    listcarts={}
-    if  request.session.get('carts'): #kiếm trong trong session có carts không
-        listcarts = request.session['carts']
-    for key, value in listcarts.items():
-        cart = Cart(product = Product.objects.get(id=key))
-        cart.save()
-        totalprice +=  int(value['num']) * int(float(value['price']))
-    return render(request, 'product/basket.html', {'carts': listcarts, 'totalprice': totalprice, 'carts': cart} )
-
-@login_required
-def checkout(request):
-    return render(request,'product/checkout.html')
-
-def confirmcheckout(request):
-    listcarts={}
-    totalprice=0
-    quantity=0
-    if  request.session.get('carts'): #kiếm trong trong session có carts không
-        listcarts = request.session['carts']
-    for key, value in listcarts.items():
-        quantity += int(value['num'])
-        totalprice +=  int(value['num']) * int(float(value['price']))
-    CODERANDOM = "1234567890QWERTYUIOPASDFGHJKLZXCVBNM"
-    code = "";
-    for i in range(8):
-        code += random.choice(CODERANDOM)
-    order = Order(user = request.user, state = "Waiting",code = code, totalprice = totalprice, quantity = quantity)
-    order.save()
-    for key, value in listcarts.items():
-        orderDetail = OrderDetail(order = order, product = Product.objects.get(id=key),quantity=int(value['num']), totalprice = int(value['num']) * int(float(value['price'])))
-        orderDetail.save()
-    return  redirect('home:index')
        
 

@@ -3,6 +3,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import UserProfileForm , UserForm
 from django.contrib.auth.decorators import login_required,user_passes_test
+from order.models import Cart
+from appProduct.models import Product
 
 @user_passes_test(lambda u: u.is_anonymous, login_url='home:index')
 def signup(request):
@@ -39,11 +41,36 @@ def loginuser(request):
         if user is None:
             return render(request, 'register/login.html', {'form': AuthenticationForm(), 'error': "username or password wrong"})
         else: 
-            login(request, user)           
+            login(request, user) 
+            
+            #nếu như có session thì thêm vào cart
+            try:
+                cartInfo = request.session['carts']
+            except:
+                cartInfo = None
+            if cartInfo != None:
+                for key, value in cartInfo.items():
+                    productDetail = Product.objects.get(id=key)
+                    try:
+                        cartItem = Cart.objects.get(product = productDetail,user = user)
+                    except Cart.DoesNotExist:
+                        cartItem = None
+                    if cartItem != None:
+                        cartItem.quantity = int(value['num'])
+                        cartItem.save()
+                    else:
+                        newCartItem = Cart(user = request.user, product = productDetail,quantity = int(value['num'])) 
+                        newCartItem.save()
+                quantity=0
+                listCart = Cart.objects.filter(user = user)
+                for item in listCart:
+                    quantity += int(item.quantity)
+                request.session['quantity']=quantity   
             return redirect('home:index')
         
 @login_required
 def logoutuser(request):
+    request.session.modified = True
     if request.method=="POST":
         logout(request)
         return redirect('home:index')
