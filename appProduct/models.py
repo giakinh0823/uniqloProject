@@ -14,8 +14,9 @@ class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=256)
     price = models.DecimalField(max_digits = 20,decimal_places=2)
-    quantity = models.IntegerField()
-    image = models.ImageField(upload_to='productImages') 
+    quantity = models.IntegerField(blank=True, default=1)
+    recommend = models.TextField(blank=True)
+    image = models.ImageField(upload_to='productImages', default='default.jpg') 
     datecreated = models.DateTimeField(auto_now_add=True)  #không thể chỉnh sữa ngày tạo và khởi tạo thời gian tạo
     
     def __str__(self) -> str:

@@ -33,6 +33,7 @@ def editInfo(request):
         try:
             if 'avatar' in request.FILES:
                 userProfile.avatar = request.FILES['avatar']
+            userProfile.save()
             form = UserProfileForm(request.POST, instance = userProfile)
             form.save()
             return redirect('appUser:userInfo')

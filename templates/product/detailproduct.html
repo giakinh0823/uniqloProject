@@ -7,6 +7,9 @@
 <h3>Giá: {{product.price}}</h3>
 <h3>Số lượng: {{product.quantity}}</h3>
 <h3>Ngày Bán: {{product.datecreated}}</h3>
+{% if product.image %}
+<img src="{{product.image.url}}" alt=""  class="img-thumbnail">
+{% endif %}
 {% if product.user == request.user %}
 <a href="{% url 'appProduct:editproduct' product.id %}" class="btn btn-primary">Edit</a>
 {% else %}

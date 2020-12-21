@@ -27,24 +27,26 @@ def createproduct(request):
     #     categorys = Category.objects.all()
     #     return render(request, 'product/createproduct.html', {'form': ProductForm(), 'categorys': categorys})
     # else:
-        # form = ProductForm(request.POST)
-        # product = form.save(commit=False)
-        # product.user = request.user
-        # category = str(request.POST['category'])
-        # product.category = Category.objects.filter(name = category)[0]
-        # product.save()
-        # return redirect('appProduct:productuser')
+    #     form = ProductForm(request.POST)
+    #     product = form.save(commit=False)
+    #     product.user = request.user
+    #     category = str(request.POST['category'])
+    #     product.category = Category.objects.filter(name = category)[0]
+    #     product.save()
+    #     return redirect('appProduct:productuser')
     #ở đây dùng ajax
     categorys = Category.objects.all()
     if request.is_ajax(): #nếu như yêu cầu nhận được là ajax
-            categorys = Category.objects.all()
-            form = ProductForm(request.POST)
-            product = form.save(commit=False)
-            product.user = request.user
-            category = str(request.POST['category'])
-            product.category = Category.objects.filter(name = category)[0]
-            product.save()
-            return JsonResponse({'response':"Success"})
+        categorys = Category.objects.all()
+        form = ProductForm(request.POST)
+        product = form.save(commit=False)
+        product.user = request.user
+        if 'image' in request.FILES:
+            product.image = request.FILES['image']
+        category = str(request.POST['category'])
+        product.category = Category.objects.filter(name = category)[0]
+        product.save()
+        return JsonResponse({'response':"Success"})
     return render(request, 'product/createproduct.html', {'form': ProductForm(), 'categorys': categorys})
 
 @login_required
@@ -57,10 +59,26 @@ def editproduct(request , product_pk):
     else:
         category = str(request.POST['category'])
         product.category = Category.objects.filter(name = category)[0]
+        if 'image' in request.FILES:
+            product.image = request.FILES['image']
         product.save()
         form = ProductForm(request.POST, instance = product)
         form.save()
         return redirect('appProduct:productuser')
+    
+    #ajax edit 
+    # form = ProductForm(instance=product)
+    # categorys = Category.objects.all()
+    # if request.is_ajax():
+    #     category = str(request.POST['category'])
+    #     product.category = Category.objects.filter(name = category)[0]
+    #     if 'image' in request.FILES:
+    #         product.image = request.FILES['image']
+    #     product.save()
+    #     form = ProductForm(request.POST, instance = product)
+    #     form.save()
+    #     return JsonResponse({'response':"Success"})
+    # return render(request, 'product/editproduct.html', {'product' : product , 'form': form, 'categorys': categorys})
 
 
 @login_required

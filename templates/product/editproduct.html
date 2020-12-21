@@ -1,18 +1,35 @@
 {% extends "base/base.html" %}
 {% block block_body %}
 
-<form action="" method="POST">
+
+<h1 class="text-center mt-5 mb-4 display-3">Edit Product</h1>
+
+<form action="" method="POST" class="mt-5 mb-5 w-75 m-auto" id="editproduct" enctype="multipart/form-data">
     {% csrf_token %}
-    <select name="category" id="">
-    {% for category in categorys %}
-    {% if product.category == category %}
-    <option value="{{category.name}}" selected> {{category.name}}</option>
-    {% else %}
-    <option value="{{category.name}}"> {{category.name}}</option>
-    {% endif %}
-    {% endfor %}
-    {{form.as_p}}
+    <select name="category" id="" class="form-select mb-3" aria-label="Default select example">
+        {% for category in categorys %}
+        <option value="{{category.name}}" {% if product.category == category %} selected {% endif %}> {{category.name}}</option>
+        {% endfor %}
     </select>
-    <button type="submit">Submit</button>
+    <div class="mb-3">
+        <label for="id_name" class="form-label">Name Product</label>
+        <input class="form-control" type="text" name="name" maxlength="256" required="" id="id_name" value="{{product.name}}">
+    </div>
+    <div class="mb-3">
+        <label for="id_price" class="form-label">Price</label>
+        <input class="form-control" type="number" name="price" step="0.01" required="" id="id_price" value="{{product.price}}">
+    </div>
+    <div class="mb-3">
+        <label for="id_quantity" class="form-label">Quantity</label>
+        <input class="form-control" type="number" name="quantity" value="1" id="id_quantity" value="{{product.quantity}}">
+    </div>
+    <div class="mb-3">
+        <label for="id_recommend" class="form-label">Recommend</label>
+        <textarea class="form-control" name="recommend" id="id_recommend" rows="3" value="">{{product.recommend}}</textarea>
+    </div>
+    <div class="input-group mb-3 mt-4">
+        <input type="file" name="image" accept="image/*" id="id_image" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-success mb-5 mt-3">Save</button>
 </form>
 {% endblock %}

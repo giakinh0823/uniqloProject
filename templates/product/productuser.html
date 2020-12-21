@@ -5,7 +5,7 @@
 {% for product in products  %}
     <li>
         <a href="{% url 'appProduct:detailproduct' product.id %}">{{ product.name }}</a>
-        <a href="{% url 'appProduct:editproduct' product.id %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'appProduct:editproduct' product.id %}" class="btn btn-primary" id="{{product.id}}">Edit</a>
         <form action="{% url 'appProduct:deleteproduct' product.id %}" method="POST">
             {% csrf_token %}
             <button class="btn btn-danger" type="submit">delete</button>
