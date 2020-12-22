@@ -19,7 +19,7 @@
     <tr>
         <td>Toltal</td>
         <td></td>
-        <td></td>
+        <td id="totalpricecart">{{totalprice}}</td>
         <td></td>
     </tr>
     {% else %} 
@@ -40,6 +40,8 @@
     {% endif %}
     
 </table>
+        {% if listCart %}
         <a class="btn btn-primary" href="{% url 'order:checkout' %}">Checkout</a>
+        {% endif %}
 </form>
 {% endblock %}

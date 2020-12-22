@@ -160,19 +160,20 @@ def confirmcheckout(request):
 
 
 def deletecart(request, cart_pk):
+    quantity=0
+    totalprice=0
     if request.user.is_authenticated:
-        cart = get_object_or_404(Cart, pk=cart_pk)
+        cart = get_object_or_404(Cart, pk=cart_pk, user = request.user)
         cart.delete()
+        listcart = Cart.objects.filter(user = request.user)
+        for cart in listcart:
+            quantity += cart.quantity
+            totalprice +=  quantity * cart.product.price
     else:
         listcart = request.session['carts']
         listcart.pop(str(cart_pk))
         request.session['carts']=listcart
         carts=listcart
-        # request.session['carts']=listcart
-        # print(cart_pk)
-        # print(request.session['carts'])
-        quantity=0
-        totalprice=0
         for key, value in listcart.items():
             quantity += int(value['num'])
             totalprice +=  int(value['num']) * int(float(value['price']))
