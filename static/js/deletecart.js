@@ -13,7 +13,11 @@ $(document).on('click', '.deletecart', function() {
                 if (data.deleted) {
                     $("#cart-" + id).remove();
                 }
-                $("#cartquantity").text(data.quantity)
+                if(data.quantity>0){
+                    $("#cartquantity").text(data.quantity)
+                }else{
+                    $("#cartquantity").text('')
+                }
                 $("#totalpricecart").text(data.totalprice)
             }
         })
