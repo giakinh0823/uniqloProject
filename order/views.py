@@ -172,10 +172,25 @@ def deletecart(request, cart_pk):
         cart = get_object_or_404(Cart, pk=cart_pk, user = request.user)
         cart.delete()
         cartlist = Cart.objects.filter(user = request.user)
-        for cart in cartlist:
-            quantity += cart.quantity
-            totalprice +=  quantity * cart.product.price
+        carts.clear()
+        for item in cartlist:
+            quantity += int(item.quantity)
+            totalprice +=  quantity * item.product.price
+            itemCart = {
+                'name': item.product.name,
+                'price': str(item.product.price),
+            #   'image': str(productDetail.image)  #nếu có hình ảnh thì convert sang string
+                'num': item.quantity,
+            }
+            carts[item.product.id]=itemCart
+        request.session['carts']= carts
         request.session['quantity']=quantity
+        print(request.session['carts'])
+    #     cartlist = Cart.objects.filter(user = request.user)
+    #     for cart in cartlist:
+    #         quantity += cart.quantity
+    #         totalprice +=  quantity * cart.product.price
+    #     request.session['quantity']=quantity
     else:
         carts.pop(str(cart_pk))
         request.session['carts']=carts
