@@ -1,6 +1,3 @@
-
-
-
 $(document).on('click', '.deletecart', function() { 
     var id = $(this).data('id') 
     var action = confirm("Are you sure you want to delete this user?");
@@ -16,7 +13,7 @@ $(document).on('click', '.deletecart', function() {
                 if (data.deleted) {
                     $("#cart-" + id).remove();
                 }
-                $("#cartquantity").text(data.quantity);
+                $("#cartquantity").text(data.quantity)
                 $("#totalpricecart").text(data.totalprice)
             }
         })

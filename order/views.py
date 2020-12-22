@@ -168,18 +168,18 @@ def deletecart(request, cart_pk):
     quantity=0
     totalprice=0
     if request.user.is_authenticated:
+        print(request.session['carts'])
         cart = get_object_or_404(Cart, pk=cart_pk, user = request.user)
         cart.delete()
-        listcart = Cart.objects.filter(user = request.user)
-        for cart in listcart:
+        cartlist = Cart.objects.filter(user = request.user)
+        for cart in cartlist:
             quantity += cart.quantity
             totalprice +=  quantity * cart.product.price
+        request.session['quantity']=quantity
     else:
-        listcart = request.session['carts']
-        listcart.pop(str(cart_pk))
-        request.session['carts']=listcart
-        carts=listcart
-        for key, value in listcart.items():
+        carts.pop(str(cart_pk))
+        request.session['carts']=carts
+        for key, value in carts.items():
             quantity += int(value['num'])
             totalprice +=  int(value['num']) * int(float(value['price']))
         request.session['quantity']=quantity
