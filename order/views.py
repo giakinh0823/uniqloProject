@@ -112,6 +112,41 @@ def addcartdetail(request, product_pk):
         #     quantity += int(value['num'])  
     return JsonResponse({'quantity': quantity})
 
+def addcartbasket(request):
+    if request.is_ajax():
+        id_product = request.POST.get('id')
+        num = request.POST.get('num')
+        productDetail = Product.objects.get(id=id_product)
+        itemCart = {
+            'name': productDetail.name,
+            'price': str(productDetail.price),
+            # 'image': str(productDetail.image)  #nếu có hình ảnh thì convert sang string
+            'num': num,
+        }
+        carts[id_product]= itemCart
+        request.session['carts'] = carts
+        if request.user.is_authenticated:
+            try:
+                cartItem = Cart.objects.get(product = productDetail,user = request.user)
+            except Cart.DoesNotExist:
+                cartItem = None
+            if cartItem != None:
+                cartItem.quantity = int(itemCart['num'])
+                cartItem.save()
+            else:
+                newCartItem = Cart(user = request.user, product = productDetail,quantity = int(itemCart['num'])) 
+                newCartItem.save()
+            quantity=0
+            listCart = Cart.objects.filter(user = request.user)
+            for item in listCart:
+                quantity += int(item.quantity)
+            request.session['quantity']=quantity
+        # quantity=0   
+        # for key, value in cartInfo.items():
+        #     quantity += int(value['num'])  
+    return JsonResponse({'quantity': quantity})
+
+
 
 def basket(request):
     totalprice = 0;
@@ -129,7 +164,7 @@ def basket(request):
             quantity+=int(value['num'])
             totalprice +=  int(value['num']) * int(float(value['price']))
         return render(request, 'order/basket.html', {'listCart': listcarts, 'totalprice': totalprice} )
-    return render(request, 'order/basket.html', {'listCart': listCart, 'totalprice': totalprice , 'quantity': quantity} )
+    return render(request, 'order/basket.html', {'listCart': listCart, 'totalprice': totalprice , 'data': [1,2,3,4,5,6,7,8,9,10]} )
 
 @login_required
 def checkout(request):
@@ -185,7 +220,6 @@ def deletecart(request, cart_pk):
             carts[item.product.id]=itemCart
         request.session['carts']= carts
         request.session['quantity']=quantity
-        print(request.session['carts'])
     #     cartlist = Cart.objects.filter(user = request.user)
     #     for cart in cartlist:
     #         quantity += cart.quantity

@@ -9,10 +9,17 @@
     </tr>
     {% if user.is_authenticated %}
     {% for cart in listCart %}
-    <tr>
+    <tr class="">
         <td>{{cart.product.name}}</td>
         <td>{{cart.product.price}}</td>   
-        <td> <input type="number" name="quantitys" value="{{cart.quantity}}" min="1" id = "number"></td>
+        <td> 
+            <!-- <input type="number" name="quantitys" value="{{cart.quantity}}" min="1" id = "number"> -->
+            <select name="quantitys" id="number" onchange="changeQuantityCart(this, {{cart.product.id}})">
+                {% for i in data  %}
+                <option value="{{i}}" {% if i == cart.quantity %}selected{% endif %}>{{i}}</option>
+                {% endfor %}              
+            </select>
+        </td>
         <td> <button class="btn btn-danger deletecart" data-id='{{cart.id}}'>delete</button></td>
     </tr>    
     {% endfor %}
