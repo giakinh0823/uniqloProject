@@ -114,17 +114,22 @@ def addcartdetail(request, product_pk):
 
 
 def basket(request):
+    totalprice = 0;
+    quantity = 0;
     if request.user.is_authenticated:
         listCart = Cart.objects.filter(user = request.user)
+        for cart in listCart:
+            quantity += cart.quantity
+            totalprice +=  quantity * cart.product.price
     else:
-        totalprice = 0;
         listcarts={}
         if  request.session.get('carts'): #kiếm trong trong session có carts không
             listcarts = request.session['carts']
         for key, value in listcarts.items():
+            quantity+=int(value['num'])
             totalprice +=  int(value['num']) * int(float(value['price']))
         return render(request, 'order/basket.html', {'listCart': listcarts, 'totalprice': totalprice} )
-    return render(request, 'order/basket.html', {'listCart': listCart} )
+    return render(request, 'order/basket.html', {'listCart': listCart, 'totalprice': totalprice , 'quantity': quantity} )
 
 @login_required
 def checkout(request):
