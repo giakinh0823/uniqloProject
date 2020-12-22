@@ -13,10 +13,12 @@
         <td>{{cart.product.name}}</td>
         <td>{{cart.product.price}}</td>   
         <td> <input type="number" name="quantitys" value="{{cart.quantity}}" min="1" id = "number"></td>
+        <td> <button class="btn btn-danger deletecart" data-id='{{cart.id}}'>delete</button></td>
     </tr>    
     {% endfor %}
     <tr>
         <td>Toltal</td>
+        <td></td>
         <td></td>
         <td></td>
     </tr>
@@ -26,11 +28,13 @@
         <td>{{value.name}}</td>
         <td>{{value.price}}</td>   
         <td> <input type="number" name="quantitys" value="{{value.num}}" min="1" id = "number"></td>
+        <td> <button class="btn btn-danger deletecart" data-id= '{{key}}' name="{{key}}">delete</button></td>
     </tr>    
     {% endfor %}
     <tr>
         <td>Toltal</td>
-        <td>{{totalprice}}</td>
+        <td id="totalpricecart">{{totalprice}}</td>
+        <td></td>
         <td></td>
     </tr>
     {% endif %}

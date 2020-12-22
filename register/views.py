@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import UserProfileForm , UserForm
 from django.contrib.auth.decorators import login_required,user_passes_test
 from order.models import Cart
+from order.views import carts
 from appProduct.models import Product
 from django.contrib import messages
 
@@ -72,6 +73,7 @@ def loginuser(request):
         
 @login_required
 def logoutuser(request):
+    carts.clear()
     try:
         for key in list(request.session.keys()):
             del request.session[key]
@@ -81,7 +83,6 @@ def logoutuser(request):
         request.session.delete_test_cookie()
     else:
         request.session.set_test_cookie()
-        messages.error(request, 'Please enable cookie')
     if request.method=="POST":
         logout(request)
         return redirect('home:index')

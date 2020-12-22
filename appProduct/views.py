@@ -105,5 +105,4 @@ def detailproduct(request, product_pk):
 
 
 
-       
 
