@@ -136,5 +136,10 @@ LOGIN_URL = '/login/'
 
 LOGIN_REDIRECT_URL = 'index'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_POST = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'team3jsfu@gmail.com'
+EMAIL_HOST_PASSWORD = '123@123a'
