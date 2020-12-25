@@ -1,0 +1,77 @@
+.banner {
+    padding-top: 6.8rem;
+    margin-bottom: 3.95rem;
+    &__layout {}
+
+    &__select {
+        padding-bottom: 36px;
+    }
+
+    &__nav {
+        &--group {
+            padding: 0;
+            margin: 1.8rem 0 0;
+            list-style-type: none;
+        }
+
+        &--item {
+            display: inline-block;
+
+            &:not(:last-child)::after {
+                content: '';
+                width: 1px;
+                height: 10px;
+                background-color: #1b1b1b;
+                transform: rotate(15deg);
+                display: inline-block;
+                margin: 0 .75rem;
+            }
+        }
+
+        &--link {
+            display: inline;
+
+            .active {
+                text-decoration: none;
+            }
+
+            &:visited {
+                color: $color-primary;
+            }
+
+            &:not(:disabled) {
+                cursor: pointer;
+            }
+            &:hover{
+                text-decoration: none;
+            }
+        }
+
+        &--span {
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: $color-primary;
+        }
+    }
+    &__header{
+        width: 100%;
+        display: flex;
+        margin: 0.6rem 0 1rem 0;
+        &--item{
+            &:not(:last-child){
+                margin-right: auto;
+            }
+        }
+        &--title{
+            margin: 0;
+            padding: 0;
+        }
+        &-h2{
+            font-size: 4.5rem;
+            font-weight: 600;
+            color: $color-red;
+            padding: 0;
+            margin: 0px;
+        }
+    }       
+}

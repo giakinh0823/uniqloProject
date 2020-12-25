@@ -1,0 +1,16 @@
+.section__social{
+    padding: 3rem 0;
+    margin-bottom: 3.95rem;
+    .social__layout{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        &--link{
+            cursor: pointer;
+            display: inline-block;
+            &--img{
+                width: 100%;     
+            }
+        }
+    }
+}

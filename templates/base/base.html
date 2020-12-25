@@ -1,16 +1,27 @@
+
+{% load static %}
 <!doctype html>
 <html lang="en">
-{% load static %}
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <!-- Bootstrap CSS , icon, and framework in network-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="//db.onlinewebfonts.com/c/13bf1d3e6c7119293f9c96e5678096e6?family=Uniqlo+Pro+Light" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js?ver=1.3.2'></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    
+    <!-- css -->
+    <link rel="stylesheet" href={% static "owlcarousel/assets/owl.carousel.min.css" %}>
+    <link rel="stylesheet" href={% static "owlcarousel/assets/owl.theme.default.min.css" %}>
+    <link rel="stylesheet" href={% static "style.css" %}>
+    
+    <!-- title -->
     <title>Demo</title>
 </head>
 
@@ -33,11 +44,11 @@
                         <a class="nav-link active" aria-current="page" href="{% url 'appProduct:product' %}">Product</a>
                     </li>
                     <li class="nav-item  ms-auto">
-                        <a class="nav-link active" aria-current="page" href="{% url 'order:basket' %}">Cart 
+                        <a class="nav-link active" aria-current="page" href="{% url 'order:basket' %}">Cart
                             <span id="cartquantity">
                                 {% if request.session.quantity > 0 %}
                                 {{request.session.quantity}}
-                                {% endif %}                    
+                                {% endif %}
                             </span></a>
                     </li>
                     {% if user.is_authenticated %}
@@ -50,8 +61,7 @@
                             href="{% url 'appProduct:createproduct' %}">Create Product</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="{% url 'appUser:order' %}">Order</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'appUser:order' %}">Order</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
@@ -72,8 +82,7 @@
                         <a class="nav-link active " aria-current="page" href="{% url 'register:signup' %}">Signup</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'password_reset' %}" class="nav-link active"
-                            aria-current="page">Forget</a>
+                        <a href="{% url 'password_reset' %}" class="nav-link active" aria-current="page">Forget</a>
                     </li>
                     {%endif%}
                 </ul>
@@ -81,25 +90,32 @@
         </div>
     </nav>
     <div class="container">
+
         {% block block_body %}
 
         {% endblock %}
+
         {% endblock block_body_not_nav %}
     </div>
+
+    <!-- js jquery-->
     <script type="text/javascript">window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <!-- caurosel front end  -->
+    <script type="text/javascript" src={% static "owlcarousel/jquery.min.js" %}></script>
+    <script type="text/javascript" src={% static "owlcarousel/owl.carousel.min.js" %}></script>
+    <script type="text/javascript" src={% static "js/carosel.js" %}></script>
+    <script type="text/javascript" src={% static "js/caurosellist.js" %}></script>
+    <script type="text/javascript" src={% static "owlcarousel/jquery.mousewheel.min.js" %}></script>
+
+    <!-- django back end  -->
     <script type="text/javascript" src={% static "js/addCart.js" %}></script>
     <script type="text/javascript" src={% static "js/createproduct.js" %}></script>
     <script type="text/javascript" src={% static "js/editproduct.js" %}></script>
     <script type="text/javascript" src={% static "js/deleteproduct.js" %}></script>
     <script type="text/javascript" src={% static "js/deletecart.js" %}></script>
     <script type="text/javascript" src={% static "js/changeQuantityCart.js" %}></script>
-
-    <script>
-        // Use find() function to extract the badge  
-        // count from '#group' container. 
-        
-    </script>
 </body>
-
 </html>

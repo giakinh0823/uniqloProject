@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from order.models import Cart
 from order.views import carts
+from appProduct.models import Product
 
 # Create your views here.
 
-
 def index(request):
+    products = Product.objects.all()[0:20]
     if request.user.is_authenticated:
         quantity=0
         carts.clear()
@@ -21,6 +22,6 @@ def index(request):
             carts[item.product.id]=itemCart
         request.session['quantity']=quantity
         request.session['carts']=carts
-        return render(request, 'home/index.html', {'quantity': quantity})
+        return render(request, 'home/index.html', {'quantity': quantity, 'products': products})
     else:
-        return render(request, 'home/index.html')
+        return render(request, 'home/index.html',{'products': products})

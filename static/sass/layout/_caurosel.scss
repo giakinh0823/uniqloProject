@@ -1,0 +1,155 @@
+.carousel--slider-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel--slider-wrapper {
+    width: 5120px;
+    display: flex;
+    transition: margin-left .3s;
+}
+
+.carousel--slide {
+    float: left;
+    width: 1035px;
+    min-height: 100px;
+}
+
+.carousel--box-wrapper {
+    width: 100%;
+    height: 70vh;
+    display: none;
+    transition: opacity .8s;
+}
+
+.carousel--box-wrapper.active {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 70vh;
+}
+
+
+.carousel--slider-aux {
+    display: flex;
+    flex-direction: column;
+}
+
+.caurosel--img {
+    width: 100%;
+    max-width: 1305px;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    height: 70vh;
+    object-fit: cover;
+
+}
+
+.carousel--slider--controls {
+    display: flex;
+    justify-content: space-between;
+}
+
+.carousel--slider--indicators ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+
+.carousel--slider--indicators li a {
+    display: block;
+}
+
+.carousel--slider--indicators li a div.circle {
+    margin: 8px;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    border: 1px solid #212529;
+    transition: background .3s;
+}
+
+.carousel--slider--indicators li a.active div.circle {
+    background: #212529;
+}
+
+.carousel--slider--indicators li a:hover div.circle {
+    background: #212529;
+}
+
+.carousel--slider--control_toggle {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    display: none !important;
+}
+
+.carousel--slider--controls i {
+    cursor: pointer;
+    color: #212529;
+}
+
+.carousel--slider--controls i:hover {
+    color: #212529;
+}
+
+/* grid content */
+.carousel--grid-container {
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 300px);
+}
+
+
+.button__caurosel {
+    -webkit-appearance: none;
+    padding: .25rem;
+    background-color: #fff;
+    margin: 0;
+    pointer-events: auto;
+    border: none;
+    outline: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-tap-highlight-color: transparent;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        background-color: #6a6a6a;
+    }
+
+    &:hover svg {
+        fill: #f4f4f4;
+    }
+
+    svg {
+        fill: #4b4b4b;
+        width: 3rem;
+        height: 3rem;
+        color: #787878;
+        display: inline-block;
+
+        &:not(:root) {
+            overflow: hidden;
+        }
+    }
+}
+
+.next {
+    right: 0;
+}
+
+.previous {
+    left: 0;
+}
+
+

@@ -1,0 +1,136 @@
+.button-primary {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 0 1rem;
+    height: 3.25rem;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    border: none;
+    word-wrap: break-word;
+    outline: 0;
+    overflow: visible;
+    transition-property: background-color, color;
+    transition-duration: 180ms;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    color: #fff;
+}
+
+.button__icon {
+    cursor: pointer;
+    display: inline-flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid transparent;
+    padding: .25rem;
+    height: 38px;
+    min-width: 44px;
+    background: 0 0;
+    margin: 0;
+    text-decoration: none;
+    outline: 0;
+
+    &:focus {
+        outline: none;
+    }
+
+    &--container {
+        position: relative;
+        fill: inherit;
+    }
+
+    &--sgv {
+        display: block;
+        fill: inherit;
+        width: 1.5rem;
+        height: 1.5rem;
+        color: #787878;
+    }
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+
+.section__button {
+    margin-bottom: 3.95rem;
+    display: flex;
+    &--div {
+        width: 44%;
+        margin: auto;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    &--link {
+        text-decoration: none;
+        display: flex;
+        padding: 0.8rem;
+        background-color: #fff;
+        border: 1px solid $color-primary;
+        width: 100%;
+        cursor: pointer;
+        &:hover .section__button--caption{
+            color:  #212529bb;
+        }
+    }
+
+    &--link__dark {
+        text-decoration: none;
+        display: flex;
+        padding: 0.8rem;
+        background-color: #212529;
+        border: 1px solid $color-primary;
+        width: 100%;
+        cursor: pointer;
+        &:hover {
+            background-color: #212529d0;
+        }
+    }
+
+    &--button {
+        width: 100%;
+        color: var($color-primary);
+        &:not(:disabled) {
+            cursor: pointer;
+        }
+        &:focus{
+            outline: none;
+        }
+    }
+    
+
+    &--caption {
+        font-size: 1.6rem;
+        font-weight: 600;
+        letter-spacing: normal;
+        max-width: 100%;
+        color:  #212529;
+        -webkit-font-smoothing: antialiased;
+        margin: 0;
+        line-height: 1.25;
+        text-transform: uppercase;
+        font-style: normal;
+        vertical-align: inherit;
+    }
+    &--caption--light {
+        font-size: 1.6rem;
+        font-weight: 600;
+        letter-spacing: normal;
+        max-width: 100%;
+        color:  #fff;
+        -webkit-font-smoothing: antialiased;
+        margin: 0;
+        line-height: 1.25;
+        text-transform: uppercase;
+        font-style: normal;
+        vertical-align: inherit;
+    }
+}
+

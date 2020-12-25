@@ -1,0 +1,13 @@
+@import "abstracts/variables"; //các biến như color hoặc chiều cao, chiều rộng
+@import "abstracts/functions"; //imporrt những thứ liên quan đến hàm có thể truyền biến vào
+@import "abstracts/mixins"; //những thứ mà sẽ cho người khác thừa hưởng gỏi lại
+
+@import "base/base"; //import base vào file main
+@import "base/typograhpy";  //import những gì liên quan đến chữ 
+@import "base/animations"; //import những thứ liên quan đến animations
+
+
+@import "pages/home"; //trang home
+
+
+

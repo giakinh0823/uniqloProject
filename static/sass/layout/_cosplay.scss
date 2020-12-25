@@ -1,0 +1,59 @@
+.cosplay {
+    margin-bottom: 3.95rem;
+    &__layout {}
+
+    &__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 1.8rem;
+
+        &--content {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        &--title {
+            h2 {
+                text-transform: uppercase;
+                letter-spacing: normal;
+                font-weight: 600;
+                line-height: 1.375;
+                font-size: 2.6rem;
+            }
+        }
+    }
+
+    &__container {
+        &--items {}
+
+        .cosplay__link {
+            text-decoration: none;
+            &--container {}
+
+            &--img {
+                margin-bottom: 1.4rem;
+
+                &--image {
+                    width: 100%;
+                    height: 100%
+                }
+            }
+
+            &--title {
+                margin-bottom: .25rem;
+            }
+
+            &--h1 {
+                font-size: 1.7625rem;
+                line-height: 1.375;
+                font-weight: 600;
+                color: #1b1b1b;
+            }
+        }
+    }
+}
