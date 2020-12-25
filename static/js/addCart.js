@@ -17,12 +17,12 @@ function getCookieCart(name) {
 const csrftokenCart = getCookieCart('csrftoken');
 
 function addCart(id) {
-    num = $("#number").val(); //lấy ở product detail đưa ra số lượng bao nhiêu đểu mình mua
+    num = $("#number").val(); //lấy ở product detail đưa ra số lượng bao nhiêu để mình mua
     if (!num) { //nếu không tồn tại num thì tức là lấy ở product ở phần home..show product
         num = 1;
     }
     $.ajax({
-        type: "POST",
+        type: "POST", 
         url: 'addcart/',
         data: { 'id':id, 'num': num, 'csrfmiddlewaretoken': csrftokenCart},
         dataType: "json",

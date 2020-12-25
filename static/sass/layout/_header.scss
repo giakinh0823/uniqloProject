@@ -4,6 +4,7 @@
     position: fixed;
     background-color: #fff;
     z-index: 1000;
+
     .layout {
         display: flex;
         align-items: center;
@@ -12,10 +13,11 @@
         height: 6.8rem;
     }
 
-    &__logo{
+    &__logo {
         display: flex;
         align-items: center;
-        &--img{
+
+        &--img {
             width: 100%;
         }
     }
@@ -43,8 +45,8 @@
             padding: 1rem 1rem;
             display: inline-block;
             position: relative;
-            
-            .header-span{
+
+            .header-span {
                 font-size: 1.5rem;
                 padding: 0;
                 margin: 0;
@@ -77,15 +79,18 @@
         align-items: center;
         display: flex;
         height: 100%;
-        
+
         &--wrapper {
             position: relative;
-            .header__icon--user:hover + .header__layout--container{
+
+            .header__icon--user:hover+.header__layout--container {
                 display: block;
             }
-            .header__layout--container:hover{
+
+            .header__layout--container:hover {
                 display: block;
             }
+
             .header__layout--container {
                 display: none;
                 position: absolute;
@@ -93,12 +98,14 @@
                 padding-top: 14px;
                 right: 0px;
                 z-index: 1000;
+
                 .layout__wrapper {
                     width: 1200px;
                     margin-left: auto;
                     margin-right: auto;
                     display: flex;
                     justify-content: flex-end;
+
                     .layout {
                         border-top: none;
                         border-right: 1px solid rgb(218, 218, 218);
@@ -108,10 +115,9 @@
                         overflow: hidden;
                         margin: 0;
                         background-color: #fff;
-                        // overflow: scroll;
                         padding: 1.5rem;
                         width: 299.99px;
-                        height: 200px;
+                        height: 230px;
                         display: inline-block;
                         vertical-align: top;
 
@@ -129,6 +135,20 @@
                                 color: #1b1b1b;
                                 text-decoration: none;
                                 outline: 0;
+                                .caption{
+                                    font-size: 1.2rem;
+                                }
+                                &--button {
+                                    cursor: pointer;
+                                    padding-top: 1rem;
+                                    padding-bottom: 1rem;
+                                    position: relative;
+                                    display: inline-block;
+                                    color: #585858;
+                                    font-size: 1.2rem;
+                                    outline: none;
+                                    border: none;
+                                }
                             }
                         }
                     }

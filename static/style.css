@@ -172,7 +172,7 @@ img {
             background-color: #fff;
             padding: 1.5rem;
             width: 299.99px;
-            height: 200px;
+            height: 230px;
             display: inline-block;
             vertical-align: top; }
             .header__icon--wrapper .header__layout--container .layout__wrapper .layout .nav__group--list {
@@ -188,6 +188,18 @@ img {
                 color: #1b1b1b;
                 text-decoration: none;
                 outline: 0; }
+                .header__icon--wrapper .header__layout--container .layout__wrapper .layout .nav__group--list .nav__link .caption {
+                  font-size: 1.2rem; }
+                .header__icon--wrapper .header__layout--container .layout__wrapper .layout .nav__group--list .nav__link--button {
+                  cursor: pointer;
+                  padding-top: 1rem;
+                  padding-bottom: 1rem;
+                  position: relative;
+                  display: inline-block;
+                  color: #585858;
+                  font-size: 1.2rem;
+                  outline: none;
+                  border: none; }
   .header__search {
     margin-left: 2rem;
     margin-right: 1.4rem; }
