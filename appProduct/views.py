@@ -5,6 +5,7 @@ from .forms import ProductForm, Category
 from django.contrib.auth.decorators import login_required,user_passes_test ,permission_required
 from django.template.loader import render_to_string, get_template
 from django.views.decorators.csrf import csrf_protect
+from order.models import Order, Cart
 import random
 
 
