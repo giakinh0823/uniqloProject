@@ -1,3 +1,5 @@
+
+
 $(document).on('click', '.deletecart', function() { 
     var id = $(this).data('id') 
     var action = confirm("Are you sure you want to delete this user?");
@@ -18,7 +20,10 @@ $(document).on('click', '.deletecart', function() {
                 }else{
                     $("#cartquantity").text('')
                 }
-                $("#totalpricecart").text(data.totalprice)
+                $("#totalpricecart").text(data.totalprice);
+                if(data.quantity<=0){
+                    $("#deleteCartCheckout").remove()
+                }
             }
         })
         .done(function(data) {    //sau khi Ajax nhận được data từ server trả về và user được save
