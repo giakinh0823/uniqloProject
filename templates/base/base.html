@@ -117,9 +117,10 @@
                 <nav class="header__right">
                     <div class="header__search" style="margin-right: 2.5rem;">
                         <div class="header__search--content">
-                            <form action="" class="header__search--form" method="POST">
-                                <input type="text" class="header__search--input" placeholder="Search"
-                                    autocomplete="off">
+                            <form action="{% url 'appProduct:product' %}" class="header__search--form" method="GET">
+                                {% csrf_token %}
+                                <!-- <input type="text" name="name" id="id_name"> -->
+                                <input type="text" name="name" id="id_name" class="header__search--input" placeholder="Search">
                                 <button type="submit" class="search__button button__icon">
                                     <div class="button__icon--container">
                                         <svg class="button__icon-svg" viewBox="0 0 24 24" focusable="false"

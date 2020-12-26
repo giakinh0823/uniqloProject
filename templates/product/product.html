@@ -19,20 +19,24 @@
 {% endfor %}
 </ul> -->
 <div style="padding-top: 85px;"></div>
+<!-- <form action="" method="GET">
+    {{productFilter.form}}
+<button type="submit" class="btn btn-primary">search</button>
+</form> -->
 <div class="container">
     <div class="banner__select">
         <nav class="banner__nav">
             <ol class="banner__nav--group">
                 <li class="banner__nav--item">
-                    <a href="#" class="banner__nav--link">
+                    <a href="{url 'home:index' }" class="banner__nav--link">
                         <span class="banner__nav--span label--primary">
-                            UNIQLO hàng đầu
+                            HOME
                         </span>
                     </a>
                 </li>
                 <li class="banner__nav--item active">
                     <span class="banner__nav--span label--primary">
-                        Bộ sư tập UT
+                        PRODUCT
                     </span>
                 </li>
             </ol>
@@ -50,7 +54,7 @@
     <div class="product__bar">
         <div class="product__undefined">
             <p class="undefined-text">KẾT QUẢ</p>
-            <p class="undefined-number">61 trường hợp</p>
+            <p class="undefined-number">{{ products|length }} trường hợp</p>
         </div>
         <div class="product__dropdown">
             <div class="product__dropdown--container">
@@ -74,63 +78,82 @@
                 <div class="category__layout">
                     <ul class="category__list">
                         <li class="category__item">
-                                <h1 class="category__header">
-                                    <span class="category__span">Category 1</span>
-                                 </h1>
-                                 <input type="checkbox" name="category__checkbox1" id="category__checkbox1">
-                                 <label for="category__checkbox1" class="category--open">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="category__icon category--open" role="presentation"><title></title><g fill-rule="evenodd"><polygon points="11.0769231 6 11.0769231 11.0769231 6 11.0769231 6 12.9230769 11.0769231 12.9230769 11.0769231 18 12.9230769 18 12.9230769 12.9230769 18 12.9230769 18 11.0769231 12.9230769 11.0769231 12.9230769 6"></polygon></g></svg>
-                                 </label>
-                                 <label for="category__checkbox1" class="category--close">
-                                    <svg width="24" height="24" viewBox="0 0 24 24"  focusable="false" class="category__icon" role="presentation"><title></title><g fill-rule="evenodd"><rect x="5.5" y="11" width="13" height="2"></rect></g></svg>
-                                 </label>
-                                <ul class="category__item--list">
-                                    <li class="category__item--item">
-                                        <button class="category__item--button">
-                                            <p class="category__label">Nam</p>
-                                        </button>
-                                    </li>
-                                    <li class="category__item--item">
-                                        <button class="category__item--button">
-                                            <p class="category__label">Nu</p>
-                                        </button>
-                                    </li>
-                                </ul>
-                        </li>
-                        <li class="category__item">
                             <h1 class="category__header">
-                                <span class="category__span">Category 2</span>
-                             </h1>
-                             <input type="checkbox" name="category__checkbox2" id="category__checkbox2">
-                             <label for="category__checkbox2" class="category--open">
-                                <svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="category__icon category--open" role="presentation"><title></title><g fill-rule="evenodd"><polygon points="11.0769231 6 11.0769231 11.0769231 6 11.0769231 6 12.9230769 11.0769231 12.9230769 11.0769231 18 12.9230769 18 12.9230769 12.9230769 18 12.9230769 18 11.0769231 12.9230769 11.0769231 12.9230769 6"></polygon></g></svg>
-                             </label>
-                             <label for="category__checkbox2" class="category--close">
-                                <svg width="24" height="24" viewBox="0 0 24 24"  focusable="false" class="category__icon" role="presentation"><title></title><g fill-rule="evenodd"><rect x="5.5" y="11" width="13" height="2"></rect></g></svg>
-                             </label>
+                                <span class="category__span">Category 1</span>
+                            </h1>
+                            <input type="checkbox" name="category__checkbox1" id="category__checkbox1">
+                            <label for="category__checkbox1" class="category--open">
+                                <svg width="24" height="24" viewBox="0 0 24 24" focusable="false"
+                                    class="category__icon category--open" role="presentation">
+                                    <title></title>
+                                    <g fill-rule="evenodd">
+                                        <polygon
+                                            points="11.0769231 6 11.0769231 11.0769231 6 11.0769231 6 12.9230769 11.0769231 12.9230769 11.0769231 18 12.9230769 18 12.9230769 12.9230769 18 12.9230769 18 11.0769231 12.9230769 11.0769231 12.9230769 6">
+                                        </polygon>
+                                    </g>
+                                </svg>
+                            </label>
+                            <label for="category__checkbox1" class="category--close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="category__icon"
+                                    role="presentation">
+                                    <title></title>
+                                    <g fill-rule="evenodd">
+                                        <rect x="5.5" y="11" width="13" height="2"></rect>
+                                    </g>
+                                </svg>
+                            </label>
                             <ul class="category__item--list">
                                 <li class="category__item--item">
                                     <button class="category__item--button">
-                                        <p class="category__label">category 2.1</p>
+                                        <p class="category__label">Nam</p>
                                     </button>
                                 </li>
                                 <li class="category__item--item">
                                     <button class="category__item--button">
-                                        <p class="category__label">category 2.1</p>
-                                    </button>
-                                </li>
-                                <li class="category__item--item">
-                                    <button class="category__item--button">
-                                        <p class="category__label">category 2.3</p>
-                                    </button>
-                                </li>
-                                <li class="category__item--item">
-                                    <button class="category__item--button">
-                                        <p class="category__label">category 2.4</p>
+                                        <p class="category__label">Nu</p>
                                     </button>
                                 </li>
                             </ul>
-                    </li>
+                        </li>
+                        <li class="category__item">
+                            <h1 class="category__header">
+                                <label for="id_category">
+                                    <span class="category__span">Category</span>
+                                </label>
+                            </h1>
+                            <input type="checkbox" name="category__checkbox2" id="category__checkbox2">
+                            <label for="category__checkbox2" class="category--open">
+                                <svg width="24" height="24" viewBox="0 0 24 24" focusable="false"
+                                    class="category__icon category--open" role="presentation">
+                                    <title></title>
+                                    <g fill-rule="evenodd">
+                                        <polygon
+                                            points="11.0769231 6 11.0769231 11.0769231 6 11.0769231 6 12.9230769 11.0769231 12.9230769 11.0769231 18 12.9230769 18 12.9230769 12.9230769 18 12.9230769 18 11.0769231 12.9230769 11.0769231 12.9230769 6">
+                                        </polygon>
+                                    </g>
+                                </svg>
+                            </label>
+                            <label for="category__checkbox2" class="category--close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="category__icon"
+                                    role="presentation">
+                                    <title></title>
+                                    <g fill-rule="evenodd">
+                                        <rect x="5.5" y="11" width="13" height="2"></rect>
+                                    </g>
+                                </svg>
+                            </label>
+                            <ul name="category" class="category__item--list">
+                                {% for category in categorys %}
+                                <li class="category__item--item">
+                                    <button class="category__item--button">
+                                        <a href="{% url 'appProduct:product' %}?category={{category.id}}"
+                                            class="category__label" value="{{category.id}}"
+                                            style="text-decoration: none; color: #212529; height:100%; width:100%">{{category.name}}</a>
+                                    </button>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -186,31 +209,32 @@
                             </div>
                             {% if request.session.carts %}
                             {% if product.id|slugify in request.session.carts.keys %}
-                                <span style="display: none;">{{ product.id|stringformat:"i" }}</span>
-                                {% if request.session.carts.i.num < 10 %}
-                                <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
-                                style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
-                                card</a>
-                                {% endif %}
-                              {% else %}
-                              {% if product.id|slugify not in request.session.carts.keys %}
-                              <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
-                              style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
-                              card</a>
-                              {% endif %}
-                            {% endif %}
-                           {% else %} 
-                           <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
-                              style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
-                              card</a>
-                        {% endif %}
-                            
-                        </div>
+                            <span style="display: none;">{{ product.id|stringformat:"product" }}</span>
+                            {% if request.session.carts.product.num < 10 %} <a onclick="addCart({{ product.id }})"
+                                class="btn btn-outline-dark" style="margin: 20px 0; padding: 7px 12px;"
+                                id="{{ product.id }}">Add to
+                                card
                     </a>
-                </li>
-                {% endfor %}
-            </ul>
+                    {% endif %}
+                    {% else %}
+                    {% if product.id|slugify not in request.session.carts.keys %}
+                    <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
+                        style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
+                        card</a>
+                    {% endif %}
+                    {% endif %}
+                    {% else %}
+                    <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
+                        style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
+                        card</a>
+                    {% endif %}
+
         </div>
+        </a>
+        </li>
+        {% endfor %}
+        </ul>
+    </div>
     </div>
 </section>
 <section class="container">
@@ -276,30 +300,31 @@
                                     </div>
                                     {% if request.session.carts %}
                                     {% if product.id|slugify in request.session.carts.keys %}
-                                        <span style="display: none;">{{ product.id|stringformat:"i" }}</span>
-                                        {% if request.session.carts.i.num < 10 %}
-                                        <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
+                                    <span style="display: none;">{{ product.id|stringformat:"product" }}</span>
+                                    {% if request.session.carts.product.num < 10 %} <a
+                                        onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
                                         style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
-                                        card</a>
-                                        {% endif %}
-                                      {% else %}
-                                      {% if product.id|slugify not in request.session.carts.keys %}
-                                      <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
-                                      style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
-                                      card</a>
-                                      {% endif %}
-                                    {% endif %}
-                                   {% else %} 
-                                   <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
-                                      style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
-                                      card</a>
-                                {% endif %}
-                                    
-                                </div>
+                                        card
                             </a>
+                            {% endif %}
+                            {% else %}
+                            {% if product.id|slugify not in request.session.carts.keys %}
+                            <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
+                                style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
+                                card</a>
+                            {% endif %}
+                            {% endif %}
+                            {% else %}
+                            <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
+                                style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
+                                card</a>
+                            {% endif %}
+
                         </div>
-                        {% endfor %}
+                        </a>
                     </div>
+                    {% endfor %}
+                </div>
             </section>
         </div>
     </div>

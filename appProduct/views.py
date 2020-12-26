@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test ,perm
 from django.template.loader import render_to_string, get_template
 from django.views.decorators.csrf import csrf_protect
 from order.models import Order, Cart
+from .filters import ProductFilter
 import random
 
 
@@ -15,8 +16,10 @@ import random
 
 def product(request):
     products = Product.objects.all()
-    print(request.session['carts'])
-    return render(request, 'product/product.html', {'products': products})
+    productFilter = ProductFilter(request.GET, queryset= products)
+    products = productFilter.qs
+    categorys = Category.objects.all()
+    return render(request, 'product/product.html', {'products': products, 'productFilter': productFilter, 'categorys': categorys})
 
 @login_required
 def productuser(request):
