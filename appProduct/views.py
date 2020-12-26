@@ -1,3 +1,4 @@
+from typing import cast
 from django.http.response import HttpResponse,JsonResponse
 from django.shortcuts import render, redirect,get_object_or_404, render_to_response
 from .models import Product
@@ -14,6 +15,7 @@ import random
 
 def product(request):
     products = Product.objects.all()
+    print(request.session['carts'])
     return render(request, 'product/product.html', {'products': products})
 
 @login_required

@@ -21,6 +21,7 @@ const csrftokenCart = getCookieCart('csrftoken');
         if (!num) { //nếu không tồn tại num thì tức là lấy ở product ở phần home..show product
             num = 1;
         }
+        str = "#" + id;
         $.ajax({
             type: "POST", 
             url: 'addcart/',
@@ -28,6 +29,9 @@ const csrftokenCart = getCookieCart('csrftoken');
             dataType: "json",
             success: function (data) {
                 $("#cartquantity").text(data.quantity)
+                if (data.quantitproduct>=10){
+                    $(str).remove()
+                }
             }
         });
         // $.post("addcart/", {'id':id, 'num': num, 'csrfmiddlewaretoken': csrftoken},

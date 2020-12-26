@@ -58,7 +58,7 @@ def addcart(request):
                 quantity += int(value['num'])
                 request.session['quantity']=quantity
         # html = render_to_string('product/addcart.html',{'carts': cartInfo})
-    return JsonResponse({'quantity': quantity})
+    return JsonResponse({'quantity': quantity, 'quantitproduct': itemCart['num']})
 
 def addcartdetail(request, product_pk):
     if request.is_ajax():

@@ -1004,7 +1004,8 @@ svg:not(:root) {
       display: none;
       margin: 0;
       padding: 0;
-      list-style-type: none; }
+      list-style-type: none;
+      transition: all 0.8s; }
       .product__layout .product__category .category__container .category__layout .category__list .category__item .category__item--list .category__item--item {
         padding-left: 20px; }
         .product__layout .product__category .category__container .category__layout .category__list .category__item .category__item--list .category__item--item .category__item--button {

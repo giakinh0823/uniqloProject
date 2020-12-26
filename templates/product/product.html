@@ -1,6 +1,5 @@
 {% extends "base/base.html" %}
 
-
 {% block block_body %}
 
 <!-- <ul class="d-flex overflow-auto m-0 list-unstyled" style="">
@@ -185,9 +184,27 @@
                                     </p>
                                 </div>
                             </div>
-                            <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
-                                style="margin: 20px 0; padding: 7px 12px;">Add to
+                            {% if request.session.carts %}
+                            {% if product.id|slugify in request.session.carts.keys %}
+                                <span style="display: none;">{{ product.id|stringformat:"i" }}</span>
+                                {% if request.session.carts.i.num < 10 %}
+                                <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
+                                style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
                                 card</a>
+                                {% endif %}
+                              {% else %}
+                              {% if product.id|slugify not in request.session.carts.keys %}
+                              <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
+                              style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
+                              card</a>
+                              {% endif %}
+                            {% endif %}
+                           {% else %} 
+                           <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
+                              style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
+                              card</a>
+                        {% endif %}
+                            
                         </div>
                     </a>
                 </li>
@@ -195,7 +212,6 @@
             </ul>
         </div>
     </div>
-
 </section>
 <section class="container">
     <div class="caurosel__container">
@@ -258,9 +274,27 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
-                                        style="margin: 20px 0; padding: 7px 12px;">Add to
+                                    {% if request.session.carts %}
+                                    {% if product.id|slugify in request.session.carts.keys %}
+                                        <span style="display: none;">{{ product.id|stringformat:"i" }}</span>
+                                        {% if request.session.carts.i.num < 10 %}
+                                        <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
+                                        style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
                                         card</a>
+                                        {% endif %}
+                                      {% else %}
+                                      {% if product.id|slugify not in request.session.carts.keys %}
+                                      <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
+                                      style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
+                                      card</a>
+                                      {% endif %}
+                                    {% endif %}
+                                   {% else %} 
+                                   <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
+                                      style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
+                                      card</a>
+                                {% endif %}
+                                    
                                 </div>
                             </a>
                         </div>

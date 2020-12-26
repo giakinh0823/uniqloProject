@@ -214,7 +214,6 @@
 
                     .category__item {
                         position: relative;
-
                         .category__header {
                             .category__span {
                                 margin: 0;
@@ -274,6 +273,7 @@
                             margin: 0;
                             padding: 0;
                             list-style-type: none;
+                            transition: all 0.8s;
                             .category__item--item {
                                 padding-left: 20px;
                                 .category__item--button {
