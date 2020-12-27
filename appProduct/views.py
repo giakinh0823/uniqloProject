@@ -9,6 +9,8 @@ from django.views.decorators.csrf import csrf_protect
 from order.models import Order, Cart
 from django.db.models import Q
 from .filters import ProductFilter
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 import random
 
 
@@ -16,11 +18,33 @@ import random
 
 
 def product(request):
-    products = Product.objects.all()
+    # products = Product.objects.all()
+    product_list = Product.objects.all()
+
     categorys = Category.objects.all()
+    
+    page = request.GET.get('page', 1)
+    paginator = Paginator(product_list, 12)
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+        
     if request.GET:
-        productFilter = ProductFilter(request.GET, queryset= products)
-        products = productFilter.qs
+        productFilter = ProductFilter(request.GET, queryset= product_list)
+        product_list = productFilter.qs
+
+        page = request.GET.get('page',1)
+        paginator = Paginator(product_list, 12)
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            products = paginator.page(1)
+        except EmptyPage:
+            products = paginator.page(paginator.num_pages)
+            
         return render(request, 'product/product.html', {'products': products, 'productFilter': productFilter, 'categorys': categorys})
     return render(request, 'product/product.html', {'products': products, 'categorys': categorys})
 
@@ -32,7 +56,16 @@ def searchProduct(request):
             search_text = request.GET['search_text']
     else:
         search_text = ''
-    products = Product.objects.filter(name__contains = search_text)
+    product_list = Product.objects.filter(name__contains = search_text)
+    
+    page = request.GET.get('page', 1)
+    paginator = Paginator(product_list, 12)
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
     return render(request, 'product/ajax_search.html', {'products':products})
     
 

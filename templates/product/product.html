@@ -77,6 +77,7 @@
         </div>
     </div>
 </section>
+
 <section class="container">
     <div class="product__layout row">
         <div class="product__category col-3" style="margin-bottom: 30rem;">
@@ -233,9 +234,9 @@
                                 class="btn btn-outline-dark" style="margin: 20px 0; padding: 7px 12px;"
                                 id="{{ product.id }}">Add to
                                 card
-                            </a>
-                        </div>
                     </a>
+        </div>
+        </a>
         {% endif %}
         {% else %}
         {% if product.id|slugify not in request.session.carts.keys %}
@@ -254,9 +255,37 @@
     </li>
     {% endfor %}
     </ul>
+    <div class="" style="display: flex; justify-content: center; margin-top:3.25rem">
+        {% if products.has_other_pages %}
+        <div class="btn-group me-2" role="group" aria-label="Second group" style="height:34px; width:30px; text-align:center" >
+            {% if products.has_previous %}
+            <a class="btn btn-outline-secondary" href="?page={{ products.previous_page_number }}"
+                style="display: block; padding: 1rem 1.6rem;">&laquo;</a>
+            {% else %}
+            <a class="btn btn-outline-secondary disabled" style="display: block; "><span>&laquo;</span></li></a>
+            {% endif %}
+            {% for i in products.paginator.page_range %}
+            {% if products.number == i %}
+            <a class="btn btn-outline-secondary active" style="display: block;"><span>{{ i }}</span></a>
+            {% else %}
+            <a class="btn btn-outline-secondary" href="?page={{ i }}" style="display:block;padding: 1rem 1.6rem;">{{ i }}</a>
+            {% endif %}
+            {% endfor %}
+            {% if products.has_next %}
+            <a class="btn btn-outline-secondary" href="?page={{ products.next_page_number }}"
+                style="display: block; padding: 1rem 1.6rem;">&raquo;</a>
+            {% else %}
+            <a class="btn btn-outline-secondary disabled" style="display: block;"><span>&raquo;</span></a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
     </div>
     </div>
 </section>
+
+<div style="margin: 6rem;"></div>
+
 <section class="container">
     <div class="caurosel__container">
         <div class="caurosel__header">
