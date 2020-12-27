@@ -47,14 +47,13 @@
         </h1>
     </div>
 </section>
-<!-- 
-<div class="container" style="margin-bottom: 3.25rem;">
+
+<!-- <div class="container" style="margin-bottom: 3.25rem;">
     <form action="" method="GET" class="form" style="font-size:1.2rem">
         {{productFilter.form}}
         <button type="submit" class="btn btn-outline-dark">search</button>
     </form>
 </div> -->
-
 
 <section class="container">
     <div class="product__bar">
@@ -89,7 +88,7 @@
                                 <h1 class="category__header">
                                     <span class="category__span">Category 1</span>
                                 </h1>
-                                <input type="checkbox" name="category__checkbox1" id="category__checkbox1">
+                                <input type="checkbox"  id="category__checkbox1">
                                 <label for="category__checkbox1" class="category--open">
                                     <svg width="24" height="24" viewBox="0 0 24 24" focusable="false"
                                         class="category__icon category--open" role="presentation">
@@ -112,13 +111,21 @@
                                 </label>
                                 <ul class="category__item--list">
                                     <li class="category__item--item">
-                                        <button class="category__item--button">
-                                            <p class="category__label">Nam</p>
+                                        <button type="submit" class="category__item--button" style="margin:0; padding:0;">
+                                            <a {% if "?" not in request.get_full_path %}
+                                                href="{{request.path}}?sex=1" {% else %}
+                                                href="{{request.get_full_path}}&sex=1" {% endif %}
+                                                class="category__label" value="1"
+                                                style="text-decoration: none; color: #212529; height:100%; width:100%; padding: 12px 0; display:block">Nam</a>
                                         </button>
                                     </li>
                                     <li class="category__item--item">
-                                        <button class="category__item--button">
-                                            <p class="category__label">Nu</p>
+                                        <button type="submit" class="category__item--button" style="margin:0; padding:0;">
+                                            <a {% if "?" not in request.get_full_path %}
+                                                href="{{request.path}}?sex=2" {% else %}
+                                                href="{{request.get_full_path}}&sex=2" {% endif %}
+                                                class="category__label" value="2"
+                                                style="text-decoration: none; color: #212529; height:100%; width:100%; padding: 12px 0; display:block">Nu</a>
                                         </button>
                                     </li>
                                 </ul>
@@ -129,7 +136,7 @@
                                         <span class="category__span">Category</span>
                                     </label>
                                 </h1>
-                                <input type="checkbox" name="category__checkbox2" id="category__checkbox2">
+                                <input type="checkbox" id="category__checkbox2">
                                 <label for="category__checkbox2" class="category--open">
                                     <svg width="24" height="24" viewBox="0 0 24 24" focusable="false"
                                         class="category__icon category--open" role="presentation">
@@ -150,14 +157,15 @@
                                         </g>
                                     </svg>
                                 </label>
-                                <ul name="category" class="category__item--list">
+                                <ul class="category__item--list" id="id_category">
+                                    <div style="display: none;">{{productFilter.form}}</div>
                                     {% for category in categorys %}
                                     <li class="category__item--item">
-                                        <button type="submit" class="category__item--button">
-                                            <a href="{% url 'appProduct:product' %}?category={{category.id}}"
-                                                class="category__label" value="{{category.id}}"
-                                                style="text-decoration: none; color: #212529; height:100%; width:100%">{{category.name}}</a>
-                                        </button>
+                                        <label onclick="addSearch()" type="submit" class="category__item--label"  style="padding-top: .5rem;
+                                        padding-bottom: .5rem; font-size: 1.4rem; font-weight:300;  cursor: pointer;">
+                                            <input style="display: none;" class="category__input" value="{{category.id}}" type="submit"
+                                                name="category" value="{{category.id}}" id="id_category_{{category.id}}">{{category.name}}
+                                        </label>
                                     </li>
                                     {% endfor %}
                                 </ul>

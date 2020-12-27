@@ -1008,7 +1008,7 @@ svg:not(:root) {
       transition: all 0.8s; }
       .product__layout .product__category .category__container .category__layout .category__list .category__item .category__item--list .category__item--item {
         padding-left: 20px; }
-        .product__layout .product__category .category__container .category__layout .category__list .category__item .category__item--list .category__item--item .category__item--button {
+        .product__layout .product__category .category__container .category__layout .category__list .category__item .category__item--list .category__item--item .category__item--label {
           cursor: pointer;
           padding-top: .5rem;
           padding-bottom: .5rem;
@@ -1021,7 +1021,5 @@ svg:not(:root) {
           background: 0 0;
           text-align: inherit;
           font: inherit; }
-          .product__layout .product__category .category__container .category__layout .category__list .category__item .category__item--list .category__item--item .category__item--button .category__label {
-            font-weight: 300;
-            line-height: 1.5;
-            font-size: 1.4rem; }
+          .product__layout .product__category .category__container .category__layout .category__list .category__item .category__item--list .category__item--item .category__item--label .category__input {
+            display: none; }

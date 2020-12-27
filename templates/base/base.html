@@ -118,10 +118,10 @@
                     <div class="header__search" style="margin-right: 2.5rem;">
                         <div class="header__search--content">
                             <form action="{% url 'appProduct:product' %}" class="header__search--form" method="GET">
-                                {% csrf_token %}
                                 <!-- <input type="text" name="name" id="id_name"> -->
+                                <div style="display: none;">{{productFilter.form}}</div>
                                 <input type="text" name="name" id="id_name" class="header__search--input" placeholder="Search">
-                                <button type="submit" class="search__button button__icon">
+                                <button type="submit" class="search__button button__icon" id="searchButton">
                                     <div class="button__icon--container">
                                         <svg class="button__icon-svg" viewBox="0 0 24 24" focusable="false"
                                             role="presentation" width="24" height="24">

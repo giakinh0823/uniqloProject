@@ -276,7 +276,7 @@
                             transition: all 0.8s;
                             .category__item--item {
                                 padding-left: 20px;
-                                .category__item--button {
+                                .category__item--label {
                                     cursor: pointer;
                                     padding-top: .5rem;
                                     padding-bottom: .5rem;
@@ -289,10 +289,8 @@
                                     background: 0 0;
                                     text-align: inherit;
                                     font: inherit;
-                                    .category__label {
-                                        font-weight: 300;
-                                        line-height: 1.5;
-                                        font-size: 1.4rem;
+                                    .category__input {
+                                        display: none;
                                     }
                                 }
                             }
