@@ -79,7 +79,7 @@
 </section>
 <section class="container">
     <div class="product__layout row">
-        <div class="product__category col-3">
+        <div class="product__category col-3" style="margin-bottom: 30rem;">
             <form action="" method="GET">
                 <div class="category__container">
                     <div class="category__layout">
@@ -88,7 +88,7 @@
                                 <h1 class="category__header">
                                     <span class="category__span">Category 1</span>
                                 </h1>
-                                <input type="checkbox"  id="category__checkbox1">
+                                <input type="checkbox" id="category__checkbox1">
                                 <label for="category__checkbox1" class="category--open">
                                     <svg width="24" height="24" viewBox="0 0 24 24" focusable="false"
                                         class="category__icon category--open" role="presentation">
@@ -111,19 +111,19 @@
                                 </label>
                                 <ul class="category__item--list">
                                     <li class="category__item--item">
-                                        <button type="submit" class="category__item--button" style="margin:0; padding:0;">
-                                            <a {% if "?" not in request.get_full_path %}
-                                                href="{{request.path}}?sex=1" {% else %}
-                                                href="{{request.get_full_path}}&sex=1" {% endif %}
+                                        <button type="submit" class="category__item--button"
+                                            style="margin:0; padding:0;">
+                                            <a {% if "?" not in request.get_full_path %} href="{{request.path}}?sex=1"
+                                                {% else %} href="{{request.get_full_path}}&sex=1" {% endif %}
                                                 class="category__label" value="1"
                                                 style="text-decoration: none; color: #212529; height:100%; width:100%; padding: 12px 0; display:block">Nam</a>
                                         </button>
                                     </li>
                                     <li class="category__item--item">
-                                        <button type="submit" class="category__item--button" style="margin:0; padding:0;">
-                                            <a {% if "?" not in request.get_full_path %}
-                                                href="{{request.path}}?sex=2" {% else %}
-                                                href="{{request.get_full_path}}&sex=2" {% endif %}
+                                        <button type="submit" class="category__item--button"
+                                            style="margin:0; padding:0;">
+                                            <a {% if "?" not in request.get_full_path %} href="{{request.path}}?sex=2"
+                                                {% else %} href="{{request.get_full_path}}&sex=2" {% endif %}
                                                 class="category__label" value="2"
                                                 style="text-decoration: none; color: #212529; height:100%; width:100%; padding: 12px 0; display:block">Nu</a>
                                         </button>
@@ -161,10 +161,12 @@
                                     <div style="display: none;">{{productFilter.form}}</div>
                                     {% for category in categorys %}
                                     <li class="category__item--item">
-                                        <label onclick="addSearch()" type="submit" class="category__item--label"  style="padding-top: .5rem;
+                                        <label onclick="addSearch()" type="submit" class="category__item--label" style="padding-top: .5rem;
                                         padding-bottom: .5rem; font-size: 1.4rem; font-weight:300;  cursor: pointer;">
-                                            <input style="display: none;" class="category__input" value="{{category.id}}" type="submit"
-                                                name="category" value="{{category.id}}" id="id_category_{{category.id}}">{{category.name}}
+                                            <input style="display: none;" class="category__input"
+                                                value="{{category.id}}" type="submit" name="category"
+                                                value="{{category.id}}"
+                                                id="id_category_{{category.id}}">{{category.name}}
                                         </label>
                                     </li>
                                     {% endfor %}
@@ -176,7 +178,7 @@
             </form>
         </div>
         <div class="product__container col-9">
-            <ul class="product__list row row-cols-1 row-cols-md-2 row-cols-lg-4">
+            <ul class="product__list row row-cols-1 row-cols-md-2 row-cols-lg-4" id="search_results">
                 {% for product in products %}
                 <li class="product__item col" style="margin-bottom: 2rem;">
                     <a href="{% url 'appProduct:detailproduct' product.id %}" class="product__link">
@@ -231,26 +233,27 @@
                                 class="btn btn-outline-dark" style="margin: 20px 0; padding: 7px 12px;"
                                 id="{{ product.id }}">Add to
                                 card
+                            </a>
+                        </div>
                     </a>
-                    {% endif %}
-                    {% else %}
-                    {% if product.id|slugify not in request.session.carts.keys %}
-                    <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
-                        style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
-                        card</a>
-                    {% endif %}
-                    {% endif %}
-                    {% else %}
-                    <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
-                        style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
-                        card</a>
-                    {% endif %}
-
-        </div>
-        </a>
-        </li>
-        {% endfor %}
-        </ul>
+        {% endif %}
+        {% else %}
+        {% if product.id|slugify not in request.session.carts.keys %}
+        <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark" style="margin: 20px 0; padding: 7px 12px;"
+            id="{{ product.id }}">Add to
+            card</a>
+        {% endif %}
+        {% endif %}
+        {% else %}
+        <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark" style="margin: 20px 0; padding: 7px 12px;"
+            id="{{ product.id }}">Add to
+            card</a>
+        {% endif %}
+    </div>
+    </a>
+    </li>
+    {% endfor %}
+    </ul>
     </div>
     </div>
 </section>

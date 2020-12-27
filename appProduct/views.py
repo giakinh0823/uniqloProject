@@ -24,6 +24,18 @@ def product(request):
         return render(request, 'product/product.html', {'products': products, 'productFilter': productFilter, 'categorys': categorys})
     return render(request, 'product/product.html', {'products': products, 'categorys': categorys})
 
+#search_ajax
+def searchProduct(request):
+    if request.method == "GET":
+        search_text = request.GET['search_text']
+        if search_text is not None and search_text != u"":
+            search_text = request.GET['search_text']
+    else:
+        search_text = ''
+    products = Product.objects.filter(name__contains = search_text)
+    return render(request, 'product/ajax_search.html', {'products':products})
+    
+
 @login_required
 def productuser(request):
     products = Product.objects.filter(user = request.user)

@@ -1,22 +1,20 @@
 
+$(function() {
+    $('#id_name').keyup(function() {
+        $.ajax({
+            type: "GET",
+            url: "searchproduct/",
+            data: {
+                'search_text' : $('#id_name').val(),
+                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+            },
+            success: searchSuccess,
+            dataType: 'html'
+        });
+    });
+});
 
-$(document).ready(function(){
-   
-    var search = $("#id_name"); //lấy text ở input
-    var items  = $(".product__item");
- 
-    $("#searchButton").on("click", function(e){
-         
-        var v = search.val().toLowerCase(); 
-        if(v == "") { 
-            items.show();
-            return;
-        }
-         $.each(items, function(){
-             var it = $(this);
-             var lb = it.find(".product__category-span").text().toLowerCase();
-             if(lb.indexOf(v) == -1) 
-                  it.hide();
-         });
-     });        
- });
+function searchSuccess(data, textStatus, jqXHR)
+{
+    $('#search_results').html(data)
+}
