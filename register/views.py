@@ -38,6 +38,8 @@ def signup(request):
 
 @user_passes_test(lambda u: u.is_anonymous, login_url='home:index')
 def loginuser(request):
+    favourites.clear()
+    request.session['favourites']=favourites
     if request.method == "GET":
         return render(request, 'register/login.html', {'form': AuthenticationForm()})
     else:

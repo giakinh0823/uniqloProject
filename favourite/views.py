@@ -20,7 +20,8 @@ def addFavourite(request):
         id_product = request.POST.get('id')
         productDetail = Product.objects.get(id=id_product)
         if id_product in favourites.keys():
-            favourites.pop(str(id_product))
+            while id_product in favourites.keys():
+                favourites.pop(str(id_product)) 
             request.session['favourites']=favourites
             print(request.session['favourites'])
             check=0

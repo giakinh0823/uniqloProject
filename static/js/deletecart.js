@@ -22,7 +22,7 @@ $(document).on('click', '.deletecart', function() {
                 }
                 $("#totalpricecart").text(data.totalprice);
                 if(data.quantity<=0){
-                    $("#deleteCartCheckout").remove()
+                    $("#deleteCartCheckout").text()
                 }
             }
         })

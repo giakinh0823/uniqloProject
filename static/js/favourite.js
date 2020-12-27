@@ -26,7 +26,12 @@ function addFavourite(id) {
         data: { 'id': id, 'csrfmiddlewaretoken': csrftokenFavourite },
         dataType: "json",
         success: function (data) {
-            $("#favouritequantity").text(data.quantityfavourite)
+            if(data.quantityfavourite>0){
+                $("#favouritequantity").text(data.quantityfavourite)
+            }
+            if(data.quantityfavourite<=0){
+                $("#favouritequantity").text('')
+            }
             if(data.check==1){
                 $(strblack).css({'opacity':'0'})
                 $(strred).css({'fill':'red', 'opacity':'1'})
