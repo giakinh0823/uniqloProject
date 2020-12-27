@@ -37,6 +37,8 @@ urlpatterns = [
     ),
     #order
     path('', include('order.urls')),
+    #favourite
+    path('', include('favourite.urls')),
     # Forget Password
     path('password-reset/',
          auth_views.PasswordResetView.as_view(

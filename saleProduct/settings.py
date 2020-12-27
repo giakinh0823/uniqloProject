@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'appProduct',
     'order',
     'django_filters',
+    'favourite',
 ]
 
 MIDDLEWARE = [

@@ -6,6 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="#">
 
     <!-- Bootstrap CSS , icon, and framework in network-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -202,7 +203,7 @@
                                 </section>
                             </div>
                         </div>
-                        <a href="#" class="button__icon" style="margin-right: 1rem;">
+                        <a href="{% url 'favourite:favourite' %}" class="button__icon" style="margin-right: 1rem;">
                             <div class="button__icon--con">
                                 <svg width="24" height="24" viewBox="0 0 24 24" focusable="false"
                                     class="uq-uikit-icon uq-uikit-icon--default uq-uikit-button-icon__icon"
@@ -215,6 +216,12 @@
                                     </g>
                                 </svg>
                             </div>
+                            <span style="position: absolute; top: 0px; right:0px; font-size:12px; border-radius: 100%; background: rgb(46, 46, 46); color: #fff; padding:0 6px; margin: 0; line-height:16px"
+                                id="favouritequantity">
+                                {% if request.session.quantityfavourite > 0 %}
+                                {{request.session.quantityfavourite}}
+                                {% endif %}
+                            </span>
                         </a>
                         <a href="{% url 'order:basket' %}" class="button__icon" style="margin-right: 1rem;">
                             <div class="button__icon--con">
@@ -372,12 +379,13 @@
     <!-- caurosel front end  -->
     <script type="text/javascript" src={% static "owlcarousel/jquery.min.js" %}></script>
     <script type="text/javascript" src={% static "owlcarousel/owl.carousel.min.js" %}></script>
+    <script type="text/javascript" src={% static "owlcarousel/jquery.mousewheel.min.js" %}></script>
     <script type="text/javascript" src={% static "js/carosel.js" %}></script>
     <script type="text/javascript" src={% static "js/caurosellist.js" %}></script>
-    <script type="text/javascript" src={% static "owlcarousel/jquery.mousewheel.min.js" %}></script>
 
     <!-- django back end  -->
     <script type="text/javascript" src={% static "js/addCart.js" %}></script>
+    <script type="text/javascript" src={% static "js/favourite.js" %}></script>
     <script type="text/javascript" src={% static "js/createproduct.js" %}></script>
     <script type="text/javascript" src={% static "js/editproduct.js" %}></script>
     <script type="text/javascript" src={% static "js/deleteproduct.js" %}></script>

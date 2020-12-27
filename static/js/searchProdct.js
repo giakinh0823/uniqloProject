@@ -8,13 +8,12 @@ $(function() {
                 'search_text' : $('#id_name').val(),
                 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
             },
-            success: searchSuccess,
-            dataType: 'html'
-        });
+            dataType: 'html',
+            success: function(data, textStatus, jqXHR){
+                $('.undefined-number').text("searching....")
+                $('#search_results').html(data)
+            },
+        })
     });
 });
 
-function searchSuccess(data, textStatus, jqXHR)
-{
-    $('#search_results').html(data)
-}

@@ -5,6 +5,7 @@ from .forms import UserProfileForm , UserForm
 from django.contrib.auth.decorators import login_required,user_passes_test
 from order.models import Cart
 from order.views import carts
+from favourite.views import favourites
 from appProduct.models import Product
 from django.contrib import messages
 
@@ -64,6 +65,8 @@ def loginuser(request):
                     else:
                         newCartItem = Cart(user = request.user, product = productDetail,quantity = int(value['num'])) 
                         newCartItem.save()
+                        
+                #cập nhật cart vào session user
                 quantity=0
                 listCart = Cart.objects.filter(user = user)
                 for item in listCart:
@@ -74,6 +77,7 @@ def loginuser(request):
 @login_required
 def logoutuser(request):
     carts.clear()
+    favourites.clear()
     try:
         for key in list(request.session.keys()):
             del request.session[key]
