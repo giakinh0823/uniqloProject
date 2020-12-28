@@ -27,7 +27,7 @@ class OrderItemInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ('date', 'get_total_cost')
-    list_display = ['id','user','code','state', 'quantity','date']
+    list_display = ['id','user','code', 'state', 'quantity','date']
     list_editable = ['state']
     list_per_page = 15
     list_filter = ['state']
@@ -38,6 +38,9 @@ class OrderAdmin(admin.ModelAdmin):
 
 class OrderDetailAdmin(admin.ModelAdmin):
     readonly_fields = ('date',)
+    list_display = ['id','product','gender', 'quantity', 'totalprice','date']
+    list_per_page = 15
+    search_fields = ('id',)
     
 
 

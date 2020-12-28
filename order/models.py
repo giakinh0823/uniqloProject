@@ -1,5 +1,5 @@
 from django.db import models
-from appProduct.models import Product
+from appProduct.models import Product, Gender
 from django.contrib.auth.models import User
 
 
@@ -36,6 +36,7 @@ class Order(models.Model):
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    gender = models.ForeignKey(Gender, on_delete=models.CASCADE, default=None, blank=True, null=True)
     quantity = models.IntegerField(default=0)
     totalprice = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
