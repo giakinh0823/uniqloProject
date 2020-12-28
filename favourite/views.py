@@ -11,10 +11,19 @@ from django.http.response import HttpResponse,JsonResponse
 def favourite(request):
     if request.user.is_authenticated:
         favouritelist = Favourite.objects.all()
+        # quantity=0
+        # for item in favouritelist:
+        #     quantity += 1
+        # request.session['quantityfavourite']=quantity
+        # request.session['favourites']=favourites
     else:
-        favouritelist={}
+        print(request.session['quantityfavourite'])
         if request.session.get('favourites'):
             favouritelist = request.session['favourites']
+            # quantity=0
+            # for key, value in favouritelist.items():
+            #     quantity += 1
+            # request.session['quantityfavourite']=quantity
     return render(request, 'favourite/favourite.html', {'favouritelist': favouritelist})
 
 
@@ -28,7 +37,6 @@ def addFavourite(request):
             while id_product in favourites.keys():
                 favourites.pop(str(id_product)) 
             request.session['favourites']=favourites
-            print(request.session['favourites'])
             check=0
         else:
             itemFavourite = {
@@ -55,13 +63,14 @@ def addFavourite(request):
             quantity=0
             listFavourite = Favourite.objects.filter(user = request.user)
             for item in listFavourite:
-                quantity += int(item.quantity)
+                quantity += 1
             request.session['quantityfavourite']=quantity
         else:
             quantity=0
-            for key, value in favouritesInfo.items():
-                quantity += 1
-                request.session['quantityfavourite']=quantity
+            if favouritesInfo:
+                for key, value in favouritesInfo.items():
+                    quantity += 1
+            request.session['quantityfavourite']=quantity
         print(request.session['favourites'])
     return JsonResponse({'quantityfavourite': quantity, 'check': check})
 
