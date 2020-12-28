@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect,get_object_or_404
 from .models import Favourite
 from appProduct.models import Product
 from django.contrib.auth.models import User
@@ -9,8 +9,13 @@ from django.http.response import HttpResponse,JsonResponse
 
 
 def favourite(request):
-    favourites = Favourite.objects.all()
-    return render(request, 'favourite/favourite.html', {'favourites': favourites})
+    if request.user.is_authenticated:
+        favouritelist = Favourite.objects.all()
+    else:
+        favouritelist={}
+        if request.session.get('favourites'):
+            favouritelist = request.session['favourites']
+    return render(request, 'favourite/favourite.html', {'favouritelist': favouritelist})
 
 
 favourites={}
@@ -59,3 +64,34 @@ def addFavourite(request):
                 request.session['quantityfavourite']=quantity
         print(request.session['favourites'])
     return JsonResponse({'quantityfavourite': quantity, 'check': check})
+
+def deletefavourite(request, favourite_pk):
+    quantity=0
+    if request.user.is_authenticated:
+        favourite = get_object_or_404(Favourite, pk=favourite_pk, user = request.user)
+        favourite.delete()
+        favouritelist = Favourite.objects.filter(user = request.user)
+        favourites.clear()
+        for item in favouritelist:
+            quantity += int(item.quantity)
+            itemFavourite = {
+                'name': item.product.name,
+                'price': str(item.product.price),
+            #   'image': str(productDetail.image)  #nếu có hình ảnh thì convert sang string
+                'num': 1,
+            }
+            favourites[item.product.id]=itemFavourite
+        request.session['favourites']= favourites
+        request.session['quantityfavourite']=quantity
+    else:
+        favourites.pop(str(favourite_pk))
+        request.session['favourites']=favourites
+        for key, value in favourites.items():
+            quantity += 1
+        request.session['quantityfavourite']=quantity
+    data = {
+            'deleted': True,
+            'quantityfavourite':quantity,
+        }
+    print(request.session['favourites'])
+    return JsonResponse(data)

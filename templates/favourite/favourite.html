@@ -1,6 +1,35 @@
 {% extends "base/base.html" %}
-{% block block_body%}
 {% load static %}
+{% block block_body%}
 
+
+<div class="container" style="padding: 75px 0;">
+    <form action="" method="POST" >
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>quantity</th>
+            </tr>
+            {% if user.is_authenticated %}
+            {% for favourite in favouritelist %}
+            <tr class="">
+                <td>{{favourite.product.name}}</td>
+                <td>{{favourite.product.price}}</td>   
+                <td> <button class="btn btn-danger deletefavourite" data-id='{{favourite.id}}'>{% csrf_token %}delete</button></td>
+            </tr>    
+            {% endfor %}
+            {% else %} 
+            {% for key,value in favouritelist.items %}
+            <tr>
+                <td>{{value.name}}</td>
+                <td>{{value.price}}</td>   
+                <td> <button class="btn btn-danger deletefavourite" data-id= '{{key}}' name="{{key}}">{% csrf_token %}delete</button></td>
+            </tr>    
+            {% endfor %}
+            {% endif %}
+        </table>
+    </form>
+</div>
 
 {% endblock %}

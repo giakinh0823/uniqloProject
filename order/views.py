@@ -203,7 +203,6 @@ def deletecart(request, cart_pk):
     quantity=0
     totalprice=0
     if request.user.is_authenticated:
-        print(request.session['carts'])
         cart = get_object_or_404(Cart, pk=cart_pk, user = request.user)
         cart.delete()
         cartlist = Cart.objects.filter(user = request.user)
@@ -226,7 +225,10 @@ def deletecart(request, cart_pk):
     #         totalprice +=  quantity * cart.product.price
     #     request.session['quantity']=quantity
     else:
-        carts.pop(str(cart_pk))
+        try:
+            carts.pop(str(cart_pk))
+        except:
+            pass
         request.session['carts']=carts
         for key, value in carts.items():
             quantity += int(value['num'])
