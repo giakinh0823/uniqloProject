@@ -8,8 +8,13 @@ class Category(models.Model):
     def __str__(self) -> str:
         return self.name
         
+class Gender(models.Model):
+    name = models.CharField(max_length=20)
+    def __str__(self) -> str:
+        return self.name
 
 class Product(models.Model):
+    gender = models.ForeignKey(Gender, on_delete=models.CASCADE, default=None, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=256)
