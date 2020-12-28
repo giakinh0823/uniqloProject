@@ -3,12 +3,13 @@ from .models import Favourite
 from appProduct.models import Product
 from django.contrib.auth.models import User
 from django.http.response import HttpResponse,JsonResponse
+from django.contrib.auth.decorators import login_required,user_passes_test
 
 
 # Create your views here.
 
-
 def favourite(request):
+    favouritelist={}
     if request.user.is_authenticated:
         favouritelist = Favourite.objects.all()
         # quantity=0
@@ -17,7 +18,6 @@ def favourite(request):
         # request.session['quantityfavourite']=quantity
         # request.session['favourites']=favourites
     else:
-        print(request.session['quantityfavourite'])
         if request.session.get('favourites'):
             favouritelist = request.session['favourites']
             # quantity=0

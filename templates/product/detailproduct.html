@@ -1,9 +1,121 @@
 {% extends "base/base.html" %}
 {% block block_body %}
-
+{% load static %}
 <div style="padding-top: 85px;"></div>
 
-<h3>id: {{product.id}}</h3> 
+<div class="container">
+    <div class="banner__select">
+        <nav class="banner__nav">
+            <ol class="banner__nav--group">
+                <li class="banner__nav--item">
+                    <a href="{% url 'home:index' %}" class="banner__nav--link" style="color: #212529;">
+                        <span class="banner__nav--span label--primary">
+                            HOME
+                        </span>
+                    </a>
+                </li>
+                <li class="banner__nav--item active">
+                    <a href="{% url 'appProduct:product' %}" class="banner__nav--link" style="color: #212529;">
+                        <span class="banner__nav--span label--primary">
+                            PRODUCT
+                        </span>
+                    </a>
+                </li>
+                <li class="banner__nav--item active">
+                    <span class="banner__nav--span label--primary">
+                        PRODUCT DETAILS
+                    </span>
+                </li>
+                <li class="banner__nav--item active">
+                    <span class="banner__nav--span label--primary">
+                        {{product.name}}
+                    </span>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row row-cols-sm-1 row-cols-md-2">
+        <div class="col col-md-7">
+            <div class="outer">
+                <div id="thumbs" class="owl-carousel owl-theme">
+                    <div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div>
+                    <div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div>
+                </div>
+                <div id="big" class="owl-carousel owl-theme">
+                    <div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div>
+                    <div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div><div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-4">
+            <div class="product__details--container">
+                <div class="product__details--layout">
+                    <div class="product__details--info">
+                        <h1 class="product__details--h1">
+                            {{product.name}}
+                        </h1>
+                        <div class="product__details--price">
+                            <span style="padding: 0;">
+                                <div class="product__details--price--container">
+                                    <span class="product__details--price--span">{{product.price}} $</span>
+                                    <p class="product__details--price--label">＋ Thuế tiêu dùng</p>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="product__details--recommend">
+                            <p class="product__details--recommend--label">Tập trung vào mối quan hệ giữa Keith Herring, một nghệ sĩ tiên phong của nghệ thuật đường phố và Tokyo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <h3>id: {{product.id}}</h3> 
 <h3>Name: {{product.name}}</h3> 
 <h3>Shop: {{product.user}}</h3>
 <h3>Loại: {{product.category}}</h3>
@@ -18,5 +130,8 @@
 {% else %}
     <input type="number" name="quantitys" value="1" min="1" id = "number">
     <button onclick="addCart({{ product.id }})"  class="btn btn-primary">Add to card</button>   
-{% endif %}
+ {% endif %} -->
+
+
+
 {% endblock %}

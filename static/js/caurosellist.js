@@ -1,4 +1,4 @@
-var owl = $('.owl-carousel');
+var owl = $('.caurosel__list--owl');
 owl.owlCarousel({
   items: 4,
   loop: true,
