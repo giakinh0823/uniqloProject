@@ -5,8 +5,7 @@ from .models import Category, Product, Gender
 class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ('datecreated',)
 
-
     
-admin.site.register(Gender)
 admin.site.register(Category)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Gender)
