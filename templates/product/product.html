@@ -186,9 +186,9 @@
                     <a href="{% url 'appProduct:detailproduct' product.id %}" class="product__link">
                         <div class="product__link--container">
                             <div class="product__link__img--container">
-                                <div class="product__img" style="max-height:228.5px">
+                                <div class="product__img" style="max-height:228.5px; min-height:100%">
                                     <img src="{{product.image.url}}" alt="" class="product__img--image"
-                                        style="width:100%; height:100%; object-fit:cover">
+                                        style="width:100%; min-height:100%">
                                 </div>
                                 {% if product.id|slugify in request.session.favourites %}
                                 <a onclick="addFavourite({{ product.id }})" for="">

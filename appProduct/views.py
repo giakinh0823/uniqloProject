@@ -1,8 +1,8 @@
 from typing import cast
 from django.http.response import HttpResponse,JsonResponse
 from django.shortcuts import render, redirect,get_object_or_404, render_to_response
-from .models import Product
-from .forms import ProductForm, Category
+from .models import Product, Category
+from .forms import ProductForm, VariantsForm 
 from django.contrib.auth.decorators import login_required,user_passes_test ,permission_required
 from django.template.loader import render_to_string, get_template
 from django.views.decorators.csrf import csrf_protect
@@ -103,7 +103,7 @@ def createproduct(request):
         product.category = Category.objects.filter(name = category)[0]
         product.save()
         return JsonResponse({'response':"Success"})
-    return render(request, 'product/createproduct.html', {'form': ProductForm(), 'categorys': categorys})
+    return render(request, 'product/createproduct.html', {'form': ProductForm(), 'categorys': categorys, 'variantsForm': VariantsForm()})
 
 @login_required
 def editproduct(request , product_pk):

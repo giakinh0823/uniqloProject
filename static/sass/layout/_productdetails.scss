@@ -110,7 +110,6 @@
         }
 
         &--radio {
-            border: 2px solid #1b1b1b;
             cursor: pointer;
             height: 100%;
             width: 100%;
@@ -123,6 +122,19 @@
             transition-property: border, outline;
             transition-duration: 180ms;
             transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+
+            &:hover {
+                border: 2px solid #1b1b1b;
+            }
+
+            &:checked {
+                border: 2px solid #1b1b1b;
+            }
+
+            &:checked~.product__details--chip--label {
+                color: #fff;
+                background-color: #1b1b1b;
+            }
         }
 
         &--label {
@@ -151,6 +163,7 @@
             text-transform: uppercase;
             font-style: normal;
             padding-top: 9px;
+            cursor: pointer;
 
             &--short {
                 width: calc(4.625rem - 2px);
@@ -171,5 +184,127 @@
         font-weight: 300;
         line-height: 1.25;
         color: #787878;
+        cursor: pointer;
+    }
+}
+
+
+.product__recommend--layout {
+    width: 100%;
+
+    .product__recommend--container {
+        width: 100%;
+
+        .product__recommend--header {
+            display: flex;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #dadada;
+            width: 100%;
+
+            &--h3 {
+                letter-spacing: normal;
+                font-weight: 600;
+                line-height: 1.375;
+                font-size: 2rem;
+                color: #1b1b1b;
+                align-self: flex-start;
+                color: #1b1b1b;
+                margin: 0;
+                font-style: normal;
+                text-transform: uppercase;
+                -webkit-font-smoothing: antialiased;
+            }
+        }
+
+        .product__recommend--list {
+            display: block;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            .product__recommend--item {
+                display: block;
+                position: relative;
+                .product__recommend--details {
+                    border-bottom: 1px solid #dadada;
+                    .product__recommend--container {
+                        display: flex;
+                        flex-wrap: wrap;
+                        position: relative;
+                        .recommend--label {
+                            margin-top: 20px;
+                            margin-bottom: 20px;
+                            &--span {
+                                color: #1b1b1b;
+                                font-weight: 300;
+                                font-size: 1.4375rem;
+                                font-style: normal;
+                                line-height: 1.5;
+                                padding: 0;
+                            }
+                        }
+
+                        #recommend__checkbox1 {
+                            display: none;
+                        }
+
+                        .recommend--open {
+                            margin-left: auto;
+                        }
+
+                        .recommend--close {
+                            display: none;
+                            margin-left: auto;
+                        }
+
+
+                        #recommend__checkbox1:checked~.recommend--close {
+                            display: block;
+                            justify-self: flex-end;
+                        }
+
+                        #recommend__checkbox1:checked~.recommend--open {
+                            display: none;
+                        }
+
+                        #recommend__checkbox1:checked~.recommend__area{
+                            display: block;
+                        }
+
+                        #recommend__checkbox2{
+                            display: none;
+                        }
+
+                        #recommend__checkbox2:checked~.recommend--close {
+                            display: block;
+                            justify-self: flex-end;
+                        }
+
+                        #recommend__checkbox2:checked~.recommend--open {
+                            display: none;
+                        }
+
+                        #recommend__checkbox2:checked~.recommend__area{
+                            display: block;
+                        }
+
+                        .recommend__icon {
+                            margin-top: 20px;
+                            margin-bottom: 16px;
+                            cursor: pointer;
+                            fill: #ababab;
+                            width: 1.9rem;
+                            height: 1.9rem;
+                            color: #787878;
+                            display: inline-block;
+                        }
+                        .recommend__area{
+                            width: 100%;
+                            height: auto;
+                            display: none;
+                        }
+                    }            
+                }
+            }
+        }
     }
 }

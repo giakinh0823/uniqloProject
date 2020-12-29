@@ -6,9 +6,9 @@
             <a href="{% url 'appProduct:detailproduct' product.id %}" class="product__link">
                 <div class="product__link--container">
                     <div class="product__link__img--container">
-                        <div class="product__img">
+                        <div class="product__img" style="max-height:228.5px; min-height:100%">
                             <img src="{{product.image.url}}" alt="" class="product__img--image"
-                                style="width:100%">
+                                style="width:100%; min-height:100%">
                         </div>
                         <button class="product__img--heart">
                             <svg width="24" height="24" viewBox="0 0 24 24" focusable="false"
