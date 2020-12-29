@@ -148,10 +148,10 @@
                     .product__img {
                         position: relative;
                         overflow: hidden;
-
-                        .product__img--image {
+                        height: 195.6px;
+                        &--image {
                             width: 100%;
-
+                            // height: 100%;
                             &__style {
                                 height: 400px;
                             }
