@@ -111,7 +111,12 @@
         border-color: #fff;
         border-bottom-color: #ababab;
         border-bottom: 1px solid;
-
+        &:active{
+            background-color: #fff!important;
+        }
+        &:focus{
+            background-color: #fff!important;
+        }
 
         .uq-uikit-dropdown__hidden-option {
             cursor: pointer;

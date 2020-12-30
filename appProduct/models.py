@@ -29,6 +29,7 @@ class Gender(models.Model):
         return self.name
     
 class ImageProduct(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,default=None, null=True, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE,default=None, null=True, blank=True)
     name = models.CharField(max_length=100, default=None, null=True, blank=True)
     image= models.ImageField(upload_to='productImages')  
@@ -51,9 +52,9 @@ class Variants(models.Model):
     name = models.CharField(max_length=100,default=None, null=True, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     gender = models.ForeignKey(Gender, on_delete=models.CASCADE, default=None, null=True, blank=True)
-    size = models.ForeignKey(Size, on_delete=models.CASCADE,default=None, null=True, blank=True)
-    color = models.ForeignKey(Color, on_delete=models.CASCADE,default=None, null=True, blank=True)
-    imageProduct = models.ForeignKey(ImageProduct, on_delete=models.CASCADE,default=None, null=True, blank=True)
+    size = models.ManyToManyField(Size, default=None, null=True, blank=True)
+    color = models.ManyToManyField(Color, default=None, null=True, blank=True)
+    imageProduct = models.ManyToManyField(ImageProduct, default=None, null=True, blank=True)
     quantity = models.IntegerField(blank=True, default=0)
     price = models.DecimalField(max_digits = 20,decimal_places=2,default=None, null=True, blank=True)
 

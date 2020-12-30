@@ -163,12 +163,14 @@ svg:not(:root) {
     transition-duration: 180ms;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     color: #fff;
+
     &:not(:disabled) {
         cursor: pointer;
     }
-    &:hover{   
-    }
-    &::after{
+
+    &:hover {}
+
+    &::after {
         position: absolute;
         content: '';
         top: 0;
@@ -177,8 +179,9 @@ svg:not(:root) {
         right: 0;
         transition-property: border-color;
         transition-duration: 180ms;
-        transition-timing-function: cubic-bezier(.4,0,.2,1);
+        transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     }
+
     &--label {
         margin: 0;
         font-size: 1.4rem;
@@ -194,20 +197,57 @@ svg:not(:root) {
     }
 }
 
-.button--primary--red{
+.button--primary--red {
     background-color: $color-red;
     color: #fff;
-    &:hover{
+
+    &:hover {
         background-color: #ff5959;
     }
 }
 
 
-.button--secondary--light{
+.button--secondary--light {
     border: 1px solid #212529;
     color: #212529;
-    &:hover{
+
+    &:hover {
         border: 1px solid #212529cb;
-        color:  #212529cb;
+        color: #212529cb;
+    }
+}
+
+
+.button--third {
+    width: 50%;
+    margin-bottom: 8px;
+    font-size: 13px;
+    letter-spacing: normal;
+    line-height: 1.5;
+
+    .button--third--button {
+        line-height: 1.2;
+        border: 1px solid black;
+        cursor: pointer;
+        display: block;
+        min-height: 45px;
+        padding: 0.5em 0.25em;
+        text-align: center;
+        text-decoration: none;
+        width: 100%;
+        font-size: 18px;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        font-stretch: normal;
+        font-style: normal;
+        font-weight: 400;
+        overflow: visible;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.25);
+        background: #1b1b1b;
+        border-color: #1b1b1b;
+        color: #fff;
+        &:hover{
+            opacity: 0.9;
+        }
     }
 }

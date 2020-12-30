@@ -12,6 +12,7 @@ class ImageProductItemInline(admin.TabularInline):
     model = ImageProduct
     readonly_fields =('id',)
     raw_id_fields = ['product']
+    
 
 class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ('datecreated',)
@@ -21,7 +22,7 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [ImageProductItemInline, VariantsItemInline]
     
 class VariantsAdmin(admin.ModelAdmin):
-    list_display = ['id','name','product','gender', 'size','color', 'imageProduct', 'quantity','price']
+    list_display = ['id','name','product','gender', 'quantity','price']
     list_per_page = 15
     search_fields = ('id',)
     

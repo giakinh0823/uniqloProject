@@ -1,0 +1,48 @@
+<div class="product__image" id="id_variantsForm-imageProduct">
+    <fieldset class="product__details--color">
+        <div class="product__detail--color__lengend--container">
+            <legend class="product__details--legend">
+                <label for="" class="product__details--legend--primary">
+                    <font style="vertical-align:inherit;">
+                        <font style="vertical-align:inherit;">Image</font>
+                    </font>
+                    <font style="vertical-align:inherit;">
+                        <font style="vertical-align:inherit;">:</font>
+                    </font>
+                </label>
+                <!-- <label for="" class="product__details--legend--secondary">
+                    <font style="vertical-align:inherit;">
+                        <font style="vertical-align:inherit;">03 Xám</font>
+                    </font>
+                </label> -->
+            </legend>
+        </div>
+        <ul style="width:100%; display:flex; flex-wrap:wrap">
+            {% for imageProduct in imageProductList %}
+            <li class="product__details--color__color--container">
+                <div class="product__details--chip">
+                    <img src="{{imageProduct.image.url}}" alt=""
+                        class="product__details--chip--img">
+                    <input type="checkbox"
+                        id="id_variantsForm-imageProduct_{{imageProduct|add:-1}}"
+                        value="{{imageProduct.id}}" class="product__details--chip--radio"
+                        name="variantsForm-imageProduct">
+                    <label for="id_variantsForm-imageProduct_{{imageProduct|add:-1}}"
+                        class="product__details--chip--label"
+                        style="background-image: url({{imageProduct.image.url}});">
+                        <div class="product__details--chip--label--short">
+                            <svg width="100%" height="100%">
+                                <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                    stroke-opacity="0.6" transform="translate(.5 .5)">
+                                </line>
+                            </svg>
+                        </div>
+                    </label>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <p style=" height: 2em; "></p>
+    </fieldset>
+</div>
