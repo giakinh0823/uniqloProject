@@ -4,7 +4,7 @@
 
 
 
-$(document).on('submit', '#createImageProduct', function(e){
+$(document).on('submit', '#createImageProduct', function (e) {
     e.preventDefault()
     $.ajax({
         type: "POST", //ở đây là dạng method GET hoặc POST
@@ -13,9 +13,11 @@ $(document).on('submit', '#createImageProduct', function(e){
         processData: false, // dùng new FormData(this) phải có cái này ko sẽ bị lỗi
         contentType: false,// dùng new FormData(this) phải có cái này ko sẽ bị lỗi
         dataType: 'html', //data mong đợi từ sever sẽ gửi về dưới dạng gì.ở đây thì theo dạng json
-        success: function(data, textStatus, jqXHR){
+        success: function (data, textStatus, jqXHR) {
             $('#id_variantsForm-imageProduct').html(data)
+            $("#createImageProduct")[0].reset()
             alert("Image was save in data")
         },
     });
 })
+

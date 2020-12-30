@@ -41,7 +41,7 @@ $(document).on('submit', '#createproduct', function(e){
         dataType: 'json', //data mong đợi từ sever sẽ gửi về dưới dạng gì.ở đây thì theo dạng json
         success: function (data) {
             alert("create success")
-            // $("#createproduct")[0].reset()
+            $("#createproduct")[0].reset()
         }
     });
 })
