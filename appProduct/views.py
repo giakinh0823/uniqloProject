@@ -323,7 +323,7 @@ def detailproduct(request, product_pk):
     if variant:
         variantSize = variant.size.all()
         variantColor = variant.color.all()
-        variantImageProduct = variant.imageProduct.all()
+        variantImageProduct = variant.imageProduct.all()[:12]
         variantGender = variant.gender
     else:
         variantSize = None

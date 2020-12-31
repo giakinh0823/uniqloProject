@@ -44,86 +44,42 @@
     <div class="row row-cols-md-1 row-cols-lg-2">
         <div class="col col-lg-7" style="margin-bottom:3.25rem;">
             <div class="outer">
+                {% if variantImageProduct %}
                 <div id="thumbs" class="owl-carousel owl-theme" style=" min-width: 12.625rem;">
-                    {% if variantImageProduct %}
                     {% for image in variantImageProduct %}
                     <div class="item">
                         <img src="{{image.image.url}}" alt="">
                     </div>
                     {% endfor %}
-                    {% else %}
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    {% endif %}
                 </div>
+                {% else %}
+                <style>
+                    #thumbs .owl-stage {
+                        margin-left: auto;
+                        width: 60% !important;
+                    }
+                </style>
+                <div id="thumbs" class="owl-carousel owl-theme" style=" width:4rem;">
+                    <div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div>
+                </div>
+                {% endif %}
+                {% if variantImageProduct %}
                 <div id="big" class="owl-carousel owl-theme">
-                    {% if variantImageProduct %}
                     {% for image in variantImageProduct %}
                     <div class="item" style="max-height: 600px!important;">
                         <img src="{{image.image.url}}" alt="">
                     </div>
                     {% endfor %}
-                    {% else %}
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="{{product.image.url}}" alt="">
-                    </div>
-                    {% endif %}
                 </div>
+                {% else %}
+                <div id="big" class="owl-carousel owl-theme">
+                    <div class="item" style="">
+                        <img src="{{product.image.url}}" alt="">
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="col col-lg-5" style="margin-bottom: 3.25rem;padding-left:3rem">
@@ -177,7 +133,7 @@
                                                 type: 'POST',
                                                 url: 'getnamecolor/',
                                                 data: {
-                                                    'id': id, 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+                                                    'id': id, 'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
                                                 },
                                                 dataType: 'json',
                                                 success: function (data) {
@@ -262,19 +218,19 @@
                                                 </legend>
                                             </div>
                                             <script>
-                                                    function changeSize(id) {
-                                                        $.ajax({
-                                                            type: 'POST',
-                                                            url: 'getnameSize/',
-                                                            data: {
-                                                                'id': id, 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
-                                                            },
-                                                            dataType: 'json',
-                                                            success: function (data) {
-                                                                $('#nameSize').text(data.name)
-                                                            }
-                                                        })
-                                                    } 
+                                                function changeSize(id) {
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: 'getnameSize/',
+                                                        data: {
+                                                            'id': id, 'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            $('#nameSize').text(data.name)
+                                                        }
+                                                    })
+                                                } 
                                             </script>
                                             <div style="width:100%; display:flex; flex-wrap:wrap">
                                                 {% if variantSize %}
@@ -291,7 +247,8 @@
                                                                     <line y1="100%" x2="100%" stroke="#DADADA"></line>
                                                                     <line y1="100%" x2="100%" stroke="#1B1B1B"
                                                                         stroke-opacity="0.6"
-                                                                        transform="translate(.5 .5)"></line>
+                                                                        transform="translate(.5 .5)">
+                                                                    </line>
                                                                 </svg>
                                                             </div>
                                                             <font style="vertical-align: inherit;">
@@ -314,7 +271,8 @@
                                                                     <line y1="100%" x2="100%" stroke="#DADADA"></line>
                                                                     <line y1="100%" x2="100%" stroke="#1B1B1B"
                                                                         stroke-opacity="0.6"
-                                                                        transform="translate(.5 .5)"></line>
+                                                                        transform="translate(.5 .5)">
+                                                                    </line>
                                                                 </svg>
                                                             </div>
                                                             <font style="vertical-align: inherit;">
