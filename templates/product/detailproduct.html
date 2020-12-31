@@ -1,6 +1,8 @@
 {% extends "base/base.html" %}
 {% block block_body %}
 {% load static %}
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <div style="padding-top: 85px;"></div>
 
 <div class="container">
@@ -22,6 +24,13 @@
                     </a>
                 </li>
                 <li class="banner__nav--item active">
+                    <a href="#" class="banner__nav--link" style="color: #212529;">
+                        <span class="banner__nav--span label--primary">
+                            {{product.category.name}}
+                        </span>
+                    </a>
+                </li>
+                <li class="banner__nav--item active">
                     <span class="banner__nav--span label--primary">
                         {{product.name}}
                     </span>
@@ -33,9 +42,16 @@
 
 <div class="container">
     <div class="row row-cols-md-1 row-cols-lg-2">
-        <div class="col col-lg-7">
+        <div class="col col-lg-7" style="margin-bottom:3.25rem;">
             <div class="outer">
-                <div id="thumbs" class="owl-carousel owl-theme">
+                <div id="thumbs" class="owl-carousel owl-theme" style=" min-width: 12.625rem;">
+                    {% if variantImageProduct %}
+                    {% for image in variantImageProduct  %}
+                    <div class="item">
+                        <img src="{{image.image.url}}" alt="">
+                    </div>
+                    {% endfor %}
+                    {% else %}
                     <div class="item">
                         <img src="{{product.image.url}}" alt="">
                     </div>
@@ -66,8 +82,16 @@
                     <div class="item">
                         <img src="{{product.image.url}}" alt="">
                     </div>
+                    {% endif %}
                 </div>
-                <div id="big" class="owl-carousel owl-theme">
+                <div id="big" class="owl-carousel owl-theme" >
+                    {% if variantImageProduct %}
+                    {% for image in variantImageProduct  %}
+                    <div class="item" style="max-height: 600px!important;">
+                        <img src="{{image.image.url}}" alt="">
+                    </div>
+                    {% endfor %}
+                    {% else %}
                     <div class="item">
                         <img src="{{product.image.url}}" alt="">
                     </div>
@@ -98,10 +122,11 @@
                     <div class="item">
                         <img src="{{product.image.url}}" alt="">
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        <div class="col col-lg-5" style="margin-bottom: 3.25rem;">
+        <div class="col col-lg-5" style="margin-bottom: 3.25rem;padding-left:3rem">
             <div class="product__details--container">
                 <div class="product__details--layout">
                     <div class="product__details--info">
@@ -137,20 +162,27 @@
                                             </label>
                                             <label for="" class="product__details--legend--secondary">
                                                 <font style="vertical-align:inherit;">
-                                                    <font style="vertical-align:inherit;">03 Xám</font>
+                                                    <font style="vertical-align:inherit;"><p id="nameColor" style="margin:0; padding:0; vertical-align:inherit; display:inline-block"></p></font>
                                                 </font>
                                             </label>
                                         </legend>
                                     </div>
+                                    <script>
+                                        function changeColor(name){
+                                            $('#nameColor').text(name)
+                                        } 
+                                    </script>
                                     <div style="width:100%; display:flex; flex-wrap:wrap">
+                                        {% if variantColor %}
+                                        {% for color in variantColor %}
                                         <div class="product__details--color__color--container">
                                             <div class="product__details--chip">
-                                                <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/437845/chip/goods_03_437845_chip.jpg"
+                                                <img src="{{color.image.url}}"
                                                     alt="" class="product__details--chip--img">
-                                                <input type="radio" id="color" class="product__details--chip--radio"
-                                                    name="color">
-                                                <label for="color" class="product__details--chip--label"
-                                                    style="background-image: url(https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/437845/chip/goods_03_437845_chip.jpg);">
+                                                <input type="radio" id="{{color.id}}" class="product__details--chip--radio"
+                                                    name="variantColor" value="{{color.name}}" onmouseover="changeColor(this.value)">
+                                                <label for="{{color.id}}" class="product__details--chip--label"
+                                                    style="background-image: url({{color.image.url}});">
                                                     <div class="product__details--chip--label--short">
                                                         <svg width="100%" height="100%">
                                                             <line y1="100%" x2="100%" stroke="#DADADA"></line>
@@ -162,14 +194,16 @@
                                                 </label>
                                             </div>
                                         </div>
+                                        {% endfor %}
+                                        {% else %}
                                         <div class="product__details--color__color--container">
                                             <div class="product__details--chip">
-                                                <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/437845/chip/goods_03_437845_chip.jpg"
+                                                <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg"
                                                     alt="" class="product__details--chip--img">
-                                                <input type="radio" id="color" class="product__details--chip--radio"
-                                                    name="color">
-                                                <label for="color" class="product__details--chip--label"
-                                                    style="background-image: url(https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/437845/chip/goods_03_437845_chip.jpg);">
+                                                <input type="radio" id="" class="product__details--chip--radio"
+                                                    name="variantColor"  value="None" onmouseover="changeColor(this.value)">
+                                                <label for="" class="product__details--chip--label"
+                                                    style="background-image: url(https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg);">
                                                     <div class="product__details--chip--label--short">
                                                         <svg width="100%" height="100%">
                                                             <line y1="100%" x2="100%" stroke="#DADADA"></line>
@@ -181,25 +215,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="product__details--color__color--container">
-                                            <div class="product__details--chip">
-                                                <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/437845/chip/goods_03_437845_chip.jpg"
-                                                    alt="" class="product__details--chip--img">
-                                                <input type="radio" id="color" class="product__details--chip--radio"
-                                                    name="color">
-                                                <label for="color" class="product__details--chip--label"
-                                                    style="background-image: url(https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/437845/chip/goods_03_437845_chip.jpg);">
-                                                    <div class="product__details--chip--label--short">
-                                                        <svg width="100%" height="100%">
-                                                            <line y1="100%" x2="100%" stroke="#DADADA"></line>
-                                                            <line y1="100%" x2="100%" stroke="#1B1B1B"
-                                                                stroke-opacity="0.6" transform="translate(.5 .5)">
-                                                            </line>
-                                                        </svg>
-                                                    </div>
-                                                </label>
-                                            </div>
-                                        </div>
+                                        {% endif %}
                                     </div>
                                     <p style=" height: 2em; "></p>
                                 </fieldset>
@@ -220,18 +236,25 @@
                                                     </label>
                                                     <label for="" class="product__details--legend--secondary">
                                                         <font style="vertical-align:inherit;">
-                                                            <font style="vertical-align:inherit;">Nữ L</font>
+                                                            <font style="vertical-align:inherit;">{{variantGender}} <p id="nameSize" style="margin:0; padding:0; vertical-align:inherit; display:inline-block"></p></font>
                                                         </font>
                                                     </label>
                                                 </legend>
                                             </div>
+                                            <script>
+                                                function changeSize(name){
+                                                    $('#nameSize').text(name)
+                                                }
+                                            </script>
                                             <div style="width:100%; display:flex; flex-wrap:wrap">
+                                                {% if variantSize %}
+                                                {% for size in variantSize %}
                                                 <div class="product__details--color__color--container">
                                                     <div class="product__details--chip">
                                                         <img alt="" class="product__details--chip--img">
-                                                        <input type="radio" id="color"
-                                                            class="product__details--chip--radio" name="product">
-                                                        <label for="color" class="product__details--chip--label">
+                                                        <input type="radio" id="{{size.id}}" 
+                                                            class="product__details--chip--radio" name="variantSize" value="{{size.name}}" onmouseover="changeSize(this.value)">
+                                                        <label for="{{size.id}}" class="product__details--chip--label">
                                                             <div class="product__details--chip--label--short">
                                                                 <svg width="100%" height="100%">
                                                                     <line y1="100%" x2="100%" stroke="#DADADA"></line>
@@ -241,17 +264,19 @@
                                                                 </svg>
                                                             </div>
                                                             <font style="vertical-align: inherit;">
-                                                                <font style="vertical-align: inherit;">XS</font>
+                                                                <font style="vertical-align: inherit;">{{size.name}}</font>
                                                             </font>
                                                         </label>
                                                     </div>
                                                 </div>
+                                                {% endfor %}
+                                                {%else%}
                                                 <div class="product__details--color__color--container">
                                                     <div class="product__details--chip">
                                                         <img alt="" class="product__details--chip--img">
-                                                        <input type="radio" id="color"
-                                                            class="product__details--chip--radio" name="product">
-                                                        <label for="color" class="product__details--chip--label">
+                                                        <input type="radio" id=""
+                                                            class="product__details--chip--radio" name="variantSize">
+                                                        <label for="" class="product__details--chip--label">
                                                             <div class="product__details--chip--label--short">
                                                                 <svg width="100%" height="100%">
                                                                     <line y1="100%" x2="100%" stroke="#DADADA"></line>
@@ -261,131 +286,12 @@
                                                                 </svg>
                                                             </div>
                                                             <font style="vertical-align: inherit;">
-                                                                <font style="vertical-align: inherit;">S</font>
+                                                                <font style="vertical-align: inherit;">NONE</font>
                                                             </font>
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <div class="product__details--color__color--container">
-                                                    <div class="product__details--chip">
-                                                        <img alt="" class="product__details--chip--img">
-                                                        <input type="radio" id="color"
-                                                            class="product__details--chip--radio" name="product">
-                                                        <label for="color" class="product__details--chip--label">
-                                                            <div class="product__details--chip--label--short">
-                                                                <svg width="100%" height="100%">
-                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
-                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
-                                                                        stroke-opacity="0.6"
-                                                                        transform="translate(.5 .5)"></line>
-                                                                </svg>
-                                                            </div>
-                                                            <font style="vertical-align: inherit;">
-                                                                <font style="vertical-align: inherit;">M</font>
-                                                            </font>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="product__details--color__color--container">
-                                                    <div class="product__details--chip">
-                                                        <img alt="" class="product__details--chip--img">
-                                                        <input type="radio" id="color"
-                                                            class="product__details--chip--radio" name="product">
-                                                        <label for="color" class="product__details--chip--label">
-                                                            <div class="product__details--chip--label--short">
-                                                                <svg width="100%" height="100%">
-                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
-                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
-                                                                        stroke-opacity="0.6"
-                                                                        transform="translate(.5 .5)"></line>
-                                                                </svg>
-                                                            </div>
-                                                            <font style="vertical-align: inherit;">
-                                                                <font style="vertical-align: inherit;">L</font>
-                                                            </font>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="product__details--color__color--container">
-                                                    <div class="product__details--chip">
-                                                        <img alt="" class="product__details--chip--img">
-                                                        <input type="radio" id="color"
-                                                            class="product__details--chip--radio" name="product">
-                                                        <label for="color" class="product__details--chip--label">
-                                                            <div class="product__details--chip--label--short">
-                                                                <svg width="100%" height="100%">
-                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
-                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
-                                                                        stroke-opacity="0.6"
-                                                                        transform="translate(.5 .5)"></line>
-                                                                </svg>
-                                                            </div>
-                                                            <font style="vertical-align: inherit;">
-                                                                <font style="vertical-align: inherit;">XL</font>
-                                                            </font>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="product__details--color__color--container">
-                                                    <div class="product__details--chip">
-                                                        <img alt="" class="product__details--chip--img">
-                                                        <input type="radio" id="color"
-                                                            class="product__details--chip--radio" name="product">
-                                                        <label for="color" class="product__details--chip--label">
-                                                            <div class="product__details--chip--label--short">
-                                                                <svg width="100%" height="100%">
-                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
-                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
-                                                                        stroke-opacity="0.6"
-                                                                        transform="translate(.5 .5)"></line>
-                                                                </svg>
-                                                            </div>
-                                                            <font style="vertical-align: inherit;">
-                                                                <font style="vertical-align: inherit;">XXL</font>
-                                                            </font>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="product__details--color__color--container">
-                                                    <div class="product__details--chip">
-                                                        <img alt="" class="product__details--chip--img">
-                                                        <input type="radio" id="color"
-                                                            class="product__details--chip--radio" name="product">
-                                                        <label for="color" class="product__details--chip--label">
-                                                            <div class="product__details--chip--label--short">
-                                                                <svg width="100%" height="100%">
-                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
-                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
-                                                                        stroke-opacity="0.6"
-                                                                        transform="translate(.5 .5)"></line>
-                                                                </svg>
-                                                            </div>
-                                                            <font style="vertical-align: inherit;">
-                                                                <font style="vertical-align: inherit;">3XL</font>
-                                                            </font>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="product__details--color__color--container">
-                                                    <div class="product__details--chip">
-                                                        <img alt="" class="product__details--chip--img">
-                                                        <input type="radio" id="color"
-                                                            class="product__details--chip--radio" name="product">
-                                                        <label for="color" class="product__details--chip--label">
-                                                            <div class="product__details--chip--label--short">
-                                                                <svg width="100%" height="100%">
-                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
-                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
-                                                                        stroke-opacity="0.6"
-                                                                        transform="translate(.5 .5)"></line>
-                                                                </svg>
-                                                            </div>
-                                                            <font style="vertical-align: inherit;">
-                                                                <font style="vertical-align: inherit;">4XL</font>
-                                                            </font>
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                                {% endif %}
                                             </div>
                                             <p style=" height: 2em; "></p>
                                         </fieldset>

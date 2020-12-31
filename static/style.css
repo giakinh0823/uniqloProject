@@ -1127,7 +1127,7 @@ svg:not(:root) {
   text-align: center; }
 
 #thumbs {
-  width: 12.625rem; }
+  min-width: 12.625rem; }
 
 .owl-stage-outer {
   margin: 0;
@@ -1179,7 +1179,7 @@ svg:not(:root) {
 
 #big {
   width: 80% !important;
-  /* height: 600px!important; */ }
+  max-height: 600px !important; }
 
 #big .item {
   padding: 0 !important; }

@@ -16,9 +16,8 @@
 }
 
 #thumbs {
-    width: 12.625rem;
-    // transform: rotate(-90deg);
-
+    min-width: 12.625rem;
+   // transform: rotate(-90deg);
 }
 
 .owl-stage-outer{
@@ -90,7 +89,7 @@
 
 #big{
     width: 80%!important;
-    /* height: 600px!important; */
+    max-height: 600px!important; 
 }
 
 #big .item{
@@ -99,7 +98,6 @@
 
 #big .owl-item{
     width: 100%;
-    
 }
 
 #big.owl-theme .owl-next,

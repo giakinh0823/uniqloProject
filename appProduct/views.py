@@ -9,7 +9,7 @@ from django.template.loader import render_to_string, get_template
 from django.views.decorators.csrf import csrf_protect
 from order.models import Order, Cart
 from django.db.models import Q
-from .filters import ProductFilter
+from .filters import ProductFilter, VariantFilter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 import random
@@ -21,7 +21,7 @@ import random
 def product(request):
     # products = Product.objects.all()
     product_list = Product.objects.all()
-
+    variant_List = Variants.objects.all()
     categorys = Category.objects.all()
 
     page = request.GET.get('page', 1)
@@ -35,7 +35,9 @@ def product(request):
 
     if request.GET:
         productFilter = ProductFilter(request.GET, queryset=product_list)
+        variantFilter = VariantFilter(request.GET, queryset=variant_List)
         product_list = productFilter.qs
+        variant_List = variantFilter.qs
 
         page = request.GET.get('page', 1)
         paginator = Paginator(product_list, 12)
@@ -46,7 +48,7 @@ def product(request):
         except EmptyPage:
             products = paginator.page(paginator.num_pages)
 
-        return render(request, 'product/product.html', {'products': products, 'productFilter': productFilter, 'categorys': categorys})
+        return render(request, 'product/product.html', {'products': products, 'productFilter': productFilter,'variantFilter': variantFilter ,'categorys': categorys})
     return render(request, 'product/product.html', {'products': products, 'categorys': categorys})
 
 # search_ajax
@@ -195,6 +197,8 @@ def editproduct(request, product_pk):
     #     return JsonResponse({'response': "Success"})
     # else:
     #     return render(request, 'product/editproduct.html', {'product': product, 'form': form, 'categorys': categorys})
+    
+    
     product = get_object_or_404(Product, pk=product_pk, user=request.user)
     try:
         variant = Variants.objects.get(product = product)
@@ -312,7 +316,21 @@ def deleteproduct(request, product_pk):
 
 def detailproduct(request, product_pk):
     product = get_object_or_404(Product, pk=product_pk)
-    return render(request, 'product/detailproduct.html', {'product': product})
+    try:
+        variant = Variants.objects.get(product = product)
+    except Variants.DoesNotExist:
+        variant = None
+    if variant:
+        variantSize = variant.size.all()
+        variantColor = variant.color.all()
+        variantImageProduct = variant.imageProduct.all()
+        variantGender = variant.gender
+    else:
+        variantSize = None
+        variantColor=None
+        variantImageProduct=None
+        variantGender = "Null"
+    return render(request, 'product/detailproduct.html', {'product': product, 'variant': variant, 'variantSize': variantSize, 'variantColor': variantColor, 'variantImageProduct': variantImageProduct, 'variantGender': variantGender})
 
 
 @login_required
