@@ -330,6 +330,12 @@ def createimageproduct(request):
     
 @login_required
 def editcreateimageproduct(request, product_pk):
+    product = get_object_or_404(Product, pk=product_pk, user=request.user)
+    try:
+        variant = Variants.objects.get(product = product)
+    except Variants.DoesNotExist:
+        variant = None
+    variantImageProduct = variant.imageProduct.all()
     if request.method == 'POST':
         form = ImageProductForm(request.POST,request.FILES, prefix="ImageProductForm", )
         if form.is_valid():
@@ -339,4 +345,4 @@ def editcreateimageproduct(request, product_pk):
                 imageProduct.image = request.FILES['image']
             imageProduct.save()
         imageProductList = ImageProduct.objects.filter(user = request.user)
-        return render(request, 'product/createimageproduct.html', {'imageProductList' : imageProductList})    
+        return render(request, 'product/createimageproduct.html', {'imageProductList' : imageProductList, 'variantImageProduct':variantImageProduct,'variant': variant})    
