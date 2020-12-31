@@ -43,4 +43,4 @@ class VariantsForm(forms.ModelForm):
     imageProduct = CustomSelectMultiple(widget=forms.CheckboxSelectMultiple, queryset=ImageProduct.objects.all())
     class Meta():
         model = Variants
-        fields = ('gender','size','color', 'quantity', 'price', 'imageProduct')
+        fields = ('gender','size','color', 'imageProduct')

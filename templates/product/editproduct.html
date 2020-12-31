@@ -1,11 +1,429 @@
 {% extends "base/base.html" %}
 {% block block_body %}
-
+{% load static %}
 
 <div style="padding-top: 85px;"></div>
 
-<h1 class="text-center mt-5 mb-4 display-3">Edit Product</h1>
 
+<div class="container">
+    <div class="form__layout">
+        <div class="form__container">
+            <div class="form__header">
+                <header class="form__header--header">
+                    <h1 class="form__header--h1">
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">Edit Product</font>
+                        </font>
+                    </h1>
+                </header>
+            </div>
+            <div class="form__form--layout">
+                <div class="form__form--container" style="display: flex; flex-wrap:wrap">
+                    <form action="" method="POST" id="editproduct" enctype="multipart/form-data"  data-id="{{product.id}}">
+                        {% csrf_token %}
+                        <div class="form__form--content" style="max-width:60rem">
+                            <div class="form__row">
+                                <div class="from__row--field">
+                                    <div class="form__text--field">
+                                        <div class="input__text--wrap">
+                                            <input type="text" name="productForm-name" maxlength="256" required=""
+                                                id="id_productForm-name" class="input__text--wrap--input"
+                                                placeholder="Name product" value="{{product.name}}">
+                                        </div>
+                                        <div class="form__text--title">
+                                            <div class="form__text--label">
+                                                <label for="id_productForm-name" class="form__text--label--label">
+                                                    <font style="vertical-align: inherit;">
+                                                        <font style="vertical-align: inherit;">Name</font>
+                                                    </font>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form__row">
+                                <div class="from__row--field">
+                                    <div class="form__text--field">
+                                        <div class="input__text--wrap">
+                                            <input type="number" name="productForm-price" step="0.01" required=""
+                                                id="id_productForm-price" class="input__text--wrap--input"
+                                                placeholder="Price" value="{{product.price}}">
+                                        </div>
+                                        <div class="form__text--title">
+                                            <div class="form__text--label">
+                                                <label for="id_productForm-price" class="form__text--label--label">
+                                                    <font style="vertical-align: inherit;">
+                                                        <font style="vertical-align: inherit;">Price</font>
+                                                    </font>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form__row">
+                                <div class="from__row--field">
+                                    <div class="form__text--field">
+                                        <div class="input__text--wrap">
+                                            <input type="number" name="productForm-quantity"
+                                                value="{{product.quantity}}" id="id_productForm-quantity"
+                                                class="input__text--wrap--input" placeholder="Quantity">
+                                        </div>
+                                        <div class="form__text--title">
+                                            <div class="form__text--label">
+                                                <label for="id_productForm-quantity" class="form__text--label--label">
+                                                    <font style="vertical-align: inherit;">
+                                                        <font style="vertical-align: inherit;">Quantity</font>
+                                                    </font>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product__dropdown">
+                                <div class="product__dropdown--container" style="width: 40rem; margin-bottom:2rem">
+                                    <div class="product__dropdown--header">
+                                        <label for="id_productForm-category" class="product__dropdown--header--label">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">Category</font>
+                                            </font>
+                                        </label>
+                                    </div>
+                                    <div class="product__dropdown--input">
+                                        <select name="productForm-category" required id="id_productForm-category"
+                                            class="product__dropdown--select" data-test="quantity-dropdown"
+                                            style="background-color:#f5f5f5e7;">
+                                            {% for category in categorys %}
+                                            <option value="{{category.id}}" class="uq-uikit-dropdown__hidden-option"
+                                                aria-selected="true" {% if product.category == category %} selected {% endif %}>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">{{category.name}}</font>
+                                                </font>
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="product__dropdown--input--inner">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" focusable="false"
+                                                class="uq-uikit-icon uq-uikit-icon--default uq-uikit-dropdown__icon"
+                                                role="presentation">
+                                                <title></title>
+                                                <g fill-rule="evenodd">
+                                                    <polygon points="12 15 18 9 6 9"></polygon>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form__row">
+                                <div class="from__row--field">
+                                    <div class="form__text--field">
+                                        <div class="input__text--wrap">
+                                            <textarea name="productForm-recommend" id="id_productForm-recommend"
+                                                class="input__text--wrap--input" placeholder="About Product" rows="10"
+                                                cols="30">{{product.recommend}}</textarea>
+                                        </div>
+                                        <div class="form__text--title">
+                                            <div class="form__text--label">
+                                                <label for="id_productForm-recommend" class="form__text--label--label">
+                                                    <font style="vertical-align: inherit;">
+                                                        <font style="vertical-align: inherit;">About Product</font>
+                                                    </font>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-5 mt-5" style="max-width:60rem">
+                                <div class="product__details--chip" style="margin-bottom: 1rem;">
+                                    <img src="{{product.image.url}}" alt="" class="product__details--chip--img">
+                                    <input class="product__details--chip--radio" name="variantsForm-imageProduct">
+                                    <label class="product__details--chip--label"
+                                        style="background-image: url({{product.image.url}});">
+                                        <div class="product__details--chip--label--short">
+                                            <svg width="100%" height="100%">
+                                                <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                <line y1="100%" x2="100%" stroke="#1B1B1B" stroke-opacity="0.6"
+                                                    transform="translate(.5 .5)">
+                                                </line>
+                                            </svg>
+                                        </div>
+                                    </label>
+                                </div>
+                                <label for="id_productForm-image" class="form-label" style="font-size: 1.8rem;"></label>
+                                <input class="form-control form-control-lg" id="id_productForm-image"
+                                    name="productForm-image" accept="image/*" type="file">
+                            </div>
+                            <!-- Variants -->
+                            <div class="product__dropdown">
+                                <div class="product__dropdown--container" style="width: 40rem; margin-bottom:2rem">
+                                    <div class="product__dropdown--header">
+                                        <label for="id_variantsForm-gender" class="product__dropdown--header--label">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">Gender</font>
+                                            </font>
+                                        </label>
+                                    </div>
+                                    <div class="product__dropdown--input">
+                                        <select name="variantsForm-gender" class="product__dropdown--select"
+                                            data-test="quantity-dropdown" id="id_variantsForm-gender"
+                                            style="background-color:#f5f5f5e7;">
+                                            {% for gender in genders %}
+                                            <option value="{{gender.id}}" class="uq-uikit-dropdown__hidden-option"
+                                                aria-selected="true" {% if variant %}
+                                                  {% if variant.gender == gender %}
+                                                    selected
+                                                  {% endif %}
+                                                {% endif %}>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">{{gender.name}}</font>
+                                                </font>
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="product__dropdown--input--inner">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" focusable="false"
+                                                class="uq-uikit-icon uq-uikit-icon--default uq-uikit-dropdown__icon"
+                                                role="presentation">
+                                                <title></title>
+                                                <g fill-rule="evenodd">
+                                                    <polygon points="12 15 18 9 6 9"></polygon>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product__details--size">
+                                <div class="product__details--size--layout">
+                                    <fieldset class="product__details--size--fieldset">
+                                        <div class="product__detail--color__lengend--container">
+                                            <legend class="product__details--legend">
+                                                <label for="" class="product__details--legend--primary">
+                                                    <font style="vertical-align:inherit;">
+                                                        <font style="vertical-align:inherit;">Kích thước</font>
+                                                    </font>
+                                                    <font style="vertical-align:inherit;">
+                                                        <font style="vertical-align:inherit;">:</font>
+                                                    </font>
+                                                </label>
+                                                <label for="" class="product__details--legend--secondary">
+                                                    <font style="vertical-align:inherit;">
+                                                        <font style="vertical-align:inherit;">Nữ L</font>
+                                                    </font>
+                                                </label>
+                                            </legend>
+                                        </div>
+                                        <ul style="width:100%; display:flex; flex-wrap:wrap;" id="id_variantsForm-size">
+                                            {% for size in sizes %}
+                                            <li class="product__details--color__color--container">
+                                                <div class="product__details--chip">
+                                                    <img alt="" class="product__details--chip--img">
+                                                    <input type="checkbox" name="variantsForm-size" value="{{size.id}}"
+                                                        id="id_variantsForm-size_{{size.id|add:-1}}"
+                                                        class="product__details--chip--radio" {% if variant %}
+                                                          {% if size in variantSize %}
+                                                            checked
+                                                          {% endif %}
+                                                        {% endif %}>
+                                                    <label for="id_variantsForm-size_{{size.id|add:-1}}"
+                                                        class="product__details--chip--label">
+                                                        <div class="product__details--chip--label--short">
+                                                            <svg width="100%" height="100%">
+                                                                <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                                <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                                                    stroke-opacity="0.6" transform="translate(.5 .5)">
+                                                                </line>
+                                                            </svg>
+                                                        </div>
+                                                        <font style="vertical-align: inherit;">
+                                                            <font style="vertical-align: inherit;">{{size.name}}</font>
+                                                        </font>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        <p style=" height: 2em; "></p>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="product__color">
+                                <fieldset class="product__details--color">
+                                    <div class="product__detail--color__lengend--container">
+                                        <legend class="product__details--legend">
+                                            <label for="" class="product__details--legend--primary">
+                                                <font style="vertical-align:inherit;">
+                                                    <font style="vertical-align:inherit;">Màu</font>
+                                                </font>
+                                                <font style="vertical-align:inherit;">
+                                                    <font style="vertical-align:inherit;">:</font>
+                                                </font>
+                                            </label>
+                                            <label for="" class="product__details--legend--secondary">
+                                                <font style="vertical-align:inherit;">
+                                                    <font style="vertical-align:inherit;">03 Xám</font>
+                                                </font>
+                                            </label>
+                                        </legend>
+                                    </div>
+                                    <ul style="width:100%; display:flex; flex-wrap:wrap" id="id_variantsForm-color">
+                                        {% for color in colors %}
+                                        <li class="product__details--color__color--container">
+                                            <div class="product__details--chip">
+                                                <img src="{{color.image.url}}" alt=""
+                                                    class="product__details--chip--img">
+                                                <input type="checkbox" id="id_variantsForm-color_{{color.id|add:-1}}"
+                                                    value="{{color.id}}" class="product__details--chip--radio"
+                                                    name="variantsForm-color" {% if variant %}
+                                                      {% if color in variantColor  %}
+                                                        checked
+                                                      {% endif %}
+                                                    {% endif %}>
+                                                <label for="id_variantsForm-color_{{color.id|add:-1}}"
+                                                    class="product__details--chip--label"
+                                                    style="background-image: url({{color.image.url}})">
+                                                    <div class="product__details--chip--label--short">
+                                                        <svg width="100%" height="100%">
+                                                            <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                            <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                                                stroke-opacity="0.6" transform="translate(.5 .5)">
+                                                            </line>
+                                                        </svg>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <p style=" height: 2em; "></p>
+                                </fieldset>
+                            </div>
+                            {% if imageProductList %}
+                            <div class="product__image" id="createImageProductList">
+                                <fieldset class="product__details--color">
+                                    <div class="product__detail--color__lengend--container">
+                                        <legend class="product__details--legend">
+                                            <label for="" class="product__details--legend--primary">
+                                                <font style="vertical-align:inherit;">
+                                                    <font style="vertical-align:inherit;">Image</font>
+                                                </font>
+                                                <font style="vertical-align:inherit;">
+                                                    <font style="vertical-align:inherit;">:</font>
+                                                </font>
+                                            </label>
+                                            <!-- <label for="" class="product__details--legend--secondary">
+                                                <font style="vertical-align:inherit;">
+                                                    <font style="vertical-align:inherit;">03 Xám</font>
+                                                </font>
+                                            </label> -->
+                                        </legend>
+                                    </div>
+                                    <ul style="width:100%; display:flex; flex-wrap:wrap" id="id_variantsForm-imageProduct">
+                                        {% for imageProduct in imageProductList %}
+                                        <li class="product__details--color__color--container">
+                                            <div class="product__details--chip">
+                                                <img src="{{imageProduct.image.url}}" alt=""
+                                                    class="product__details--chip--img">
+                                                <input type="checkbox"
+                                                    id="id_variantsForm-imageProduct_{{imageProduct|add:-1}}"
+                                                    value="{{imageProduct.id}}" class="product__details--chip--radio"
+                                                    name="variantsForm-imageProduct" {% if variant %}
+                                                      {% if imageProduct in variantImageProduct %}
+                                                        checked
+                                                      {% endif %}
+                                                    {% endif %}>
+                                                <label for="id_variantsForm-imageProduct_{{imageProduct|add:-1}}"
+                                                    class="product__details--chip--label"
+                                                    style="background-image: url({{imageProduct.image.url}});">
+                                                    <div class="product__details--chip--label--short">
+                                                        <svg width="100%" height="100%">
+                                                            <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                            <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                                                stroke-opacity="0.6" transform="translate(.5 .5)">
+                                                            </line>
+                                                        </svg>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <p style=" height: 2em; "></p>
+                                </fieldset>
+                            </div>
+                            {% else %}
+                            <a href="#createImageProduct" style="color:black; font-size:1.2rem; marin-bottom:1rem">Go to
+                                create new image</a>
+                            <div class="product__image" id="createImageProductList">
+
+                            </div>
+                            {% endif %}
+                            <div class="button--third" style="margin-top: 30px;">
+                                <button type="submit" class="button--third--button"  data-id="{{product.id}}">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                    <form action=""  method="POST" style="max-width:50%; margin: 0 auto; margin-top: 50px; "
+                        class="text-center" id="editImageProduct" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <header class="form__header--header">
+                            <h1 class="form__header--h1" style="font-size: 3rem; text-transform:uppercase">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">Add Image to data</font>
+                                </font>
+                            </h1>
+                        </header>
+                        <div class="form__row__image">
+                            <div class="from__row--field__image">
+                                <div class="form__text--field__image">
+                                    <div class="input__text--wrap__image">
+                                        <input type="text" name="ImageProductForm-name" maxlength="100"
+                                            id="id_ImageProductForm-name" class="input__text--wrap--input__image"
+                                            placeholder="Name Image">
+                                    </div>
+                                    <div class="form__text--title__image">
+                                        <div class="form__text--label__image">
+                                            <label for="id_ImageProductForm-name"
+                                                class="form__text--label__image--label__image">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">Name</font>
+                                                </font>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-5 mt-5 mx-auto" style="max-width:20rem">
+                            <label for="id_ImageProductForm-image" class="form-label"></label>
+                            <input class="form-control form-control-lg" name="ImageProductForm-image"
+                                id="id_ImageProductForm-image" required accept="image/*" type="file">
+                        </div>
+                        <div class="button--third" style="margin: 50px auto;">
+                            <button type="submit" class="button--third--button" >Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="container">
+    <form action="">
+        {{formProduct.as_p}}
+        {{formVariant.as_p}}
+        <button type="submits">submit</button>
+    </form>
+</div> -->
+
+<!-- <h1 class="text-center mt-5 mb-4 display-3">Edit Product</h1> -->
+<!-- 
 <form action="" method="POST" class="mt-5 mb-5 w-75 m-auto" id="editproduct" data-id="{{product.id}}" enctype="multipart/form-data">
     {% csrf_token %}
     <select name="category" id="" class="form-select mb-3" aria-label="Default select example">
@@ -33,5 +451,5 @@
         <input type="file" name="image" accept="image/*" id="id_image" class="form-control">
     </div>
     <button type="submit" class="btn btn-success mb-5 mt-3" data-id= '{{product.id}}'>Save</button>
-</form>
+</form> -->
 {% endblock %}

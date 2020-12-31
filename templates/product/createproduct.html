@@ -157,7 +157,7 @@
                                             data-test="quantity-dropdown" id="id_variantsForm-gender"
                                             style="background-color:#f5f5f5e7;">
                                             <option value="1" class="uq-uikit-dropdown__hidden-option"
-                                                aria-selected="true">
+                                                aria-selected="true" >
                                                 <font style="vertical-align: inherit;">
                                                     <font style="vertical-align: inherit;">Nam</font>
                                                 </font>
@@ -285,48 +285,8 @@
                                     <p style=" height: 2em; "></p>
                                 </fieldset>
                             </div>
-                            <div class="form__row">
-                                <div class="from__row--field">
-                                    <div class="form__text--field">
-                                        <div class="input__text--wrap">
-                                            <input type="number" name="variantsForm-price" step="0.01"
-                                                id="id_variantsForm-price" class="input__text--wrap--input"
-                                                placeholder="Price">
-                                        </div>
-                                        <div class="form__text--title">
-                                            <div class="form__text--label">
-                                                <label for="id_variantsForm-price" class="form__text--label--label">
-                                                    <font style="vertical-align: inherit;">
-                                                        <font style="vertical-align: inherit;">Price</font>
-                                                    </font>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form__row">
-                                <div class="from__row--field">
-                                    <div class="form__text--field">
-                                        <div class="input__text--wrap">
-                                            <input type="number" name="variantsForm-quantity" value="0"
-                                                id="id_variantsForm-quantity" class="input__text--wrap--input"
-                                                placeholder="Quantity">
-                                        </div>
-                                        <div class="form__text--title">
-                                            <div class="form__text--label">
-                                                <label for="id_variantsForm-quantity" class="form__text--label--label">
-                                                    <font style="vertical-align: inherit;">
-                                                        <font style="vertical-align: inherit;">Quantity</font>
-                                                    </font>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             {% if imageProductList %}
-                            <div class="product__image" id="id_variantsForm-imageProduct">
+                            <div class="product__image" id="createImageProductList">
                                 <fieldset class="product__details--color">
                                     <div class="product__detail--color__lengend--container">
                                         <legend class="product__details--legend">
@@ -345,7 +305,7 @@
                                             </label> -->
                                         </legend>
                                     </div>
-                                    <ul style="width:100%; display:flex; flex-wrap:wrap">
+                                    <ul style="width:100%; display:flex; flex-wrap:wrap" id="id_variantsForm-imageProduct">
                                         {% for imageProduct in imageProductList %}
                                         <li class="product__details--color__color--container">
                                             <div class="product__details--chip">

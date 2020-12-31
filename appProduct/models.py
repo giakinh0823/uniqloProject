@@ -55,6 +55,6 @@ class Variants(models.Model):
     size = models.ManyToManyField(Size, default=None, null=True, blank=True)
     color = models.ManyToManyField(Color, default=None, null=True, blank=True)
     imageProduct = models.ManyToManyField(ImageProduct, default=None, null=True, blank=True)
-    quantity = models.IntegerField(blank=True, default=0)
-    price = models.DecimalField(max_digits = 20,decimal_places=2,default=None, null=True, blank=True)
+    # quantity = models.IntegerField(blank=True, default=0)
+    # price = models.DecimalField(max_digits = 20,decimal_places=2,default=None, null=True, blank=True)
 

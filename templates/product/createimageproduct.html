@@ -1,4 +1,4 @@
-<div class="product__image" id="id_variantsForm-imageProduct">
+<div class="product__image" id="createImageProductList">
     <fieldset class="product__details--color">
         <div class="product__detail--color__lengend--container">
             <legend class="product__details--legend">
@@ -17,7 +17,7 @@
                 </label> -->
             </legend>
         </div>
-        <ul style="width:100%; display:flex; flex-wrap:wrap">
+        <ul style="width:100%; display:flex; flex-wrap:wrap" id="id_variantsForm-imageProduct">
             {% for imageProduct in imageProductList %}
             <li class="product__details--color__color--container">
                 <div class="product__details--chip">
@@ -26,7 +26,11 @@
                     <input type="checkbox"
                         id="id_variantsForm-imageProduct_{{imageProduct|add:-1}}"
                         value="{{imageProduct.id}}" class="product__details--chip--radio"
-                        name="variantsForm-imageProduct">
+                        name="variantsForm-imageProduct" {% if variant %}
+                          {% if imageProduct in variantImageProduct %}
+                            checked
+                          {% endif %}
+                        {% endif %}>
                     <label for="id_variantsForm-imageProduct_{{imageProduct|add:-1}}"
                         class="product__details--chip--label"
                         style="background-image: url({{imageProduct.image.url}});">
