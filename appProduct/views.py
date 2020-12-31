@@ -143,6 +143,8 @@ def createproduct(request):
             for image in imagelist:
                 image_pk = imagelist.__getitem__(counter)
                 image_entity = ImageProduct.objects.get(pk=image_pk)
+                image_entity.product = product
+                image_entity.save()
                 variants.imageProduct.add(image_entity)
                 counter += 1
             counter = 0
@@ -270,6 +272,7 @@ def editproduct(request, product_pk):
                     image_pk = imagelist.__getitem__(counter)
                     image_entity = ImageProduct.objects.get(pk=image_pk)
                     image_entity.product = product
+                    image_entity.save()
                     variants.imageProduct.add(image_entity)
                     counter += 1
                 counter = 0
