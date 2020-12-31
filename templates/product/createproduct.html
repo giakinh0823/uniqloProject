@@ -3,6 +3,8 @@
 {% load static %}
 
 <div style="padding-top: 85px;"></div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
 
 <div class="container">
     <div class="form__layout">
@@ -157,7 +159,7 @@
                                             data-test="quantity-dropdown" id="id_variantsForm-gender"
                                             style="background-color:#f5f5f5e7;">
                                             <option value="1" class="uq-uikit-dropdown__hidden-option"
-                                                aria-selected="true" >
+                                                aria-selected="true">
                                                 <font style="vertical-align: inherit;">
                                                     <font style="vertical-align: inherit;">Nam</font>
                                                 </font>
@@ -203,11 +205,30 @@
                                                 </label>
                                                 <label for="" class="product__details--legend--secondary">
                                                     <font style="vertical-align:inherit;">
-                                                        <font style="vertical-align:inherit;">Nữ L</font>
+                                                        <font style="vertical-align:inherit;">
+                                                            <p id="nameSize"
+                                                                style="margin:0; padding:0; vertical-align:inherit; display:inline-block">
+                                                            </p>
+                                                        </font>
                                                     </font>
                                                 </label>
                                             </legend>
                                         </div>
+                                        <script>
+                                            function changeSize(id) {
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url: 'getnameSizeCreate/',
+                                                    data: {
+                                                        'id': id, 'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                                                    },
+                                                    dataType: 'json',
+                                                    success: function (data) {
+                                                        $('#nameSize').text(data.name)
+                                                    }
+                                                })
+                                            } 
+                                        </script>
                                         <ul style="width:100%; display:flex; flex-wrap:wrap;" id="id_variantsForm-size">
                                             {% for size in sizes %}
                                             <li class="product__details--color__color--container">
@@ -215,7 +236,8 @@
                                                     <img alt="" class="product__details--chip--img">
                                                     <input type="checkbox" name="variantsForm-size" value="{{size.id}}"
                                                         id="id_variantsForm-size_{{size.id|add:-1}}"
-                                                        class="product__details--chip--radio">
+                                                        class="product__details--chip--radio"
+                                                        onmouseover="changeSize(this.value)">
                                                     <label for="id_variantsForm-size_{{size.id|add:-1}}"
                                                         class="product__details--chip--label">
                                                         <div class="product__details--chip--label--short">
@@ -252,20 +274,39 @@
                                             </label>
                                             <label for="" class="product__details--legend--secondary">
                                                 <font style="vertical-align:inherit;">
-                                                    <font style="vertical-align:inherit;">03 Xám</font>
+                                                    <font style="vertical-align:inherit;">
+                                                        <p id="nameColor"
+                                                            style="margin:0; padding:0; vertical-align:inherit; display:inline-block">
+                                                        </p>
+                                                    </font>
                                                 </font>
                                             </label>
                                         </legend>
                                     </div>
+                                    <script>
+                                        function changeColor(id) {
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: 'getnameColorCreate/',
+                                                data: {
+                                                    'id': id, 'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                                                },
+                                                dataType: 'json',
+                                                success: function (data) {
+                                                    $('#nameColor').text(data.name)
+                                                }
+                                            })
+                                        } 
+                                    </script>
                                     <ul style="width:100%; display:flex; flex-wrap:wrap" id="id_variantsForm-color">
                                         {% for color in colors %}
-                                        <li class="product__details--color__color--container" >
+                                        <li class="product__details--color__color--container">
                                             <div class="product__details--chip">
                                                 <img src="{{color.image.url}}" alt=""
                                                     class="product__details--chip--img">
                                                 <input type="checkbox" id="id_variantsForm-color_{{color.id|add:-1}}"
                                                     value="{{color.id}}" class="product__details--chip--radio"
-                                                    name="variantsForm-color">
+                                                    name="variantsForm-color" onmouseover="changeColor(this.value)">
                                                 <label for="id_variantsForm-color_{{color.id|add:-1}}"
                                                     class="product__details--chip--label"
                                                     style="background-image: url({{color.image.url}})">
@@ -295,7 +336,7 @@
                                                     <font style="vertical-align:inherit;">Image</font>
                                                 </font>
                                                 <font style="vertical-align:inherit;">
-                                                    <font style="vertical-align:inherit;">:</font>
+                                                    <font style="vertical-align:inherit;">: </font>
                                                 </font>
                                             </label>
                                             <!-- <label for="" class="product__details--legend--secondary">
@@ -305,7 +346,8 @@
                                             </label> -->
                                         </legend>
                                     </div>
-                                    <ul style="width:100%; display:flex; flex-wrap:wrap" id="id_variantsForm-imageProduct">
+                                    <ul style="width:100%; display:flex; flex-wrap:wrap"
+                                        id="id_variantsForm-imageProduct">
                                         {% for imageProduct in imageProductList %}
                                         <li class="product__details--color__color--container">
                                             <div class="product__details--chip">
@@ -335,7 +377,8 @@
                                 </fieldset>
                             </div>
                             {% else %}
-                            <a href="#createImageProduct" style="color:black; font-size:1.2rem; marin-bottom:1rem">Go to create new image</a>
+                            <a href="#createImageProduct" style="color:black; font-size:1.2rem; marin-bottom:1rem">Go to
+                                create new image</a>
                             <div class="product__image" id="id_variantsForm-imageProduct">
 
                             </div>
@@ -345,7 +388,8 @@
                             </div>
                         </div>
                     </form>
-                    <form action="" method="POST" style="max-width:50%; margin: 0 auto; margin-top: 50px; " class="text-center" id="createImageProduct" enctype="multipart/form-data">
+                    <form action="" method="POST" style="max-width:50%; margin: 0 auto; margin-top: 50px; "
+                        class="text-center" id="createImageProduct" enctype="multipart/form-data">
                         {% csrf_token %}
                         <header class="form__header--header">
                             <h1 class="form__header--h1" style="font-size: 3rem; text-transform:uppercase">
@@ -358,12 +402,14 @@
                             <div class="from__row--field__image">
                                 <div class="form__text--field__image">
                                     <div class="input__text--wrap__image">
-                                        <input type="text" name="ImageProductForm-name" maxlength="100" id="id_ImageProductForm-name" class="input__text--wrap--input__image"
+                                        <input type="text" name="ImageProductForm-name" maxlength="100"
+                                            id="id_ImageProductForm-name" class="input__text--wrap--input__image"
                                             placeholder="Name Image">
                                     </div>
                                     <div class="form__text--title__image">
                                         <div class="form__text--label__image">
-                                            <label for="id_ImageProductForm-name" class="form__text--label__image--label__image">
+                                            <label for="id_ImageProductForm-name"
+                                                class="form__text--label__image--label__image">
                                                 <font style="vertical-align: inherit;">
                                                     <font style="vertical-align: inherit;">Name</font>
                                                 </font>
@@ -375,7 +421,8 @@
                         </div>
                         <div class="mb-5 mt-5 mx-auto" style="max-width:20rem">
                             <label for="id_ImageProductForm-image" class="form-label"></label>
-                            <input class="form-control form-control-lg" name="ImageProductForm-image" id="id_ImageProductForm-image" required accept="image/*" type="file">
+                            <input class="form-control form-control-lg" name="ImageProductForm-image"
+                                id="id_ImageProductForm-image" required accept="image/*" type="file">
                         </div>
                         <div class="button--third" style="margin: 50px auto;">
                             <button type="submit" class="button--third--button">Submit</button>

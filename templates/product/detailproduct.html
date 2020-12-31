@@ -46,7 +46,7 @@
             <div class="outer">
                 <div id="thumbs" class="owl-carousel owl-theme" style=" min-width: 12.625rem;">
                     {% if variantImageProduct %}
-                    {% for image in variantImageProduct  %}
+                    {% for image in variantImageProduct %}
                     <div class="item">
                         <img src="{{image.image.url}}" alt="">
                     </div>
@@ -84,9 +84,9 @@
                     </div>
                     {% endif %}
                 </div>
-                <div id="big" class="owl-carousel owl-theme" >
+                <div id="big" class="owl-carousel owl-theme">
                     {% if variantImageProduct %}
-                    {% for image in variantImageProduct  %}
+                    {% for image in variantImageProduct %}
                     <div class="item" style="max-height: 600px!important;">
                         <img src="{{image.image.url}}" alt="">
                     </div>
@@ -162,14 +162,28 @@
                                             </label>
                                             <label for="" class="product__details--legend--secondary">
                                                 <font style="vertical-align:inherit;">
-                                                    <font style="vertical-align:inherit;"><p id="nameColor" style="margin:0; padding:0; vertical-align:inherit; display:inline-block"></p></font>
+                                                    <font style="vertical-align:inherit;">
+                                                        <p id="nameColor"
+                                                            style="margin:0; padding:0; vertical-align:inherit; display:inline-block">
+                                                        </p>
+                                                    </font>
                                                 </font>
                                             </label>
                                         </legend>
                                     </div>
                                     <script>
-                                        function changeColor(name){
-                                            $('#nameColor').text(name)
+                                        function changeColor(id) {
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: 'getnamecolor/',
+                                                data: {
+                                                    'id': id, 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+                                                },
+                                                dataType: 'json',
+                                                success: function (data) {
+                                                    $('#nameColor').text(data.name)
+                                                }
+                                            })
                                         } 
                                     </script>
                                     <div style="width:100%; display:flex; flex-wrap:wrap">
@@ -177,10 +191,11 @@
                                         {% for color in variantColor %}
                                         <div class="product__details--color__color--container">
                                             <div class="product__details--chip">
-                                                <img src="{{color.image.url}}"
-                                                    alt="" class="product__details--chip--img">
-                                                <input type="radio" id="{{color.id}}" class="product__details--chip--radio"
-                                                    name="variantColor" value="{{color.name}}" onmouseover="changeColor(this.value)">
+                                                <img src="{{color.image.url}}" alt=""
+                                                    class="product__details--chip--img">
+                                                <input type="radio" id="{{color.id}}"
+                                                    class="product__details--chip--radio" name="variantColor"
+                                                    value="{{color.id}}" onmouseover="changeColor(this.value)">
                                                 <label for="{{color.id}}" class="product__details--chip--label"
                                                     style="background-image: url({{color.image.url}});">
                                                     <div class="product__details--chip--label--short">
@@ -201,7 +216,8 @@
                                                 <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg"
                                                     alt="" class="product__details--chip--img">
                                                 <input type="radio" id="" class="product__details--chip--radio"
-                                                    name="variantColor"  value="None" onmouseover="changeColor(this.value)">
+                                                    name="variantColor" value="None"
+                                                    onmouseover="changeColor(this.value)">
                                                 <label for="" class="product__details--chip--label"
                                                     style="background-image: url(https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg);">
                                                     <div class="product__details--chip--label--short">
@@ -236,15 +252,29 @@
                                                     </label>
                                                     <label for="" class="product__details--legend--secondary">
                                                         <font style="vertical-align:inherit;">
-                                                            <font style="vertical-align:inherit;">{{variantGender}} <p id="nameSize" style="margin:0; padding:0; vertical-align:inherit; display:inline-block"></p></font>
+                                                            <font style="vertical-align:inherit;">{{variantGender}} <p
+                                                                    id="nameSize"
+                                                                    style="margin:0; padding:0; vertical-align:inherit; display:inline-block">
+                                                                </p>
+                                                            </font>
                                                         </font>
                                                     </label>
                                                 </legend>
                                             </div>
                                             <script>
-                                                function changeSize(name){
-                                                    $('#nameSize').text(name)
-                                                }
+                                                    function changeSize(id) {
+                                                        $.ajax({
+                                                            type: 'POST',
+                                                            url: 'getnameSize/',
+                                                            data: {
+                                                                'id': id, 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+                                                            },
+                                                            dataType: 'json',
+                                                            success: function (data) {
+                                                                $('#nameSize').text(data.name)
+                                                            }
+                                                        })
+                                                    } 
                                             </script>
                                             <div style="width:100%; display:flex; flex-wrap:wrap">
                                                 {% if variantSize %}
@@ -252,8 +282,9 @@
                                                 <div class="product__details--color__color--container">
                                                     <div class="product__details--chip">
                                                         <img alt="" class="product__details--chip--img">
-                                                        <input type="radio" id="{{size.id}}" 
-                                                            class="product__details--chip--radio" name="variantSize" value="{{size.name}}" onmouseover="changeSize(this.value)">
+                                                        <input type="radio" id="{{size.id}}"
+                                                            class="product__details--chip--radio" name="variantSize"
+                                                            value="{{size.id}}" onmouseover="changeSize(this.value)">
                                                         <label for="{{size.id}}" class="product__details--chip--label">
                                                             <div class="product__details--chip--label--short">
                                                                 <svg width="100%" height="100%">
@@ -264,7 +295,8 @@
                                                                 </svg>
                                                             </div>
                                                             <font style="vertical-align: inherit;">
-                                                                <font style="vertical-align: inherit;">{{size.name}}</font>
+                                                                <font style="vertical-align: inherit;">{{size.name}}
+                                                                </font>
                                                             </font>
                                                         </label>
                                                     </div>
@@ -274,8 +306,8 @@
                                                 <div class="product__details--color__color--container">
                                                     <div class="product__details--chip">
                                                         <img alt="" class="product__details--chip--img">
-                                                        <input type="radio" id=""
-                                                            class="product__details--chip--radio" name="variantSize">
+                                                        <input type="radio" id="" class="product__details--chip--radio"
+                                                            name="variantSize">
                                                         <label for="" class="product__details--chip--label">
                                                             <div class="product__details--chip--label--short">
                                                                 <svg width="100%" height="100%">
@@ -517,7 +549,8 @@
                                         <div class="recommend--label">
                                             <span class="recommend--label--span">
                                                 <font style="vertical-align: inherit;">
-                                                    <font style="vertical-align: inherit;">Thông tin chi tiết sản phẩm</font>
+                                                    <font style="vertical-align: inherit;">Thông tin chi tiết sản phẩm
+                                                    </font>
                                                 </font>
                                             </span>
                                         </div>

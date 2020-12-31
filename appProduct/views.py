@@ -364,3 +364,25 @@ def editcreateimageproduct(request, product_pk):
             imageProduct.save()
         imageProductList = ImageProduct.objects.filter(user = request.user)
         return render(request, 'product/createimageproduct.html', {'imageProductList' : imageProductList, 'variantImageProduct':variantImageProduct,'variant': variant})    
+    
+    
+def getnamecolor(request, product_pk):
+    if request.is_ajax():
+        color = Color.objects.get(id=request.POST.get('id'))
+        return JsonResponse({'name': color.name})
+    
+    
+def getnameSize(request, product_pk):
+    if request.is_ajax():
+        size = Size.objects.get(id=request.POST.get('id'))
+        return JsonResponse({'name': size.name})
+    
+def getnameSizeCreate(request):
+    if request.is_ajax():
+        size = Size.objects.get(id=request.POST.get('id'))
+        return JsonResponse({'name': size.name})
+    
+def getnameColorCreate(request):
+    if request.is_ajax():
+        color = Color.objects.get(id=request.POST.get('id'))
+        return JsonResponse({'name': color.name})
