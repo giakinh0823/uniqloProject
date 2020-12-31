@@ -236,6 +236,8 @@ def editproduct(request, product_pk):
             for image in imagelist:
                 image_pk = imagelist.__getitem__(counter)
                 image_entity = ImageProduct.objects.get(pk=image_pk)
+                image_entity.product = product
+                image_entity.save()
                 variant.imageProduct.add(image_entity)
                 counter += 1
             counter = 0
@@ -250,7 +252,40 @@ def editproduct(request, product_pk):
                 color_entity = Color.objects.get(pk=color_pk)
                 variant.color.add(color_entity)
                 counter += 1
-            variant.save()        
+            variant.save()  
+            # formVariant = VariantsForm(request.POST ,instance=variant, prefix="variantsForm")
+            # formVariant.save()
+        else:
+            if formVariant:
+                variant = formVariant.save(commit=False)
+                variant.product = product
+                variant.save()
+                variants = Variants.objects.get(product=product)
+                sizelist = request.POST.getlist('variantsForm-size', None)
+                colorlist = request.POST.getlist('variantsForm-color', None)
+                imagelist = request.POST.getlist('variantsForm-imageProduct', None)
+                imagelist.pop(0)
+                counter = 0
+                for image in imagelist:
+                    image_pk = imagelist.__getitem__(counter)
+                    image_entity = ImageProduct.objects.get(pk=image_pk)
+                    image_entity.product = product
+                    variants.imageProduct.add(image_entity)
+                    counter += 1
+                counter = 0
+                for size in sizelist:
+                    size_pk = sizelist.__getitem__(counter)
+                    size_entity = Size.objects.get(pk=size_pk)
+                    variants.size.add(size_entity)
+                    counter += 1
+                counter = 0
+                for color in colorlist:
+                    color_pk = colorlist.__getitem__(counter)
+                    color_entity = Color.objects.get(pk=color_pk)
+                    variants.color.add(color_entity)
+                    counter += 1
+            else:
+                return JsonResponse({'response': "fail"})
         return JsonResponse({'response': "Success"})
     else:
         return render(request, 'product/editproduct.html', {'product': product,'variant':variant,'categorys': categorys,'genders': genders,'sizes':sizes,'colors':colors,'imageProductList':imageProductList,'variantSize':variantSize,'variantColor':variantColor,'variantImageProduct':variantImageProduct, 'formProduct': formProduct,'formVariant':formVariant,'ImageProductForm':ImageProductForm(prefix="ImageProductForm") ,})

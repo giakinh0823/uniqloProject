@@ -33,7 +33,10 @@ class ImageProduct(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE,default=None, null=True, blank=True)
     name = models.CharField(max_length=100, default=None, null=True, blank=True)
     image= models.ImageField(upload_to='productImages')  
+    
     def __str__(self) -> str:
+        if self.name == None:
+            return "Not name"
         return self.name  
 
 class Size(models.Model):
@@ -57,4 +60,8 @@ class Variants(models.Model):
     imageProduct = models.ManyToManyField(ImageProduct, default=None, null=True, blank=True)
     # quantity = models.IntegerField(blank=True, default=0)
     # price = models.DecimalField(max_digits = 20,decimal_places=2,default=None, null=True, blank=True)
-
+    
+    def __str__(self) -> str:
+        if self.name == None:
+            return "Not name"
+        return self.name
