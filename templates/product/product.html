@@ -48,13 +48,12 @@
     </div>
 </section>
 
-<!-- <div class="container" style="margin-bottom: 3.25rem;">
+<div class="container" style="margin-bottom: 3.25rem;">
     <form action="" method="GET" class="form" style="font-size:1.2rem">
         {{productFilter.form}}
-        {{variantFilter.form}}
         <button type="submit" class="btn btn-outline-dark">search</button>
     </form>
-</div> -->
+</div>
 
 <section class="container">
     <div class="product__bar">
@@ -154,12 +153,13 @@
     <div class="product__layout row">
         <div class="product__category col-3" style="margin-bottom: 30rem;">
             <form action="" method="GET">
+                <div style="display: none;">{{productFilter.form}}</div>
                 <div class="category__container">
                     <div class="category__layout">
                         <ul class="category__list">
                             <li class="category__item">
                                 <h1 class="category__header">
-                                    <span class="category__span">Category 1</span>
+                                    <span class="category__span">Gender</span>
                                 </h1>
                                 <input type="checkbox" id="category__checkbox1">
                                 <label for="category__checkbox1" class="category--open">
@@ -183,24 +183,16 @@
                                     </svg>
                                 </label>
                                 <ul class="category__item--list">
+                                    {% for gender in genders %}
                                     <li class="category__item--item">
-                                        <button type="submit" class="category__item--button"
-                                            style="margin:0; padding:0;">
-                                            <a {% if "?" not in request.get_full_path %} href="{{request.path}}?sex=1"
-                                                {% else %} href="{{request.get_full_path}}&sex=1" {% endif %}
-                                                class="category__label" value="1"
-                                                style="text-decoration: none; color: #212529; height:100%; width:100%; padding: 12px 0; display:block">Nam</a>
-                                        </button>
+                                        <label type="submit" class="category__item--label" style="padding-top: .5rem;
+                                        padding-bottom: .5rem; font-size: 1.4rem; font-weight:300;  cursor: pointer;">
+                                            <input style="display: none;" class="category__input"
+                                                value="{{gender.id}}" type="submit" name="gender"
+                                                id="id_gender_{{gender.id}}">{{gender.name}}
+                                        </label>
                                     </li>
-                                    <li class="category__item--item">
-                                        <button type="submit" class="category__item--button"
-                                            style="margin:0; padding:0;">
-                                            <a {% if "?" not in request.get_full_path %} href="{{request.path}}?sex=2"
-                                                {% else %} href="{{request.get_full_path}}&sex=2" {% endif %}
-                                                class="category__label" value="2"
-                                                style="text-decoration: none; color: #212529; height:100%; width:100%; padding: 12px 0; display:block">Nu</a>
-                                        </button>
-                                    </li>
+                                    {% endfor %}
                                 </ul>
                             </li>
                             <li class="category__item">
@@ -231,14 +223,12 @@
                                     </svg>
                                 </label>
                                 <ul class="category__item--list" id="id_category">
-                                    <div style="display: none;">{{productFilter.form}}</div>
                                     {% for category in categorys %}
                                     <li class="category__item--item">
-                                        <label onclick="addSearch()" type="submit" class="category__item--label" style="padding-top: .5rem;
+                                        <label type="submit" class="category__item--label" style="padding-top: .5rem;
                                         padding-bottom: .5rem; font-size: 1.4rem; font-weight:300;  cursor: pointer;">
                                             <input style="display: none;" class="category__input"
                                                 value="{{category.id}}" type="submit" name="category"
-                                                value="{{category.id}}"
                                                 id="id_category_{{category.id}}">{{category.name}}
                                         </label>
                                     </li>

@@ -9,7 +9,7 @@ from django.template.loader import render_to_string, get_template
 from django.views.decorators.csrf import csrf_protect
 from order.models import Order, Cart
 from django.db.models import Q
-from .filters import ProductFilter, VariantFilter
+from .filters import ProductFilter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 import random
@@ -21,8 +21,8 @@ import random
 def product(request):
     # products = Product.objects.all()
     product_list = Product.objects.all()
-    variant_List = Variants.objects.all()
     categorys = Category.objects.all()
+    genders = Gender.objects.all()
 
     page = request.GET.get('page', 1)
     paginator = Paginator(product_list, 12)
@@ -35,9 +35,7 @@ def product(request):
 
     if request.GET:
         productFilter = ProductFilter(request.GET, queryset=product_list)
-        variantFilter = VariantFilter(request.GET, queryset=variant_List)
         product_list = productFilter.qs
-        variant_List = variantFilter.qs
 
         page = request.GET.get('page', 1)
         paginator = Paginator(product_list, 12)
@@ -47,9 +45,8 @@ def product(request):
             products = paginator.page(1)
         except EmptyPage:
             products = paginator.page(paginator.num_pages)
-
-        return render(request, 'product/product.html', {'products': products, 'productFilter': productFilter,'variantFilter': variantFilter ,'categorys': categorys})
-    return render(request, 'product/product.html', {'products': products, 'categorys': categorys})
+        return render(request, 'product/product.html', {'products': products, 'productFilter': productFilter,'categorys': categorys, 'genders': genders})
+    return render(request, 'product/product.html', {'products': products, 'categorys': categorys, 'genders': genders})
 
 # search_ajax
 
@@ -135,6 +132,8 @@ def createproduct(request):
 
             # varitsform
             variant = formVariants.save(commit=False)
+            product.gender = variant.gender
+            product.save()
             variant.product = product
             variant.save()
             variants = Variants.objects.get(product=product)
@@ -230,6 +229,8 @@ def editproduct(request, product_pk):
         genderid = request.POST['variantsForm-gender']
         if variant:
             variant.gender = Gender.objects.get(id=genderid)
+            product.gender = variant.gender
+            product.save()
             sizelist = request.POST.getlist('variantsForm-size', None)
             colorlist = request.POST.getlist('variantsForm-color', None)
             imagelist = request.POST.getlist('variantsForm-imageProduct', None)
@@ -237,7 +238,6 @@ def editproduct(request, product_pk):
             variant.size.clear()
             variant.color.clear()
             imagelist.pop(0)
-            print(imagelist)
             counter = 0
             for image in imagelist:
                 image_pk = imagelist.__getitem__(counter)
@@ -262,8 +262,10 @@ def editproduct(request, product_pk):
             # formVariant = VariantsForm(request.POST ,instance=variant, prefix="variantsForm")
             # formVariant.save()
         else:
-            if formVariant:
+            if formVariant.is_valid():
                 variant = formVariant.save(commit=False)
+                product.gender = variant.gender
+                product.save()
                 variant.product = product
                 variant.save()
                 variants = Variants.objects.get(product=product)
@@ -291,8 +293,6 @@ def editproduct(request, product_pk):
                     color_entity = Color.objects.get(pk=color_pk)
                     variants.color.add(color_entity)
                     counter += 1
-            else:
-                return JsonResponse({'response': "fail"})
         return JsonResponse({'response': "Success"})
     else:
         return render(request, 'product/editproduct.html', {'product': product,'variant':variant,'categorys': categorys,'genders': genders,'sizes':sizes,'colors':colors,'imageProductList':imageProductList,'variantSize':variantSize,'variantColor':variantColor,'variantImageProduct':variantImageProduct, 'formProduct': formProduct,'formVariant':formVariant,'ImageProductForm':ImageProductForm(prefix="ImageProductForm") ,})
