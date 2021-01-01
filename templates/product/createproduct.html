@@ -326,8 +326,8 @@
                                     <p style=" height: 2em; "></p>
                                 </fieldset>
                             </div>
-                            {% if imageProductList %}
                             <div class="product__image" id="createImageProductList">
+                            {% if imageProductList %}
                                 <fieldset class="product__details--color">
                                     <div class="product__detail--color__lengend--container">
                                         <legend class="product__details--legend">
@@ -375,14 +375,14 @@
                                     </ul>
                                     <p style=" height: 2em; "></p>
                                 </fieldset>
-                            </div>
-                            {% else %}
+                                {% else %}
                             <a href="#createImageProduct" style="color:black; font-size:1.2rem; marin-bottom:1rem">Go to
                                 create new image</a>
                             <div class="product__image" id="id_variantsForm-imageProduct">
 
                             </div>
                             {% endif %}
+                            </div>
                             <div class="button--third" style="margin-top: 30px;">
                                 <button type="submit" class="button--third--button">Create</button>
                             </div>

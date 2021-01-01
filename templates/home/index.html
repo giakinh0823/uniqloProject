@@ -402,13 +402,78 @@
                                 </a>
                             {% endif %}
                                     </div>
+                                    <div class="product__color" style="margin-top:1rem">
+                                        <fieldset class="product__color--fieldset">
+                                            <div style="width:100%; display:flex; flex-wrap:wrap">
+                                                {% for variant in variants%}
+                                                {% if variant.product.id == product.id %}
+                                                {% if variant.color %}
+                                                {% for color in variant.color.all %}
+                                                <div class="product__details--color__color--container">
+                                                    <div class="product__details--chip" style="width: 1.95rem; height:1.9rem">
+                                                        <img src="{{color.image.url}}" alt=""
+                                                            class="product__details--chip--img">
+                                                        <input id="{{color.id}}"
+                                                            class="product__details--chip--radio" name="variantColor"
+                                                             onmouseover="changeColor(this.value)"
+                                                            style="width: 1.95rem; height:1.9rem;">
+                                                        <label for="{{color.id}}" class="product__details--chip--label"
+                                                            style="background-image: url({{color.image.url}}); width: 1.6rem; height:1.6rem; left:0.165rem; top:0.165rem">
+                                                            <div class="product__details--chip--label--short">
+                                                                <svg width="100%" height="100%">
+                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                                                        stroke-opacity="0.6" transform="translate(.5 .5)">
+                                                                    </line>
+                                                                </svg>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                {% else %}
+                                                <div class="product__details--color__color--container">
+                                                    <div class="product__details--chip" style="width:1.9rem; height:1.9rem">
+                                                        <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg"
+                                                            alt="" class="product__details--chip--img">
+                                                        <input id="" class="product__details--chip--radio"
+                                                            name="variantColor" 
+                                                            onmouseover="changeColor(this.value)"
+                                                            style="width: 1.95rem; height:1.9rem; ">
+                                                        <label for="" class="product__details--chip--label"
+                                                            style="background-image: url(https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg);width: 1.6rem; height:1.6rem; left:0.165rem; top:0.165rem">
+                                                            <div class="product__details--chip--label--short">
+                                                                <svg width="100%" height="100%">
+                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                                                        stroke-opacity="0.6" transform="translate(.5 .5)">
+                                                                    </line>
+                                                                </svg>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                                {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                     <div class="caurosel__link--title">
                                         <div class="caurosel__link--category">
                                             <span class="caurosel__category-span span-category">
                                                 {{ product.category.name }}
                                             </span>
                                             <span class="caurosel__category-span span-size">
-                                                70-110
+                                                {% for variant in variants %}
+                                            {% if variant.product.id == product.id %}
+                                            {% if variant.size %}
+                                            {% for size in variant.size.all  %}
+                                            {{size}}
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% endif %}
+                                            {% endfor %}
                                             </span>
                                         </div>
                                         <div class="caurosel__title">
@@ -503,13 +568,78 @@
                                 </a>
                             {% endif %}
                                     </div>
+                                    <div class="product__color" style="margin-top:1rem">
+                                        <fieldset class="product__color--fieldset">
+                                            <div style="width:100%; display:flex; flex-wrap:wrap">
+                                                {% for variant in variants%}
+                                                {% if variant.product.id == product.id %}
+                                                {% if variant.color %}
+                                                {% for color in variant.color.all %}
+                                                <div class="product__details--color__color--container">
+                                                    <div class="product__details--chip" style="width: 1.95rem; height:1.9rem">
+                                                        <img src="{{color.image.url}}" alt=""
+                                                            class="product__details--chip--img">
+                                                        <input id="{{color.id}}"
+                                                            class="product__details--chip--radio" name="variantColor"
+                                                             onmouseover="changeColor(this.value)"
+                                                            style="width: 1.95rem; height:1.9rem;">
+                                                        <label for="{{color.id}}" class="product__details--chip--label"
+                                                            style="background-image: url({{color.image.url}}); width: 1.6rem; height:1.6rem; left:0.165rem; top:0.165rem">
+                                                            <div class="product__details--chip--label--short">
+                                                                <svg width="100%" height="100%">
+                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                                                        stroke-opacity="0.6" transform="translate(.5 .5)">
+                                                                    </line>
+                                                                </svg>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                {% else %}
+                                                <div class="product__details--color__color--container">
+                                                    <div class="product__details--chip" style="width:1.9rem; height:1.9rem">
+                                                        <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg"
+                                                            alt="" class="product__details--chip--img">
+                                                        <input id="" class="product__details--chip--radio"
+                                                            name="variantColor" 
+                                                            onmouseover="changeColor(this.value)"
+                                                            style="width: 1.95rem; height:1.9rem; ">
+                                                        <label for="" class="product__details--chip--label"
+                                                            style="background-image: url(https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg);width: 1.6rem; height:1.6rem; left:0.165rem; top:0.165rem">
+                                                            <div class="product__details--chip--label--short">
+                                                                <svg width="100%" height="100%">
+                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                                                        stroke-opacity="0.6" transform="translate(.5 .5)">
+                                                                    </line>
+                                                                </svg>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                                {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                     <div class="caurosel__link--title">
                                         <div class="caurosel__link--category">
                                             <span class="caurosel__category-span span-category">
                                                 {{ product.category.name }}
                                             </span>
                                             <span class="caurosel__category-span span-size">
-                                                70-110
+                                                {% for variant in variants %}
+                                            {% if variant.product.id == product.id %}
+                                            {% if variant.size %}
+                                            {% for size in variant.size.all  %}
+                                            {{size}}
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% endif %}
+                                            {% endfor %}
                                             </span>
                                         </div>
                                         <div class="caurosel__title">
@@ -604,13 +734,78 @@
                                 </a>
                             {% endif %}
                                     </div>
+                                    <div class="product__color" style="margin-top:1rem">
+                                        <fieldset class="product__color--fieldset">
+                                            <div style="width:100%; display:flex; flex-wrap:wrap">
+                                                {% for variant in variants%}
+                                                {% if variant.product.id == product.id %}
+                                                {% if variant.color %}
+                                                {% for color in variant.color.all %}
+                                                <div class="product__details--color__color--container">
+                                                    <div class="product__details--chip" style="width: 1.95rem; height:1.9rem">
+                                                        <img src="{{color.image.url}}" alt=""
+                                                            class="product__details--chip--img">
+                                                        <input id="{{color.id}}"
+                                                            class="product__details--chip--radio" name="variantColor"
+                                                             onmouseover="changeColor(this.value)"
+                                                            style="width: 1.95rem; height:1.9rem;">
+                                                        <label for="{{color.id}}" class="product__details--chip--label"
+                                                            style="background-image: url({{color.image.url}}); width: 1.6rem; height:1.6rem; left:0.165rem; top:0.165rem">
+                                                            <div class="product__details--chip--label--short">
+                                                                <svg width="100%" height="100%">
+                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                                                        stroke-opacity="0.6" transform="translate(.5 .5)">
+                                                                    </line>
+                                                                </svg>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                {% else %}
+                                                <div class="product__details--color__color--container">
+                                                    <div class="product__details--chip" style="width:1.9rem; height:1.9rem">
+                                                        <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg"
+                                                            alt="" class="product__details--chip--img">
+                                                        <input id="" class="product__details--chip--radio"
+                                                            name="variantColor" 
+                                                            onmouseover="changeColor(this.value)"
+                                                            style="width: 1.95rem; height:1.9rem; ">
+                                                        <label for="" class="product__details--chip--label"
+                                                            style="background-image: url(https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg);width: 1.6rem; height:1.6rem; left:0.165rem; top:0.165rem">
+                                                            <div class="product__details--chip--label--short">
+                                                                <svg width="100%" height="100%">
+                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                                                        stroke-opacity="0.6" transform="translate(.5 .5)">
+                                                                    </line>
+                                                                </svg>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                                {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                     <div class="caurosel__link--title">
                                         <div class="caurosel__link--category">
                                             <span class="caurosel__category-span span-category">
                                                 {{ product.category.name }}
                                             </span>
                                             <span class="caurosel__category-span span-size">
-                                                70-110
+                                                {% for variant in variants %}
+                                            {% if variant.product.id == product.id %}
+                                            {% if variant.size %}
+                                            {% for size in variant.size.all  %}
+                                            {{size}}
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% endif %}
+                                            {% endfor %}
                                             </span>
                                         </div>
                                         <div class="caurosel__title">
@@ -712,13 +907,78 @@
                                 </a>
                             {% endif %}
                                     </div>
+                                    <div class="product__color" style="margin-top:1rem">
+                                        <fieldset class="product__color--fieldset">
+                                            <div style="width:100%; display:flex; flex-wrap:wrap">
+                                                {% for variant in variants%}
+                                                {% if variant.product.id == product.id %}
+                                                {% if variant.color %}
+                                                {% for color in variant.color.all %}
+                                                <div class="product__details--color__color--container">
+                                                    <div class="product__details--chip" style="width: 1.95rem; height:1.9rem">
+                                                        <img src="{{color.image.url}}" alt=""
+                                                            class="product__details--chip--img">
+                                                        <input id="{{color.id}}"
+                                                            class="product__details--chip--radio" name="variantColor"
+                                                             onmouseover="changeColor(this.value)"
+                                                            style="width: 1.95rem; height:1.9rem;">
+                                                        <label for="{{color.id}}" class="product__details--chip--label"
+                                                            style="background-image: url({{color.image.url}}); width: 1.6rem; height:1.6rem; left:0.165rem; top:0.165rem">
+                                                            <div class="product__details--chip--label--short">
+                                                                <svg width="100%" height="100%">
+                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                                                        stroke-opacity="0.6" transform="translate(.5 .5)">
+                                                                    </line>
+                                                                </svg>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                {% else %}
+                                                <div class="product__details--color__color--container">
+                                                    <div class="product__details--chip" style="width:1.9rem; height:1.9rem">
+                                                        <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg"
+                                                            alt="" class="product__details--chip--img">
+                                                        <input id="" class="product__details--chip--radio"
+                                                            name="variantColor" 
+                                                            onmouseover="changeColor(this.value)"
+                                                            style="width: 1.95rem; height:1.9rem; ">
+                                                        <label for="" class="product__details--chip--label"
+                                                            style="background-image: url(https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg);width: 1.6rem; height:1.6rem; left:0.165rem; top:0.165rem">
+                                                            <div class="product__details--chip--label--short">
+                                                                <svg width="100%" height="100%">
+                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                                                        stroke-opacity="0.6" transform="translate(.5 .5)">
+                                                                    </line>
+                                                                </svg>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                                {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                     <div class="caurosel__link--title">
                                         <div class="caurosel__link--category">
                                             <span class="caurosel__category-span span-category">
                                                 {{ product.category.name }}
                                             </span>
                                             <span class="caurosel__category-span span-size">
-                                                70-110
+                                                {% for variant in variants %}
+                                            {% if variant.product.id == product.id %}
+                                            {% if variant.size %}
+                                            {% for size in variant.size.all  %}
+                                            {{size}}
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% endif %}
+                                            {% endfor %}
                                             </span>
                                         </div>
                                         <div class="caurosel__title">
@@ -813,13 +1073,78 @@
                                 </a>
                             {% endif %}
                                     </div>
+                                    <div class="product__color" style="margin-top:1rem">
+                                        <fieldset class="product__color--fieldset">
+                                            <div style="width:100%; display:flex; flex-wrap:wrap">
+                                                {% for variant in variants%}
+                                                {% if variant.product.id == product.id %}
+                                                {% if variant.color %}
+                                                {% for color in variant.color.all %}
+                                                <div class="product__details--color__color--container">
+                                                    <div class="product__details--chip" style="width: 1.95rem; height:1.9rem">
+                                                        <img src="{{color.image.url}}" alt=""
+                                                            class="product__details--chip--img">
+                                                        <input id="{{color.id}}"
+                                                            class="product__details--chip--radio" name="variantColor"
+                                                             onmouseover="changeColor(this.value)"
+                                                            style="width: 1.95rem; height:1.9rem;">
+                                                        <label for="{{color.id}}" class="product__details--chip--label"
+                                                            style="background-image: url({{color.image.url}}); width: 1.6rem; height:1.6rem; left:0.165rem; top:0.165rem">
+                                                            <div class="product__details--chip--label--short">
+                                                                <svg width="100%" height="100%">
+                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                                                        stroke-opacity="0.6" transform="translate(.5 .5)">
+                                                                    </line>
+                                                                </svg>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                {% else %}
+                                                <div class="product__details--color__color--container">
+                                                    <div class="product__details--chip" style="width:1.9rem; height:1.9rem">
+                                                        <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg"
+                                                            alt="" class="product__details--chip--img">
+                                                        <input id="" class="product__details--chip--radio"
+                                                            name="variantColor" 
+                                                            onmouseover="changeColor(this.value)"
+                                                            style="width: 1.95rem; height:1.9rem; ">
+                                                        <label for="" class="product__details--chip--label"
+                                                            style="background-image: url(https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg);width: 1.6rem; height:1.6rem; left:0.165rem; top:0.165rem">
+                                                            <div class="product__details--chip--label--short">
+                                                                <svg width="100%" height="100%">
+                                                                    <line y1="100%" x2="100%" stroke="#DADADA"></line>
+                                                                    <line y1="100%" x2="100%" stroke="#1B1B1B"
+                                                                        stroke-opacity="0.6" transform="translate(.5 .5)">
+                                                                    </line>
+                                                                </svg>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                                {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                     <div class="caurosel__link--title">
                                         <div class="caurosel__link--category">
                                             <span class="caurosel__category-span span-category">
                                                 {{ product.category.name }}
                                             </span>
                                             <span class="caurosel__category-span span-size">
-                                                70-110
+                                                {% for variant in variants %}
+                                            {% if variant.product.id == product.id %}
+                                            {% if variant.size %}
+                                            {% for size in variant.size.all  %}
+                                            {{size}}
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% endif %}
+                                            {% endfor %}
                                             </span>
                                         </div>
                                         <div class="caurosel__title">
@@ -907,7 +1232,5 @@
         </a>
     </div>
 </section>
-
-
 
 {% endblock block_body %}

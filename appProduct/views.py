@@ -23,7 +23,8 @@ def product(request):
     product_list = Product.objects.all()
     categorys = Category.objects.all()
     genders = Gender.objects.all()
-
+    variants = Variants.objects.all()
+    
     page = request.GET.get('page', 1)
     paginator = Paginator(product_list, 12)
     try:
@@ -45,8 +46,8 @@ def product(request):
             products = paginator.page(1)
         except EmptyPage:
             products = paginator.page(paginator.num_pages)
-        return render(request, 'product/product.html', {'products': products, 'productFilter': productFilter,'categorys': categorys, 'genders': genders})
-    return render(request, 'product/product.html', {'products': products, 'categorys': categorys, 'genders': genders})
+        return render(request, 'product/product.html', {'products': products, 'productFilter': productFilter,'categorys': categorys, 'genders': genders,'variants': variants})
+    return render(request, 'product/product.html', {'products': products, 'categorys': categorys, 'genders': genders,})
 
 # search_ajax
 
@@ -262,7 +263,7 @@ def editproduct(request, product_pk):
             # formVariant = VariantsForm(request.POST ,instance=variant, prefix="variantsForm")
             # formVariant.save()
         else:
-            if formVariant.is_valid():
+            if formVariant:
                 variant = formVariant.save(commit=False)
                 product.gender = variant.gender
                 product.save()
@@ -340,8 +341,8 @@ def createimageproduct(request):
         if form.is_valid():
             imageProduct = form.save(commit=False)
             imageProduct.user = request.user
-            if 'image' in request.FILES:
-                imageProduct.image = request.FILES['image']
+            if 'ImageProductForm-image' in request.FILES:
+                imageProduct.image = request.FILES['ImageProductForm-image']
             imageProduct.save()
         imageProductList = ImageProduct.objects.filter(user = request.user)
         return render(request, 'product/createimageproduct.html', {'imageProductList' : imageProductList})  
@@ -353,14 +354,17 @@ def editcreateimageproduct(request, product_pk):
         variant = Variants.objects.get(product = product)
     except Variants.DoesNotExist:
         variant = None
-    variantImageProduct = variant.imageProduct.all()
+    if variant:
+        variantImageProduct = variant.imageProduct.all()
+    else:
+        variantImageProduct = None
     if request.method == 'POST':
         form = ImageProductForm(request.POST,request.FILES, prefix="ImageProductForm", )
         if form.is_valid():
             imageProduct = form.save(commit=False)
             imageProduct.user = request.user
-            if 'image' in request.FILES:
-                imageProduct.image = request.FILES['image']
+            if 'ImageProductForm-image' in request.FILES:
+                imageProduct.image = request.FILES['ImageProductForm-image']
             imageProduct.save()
         imageProductList = ImageProduct.objects.filter(user = request.user)
         return render(request, 'product/createimageproduct.html', {'imageProductList' : imageProductList, 'variantImageProduct':variantImageProduct,'variant': variant})    
@@ -383,6 +387,17 @@ def getnameSizeCreate(request):
         return JsonResponse({'name': size.name})
     
 def getnameColorCreate(request):
+    if request.is_ajax():
+        color = Color.objects.get(id=request.POST.get('id'))
+        return JsonResponse({'name': color.name})
+    
+    
+def getnameSizeEdit(request, product_pk):
+    if request.is_ajax():
+        size = Size.objects.get(id=request.POST.get('id'))
+        return JsonResponse({'name': size.name})
+    
+def getnameColorEdit(request, product_pk):
     if request.is_ajax():
         color = Color.objects.get(id=request.POST.get('id'))
         return JsonResponse({'name': color.name})

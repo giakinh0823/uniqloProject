@@ -19,7 +19,8 @@
             </div>
             <div class="form__form--layout">
                 <div class="form__form--container" style="display: flex; flex-wrap:wrap">
-                    <form action="" method="POST" id="editproduct" enctype="multipart/form-data"  data-id="{{product.id}}">
+                    <form action="" method="POST" id="editproduct" enctype="multipart/form-data"
+                        data-id="{{product.id}}">
                         {% csrf_token %}
                         <div class="form__form--content" style="max-width:60rem">
                             <div class="form__row">
@@ -173,11 +174,8 @@
                                             style="background-color:#f5f5f5e7;">
                                             {% for gender in genders %}
                                             <option value="{{gender.id}}" class="uq-uikit-dropdown__hidden-option"
-                                                aria-selected="true" {% if variant %}
-                                                  {% if variant.gender == gender %}
-                                                    selected
-                                                  {% endif %}
-                                                {% endif %}>
+                                                aria-selected="true" {% if variant %} {% if variant.gender == gender %}
+                                                selected {% endif %} {% endif %}>
                                                 <font style="vertical-align: inherit;">
                                                     <font style="vertical-align: inherit;">{{gender.name}}</font>
                                                 </font>
@@ -212,11 +210,28 @@
                                                 </label>
                                                 <label for="" class="product__details--legend--secondary">
                                                     <font style="vertical-align:inherit;">
-                                                        <font style="vertical-align:inherit;">Nữ L</font>
+                                                        <font style="vertical-align:inherit;"><p id="nameSize"
+                                                            style="margin:0; padding:0; vertical-align:inherit; display:inline-block">
+                                                        </p></font>
                                                     </font>
                                                 </label>
                                             </legend>
                                         </div>
+                                        <script>
+                                            function changeSize(id) {
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url: 'getnameSizeEdit/',
+                                                    data: {
+                                                        'id': id, 'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                                                    },
+                                                    dataType: 'json',
+                                                    success: function (data) {
+                                                        $('#nameSize').text(data.name)
+                                                    }
+                                                })
+                                            } 
+                                        </script>
                                         <ul style="width:100%; display:flex; flex-wrap:wrap;" id="id_variantsForm-size">
                                             {% for size in sizes %}
                                             <li class="product__details--color__color--container">
@@ -224,11 +239,7 @@
                                                     <img alt="" class="product__details--chip--img">
                                                     <input type="checkbox" name="variantsForm-size" value="{{size.id}}"
                                                         id="id_variantsForm-size_{{size.id|add:-1}}"
-                                                        class="product__details--chip--radio" {% if variant %}
-                                                          {% if size in variantSize %}
-                                                            checked
-                                                          {% endif %}
-                                                        {% endif %}>
+                                                        class="product__details--chip--radio" onmouseover="changeSize(this.value)" {% if variant %} {% if size in variantSize %} checked {% endif %} {% endif %}>
                                                     <label for="id_variantsForm-size_{{size.id|add:-1}}"
                                                         class="product__details--chip--label">
                                                         <div class="product__details--chip--label--short">
@@ -265,11 +276,30 @@
                                             </label>
                                             <label for="" class="product__details--legend--secondary">
                                                 <font style="vertical-align:inherit;">
-                                                    <font style="vertical-align:inherit;">03 Xám</font>
+                                                    <font style="vertical-align:inherit;">
+                                                        <p id="nameColor"
+                                                            style="margin:0; padding:0; vertical-align:inherit; display:inline-block">
+                                                        </p>
+                                                    </font>
                                                 </font>
                                             </label>
                                         </legend>
                                     </div>
+                                    <script>
+                                        function changeColor(id) {
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: 'getnameColorEdit/',
+                                                data: {
+                                                    'id': id, 'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                                                },
+                                                dataType: 'json',
+                                                success: function (data) {
+                                                    $('#nameColor').text(data.name)
+                                                }
+                                            })
+                                        } 
+                                    </script>
                                     <ul style="width:100%; display:flex; flex-wrap:wrap" id="id_variantsForm-color">
                                         {% for color in colors %}
                                         <li class="product__details--color__color--container">
@@ -278,11 +308,7 @@
                                                     class="product__details--chip--img">
                                                 <input type="checkbox" id="id_variantsForm-color_{{color.id|add:-1}}"
                                                     value="{{color.id}}" class="product__details--chip--radio"
-                                                    name="variantsForm-color" {% if variant %}
-                                                      {% if color in variantColor  %}
-                                                        checked
-                                                      {% endif %}
-                                                    {% endif %}>
+                                                    name="variantsForm-color"  onmouseover="changeColor(this.value)" {% if variant %} {% if color in variantColor %} checked {% endif %} {% endif %}>
                                                 <label for="id_variantsForm-color_{{color.id|add:-1}}"
                                                     class="product__details--chip--label"
                                                     style="background-image: url({{color.image.url}})">
@@ -302,8 +328,8 @@
                                     <p style=" height: 2em; "></p>
                                 </fieldset>
                             </div>
-                            {% if imageProductList %}
                             <div class="product__image" id="createImageProductList">
+                                {% if imageProductList %}
                                 <fieldset class="product__details--color">
                                     <div class="product__detail--color__lengend--container">
                                         <legend class="product__details--legend">
@@ -322,7 +348,8 @@
                                             </label> -->
                                         </legend>
                                     </div>
-                                    <ul style="width:100%; display:flex; flex-wrap:wrap" id="id_variantsForm-imageProduct">
+                                    <ul style="width:100%; display:flex; flex-wrap:wrap"
+                                        id="id_variantsForm-imageProduct">
                                         {% for imageProduct in imageProductList %}
                                         <li class="product__details--color__color--container">
                                             <div class="product__details--chip">
@@ -331,11 +358,7 @@
                                                 <input type="checkbox"
                                                     id="id_variantsForm-imageProduct_{{imageProduct|add:-1}}"
                                                     value="{{imageProduct.id}}" class="product__details--chip--radio"
-                                                    name="variantsForm-imageProduct" {% if variant %}
-                                                      {% if imageProduct in variantImageProduct %}
-                                                        checked
-                                                      {% endif %}
-                                                    {% endif %}>
+                                                    name="variantsForm-imageProduct" {% if variant %} {% if imageProduct in variantImageProduct %} checked {% endif %} {% endif %}>
                                                 <label for="id_variantsForm-imageProduct_{{imageProduct|add:-1}}"
                                                     class="product__details--chip--label"
                                                     style="background-image: url({{imageProduct.image.url}});">
@@ -354,20 +377,22 @@
                                     </ul>
                                     <p style=" height: 2em; "></p>
                                 </fieldset>
-                            </div>
-                            {% else %}
-                            <a href="#createImageProduct" style="color:black; font-size:1.2rem; marin-bottom:1rem">Go to
-                                create new image</a>
-                            <div class="product__image" id="createImageProductList">
+                                {% else %}
+                                <a href="#editImageProduct"
+                                    style="color:black; font-size:1.2rem; marin-bottom:1rem">Go to
+                                    create new image</a>
+                                <div class="product__image" id="createImageProductList">
 
+                                </div>
+                                {% endif %}
                             </div>
-                            {% endif %}
                             <div class="button--third" style="margin-top: 30px;">
-                                <button type="submit" class="button--third--button"  data-id="{{product.id}}">Save</button>
+                                <button type="submit" class="button--third--button"
+                                    data-id="{{product.id}}">Save</button>
                             </div>
                         </div>
                     </form>
-                    <form action=""  method="POST" style="max-width:50%; margin: 0 auto; margin-top: 50px; "
+                    <form action="" method="POST" style="max-width:50%; margin: 0 auto; margin-top: 50px; "
                         class="text-center" id="editImageProduct" enctype="multipart/form-data">
                         {% csrf_token %}
                         <header class="form__header--header">
@@ -404,7 +429,7 @@
                                 id="id_ImageProductForm-image" required accept="image/*" type="file">
                         </div>
                         <div class="button--third" style="margin: 50px auto;">
-                            <button type="submit" class="button--third--button" >Submit</button>
+                            <button type="submit" class="button--third--button">Submit</button>
                         </div>
                     </form>
                 </div>

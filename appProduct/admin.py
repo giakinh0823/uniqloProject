@@ -13,6 +13,7 @@ class ImageProductItemInline(admin.TabularInline):
     readonly_fields =('id',)
     raw_id_fields = ['product']
     
+ 
 
 class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ('datecreated',)
