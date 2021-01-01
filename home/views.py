@@ -2,13 +2,16 @@ from django.shortcuts import render
 from order.models import Cart
 from order.views import carts
 from favourite.views import favourites
-from appProduct.models import Product
+from appProduct.models import Product, Category, Gender, Variants
 from favourite.models import Favourite
 
 # Create your views here.
 
 def index(request):
     products = Product.objects.all()[0:20]
+    categorys = Category.objects.all()
+    genders = Gender.objects.all()
+    variants = Variants.objects.all()
     if request.user.is_authenticated:
         favourites.clear()
         carts.clear()
@@ -38,6 +41,6 @@ def index(request):
         request.session['favourites'] = favourites
         request.session['quantity']=quantity
         request.session['carts']=carts
-        return render(request, 'home/index.html', {'quantity': quantity, 'products': products})
+        return render(request, 'home/index.html', {'quantity': quantity, 'products': products, 'variants': variants})
     else:
-        return render(request, 'home/index.html',{'products': products})
+        return render(request, 'home/index.html',{'products': products, 'variants': variants})
