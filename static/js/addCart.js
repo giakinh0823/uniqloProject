@@ -21,17 +21,25 @@ const csrftokenCart = getCookieCart('csrftoken');
         if (!num) { //nếu không tồn tại num thì tức là lấy ở product ở phần home..show product
             num = 1;
         }
+        var getcolor = $('input[name="variantColor"]:checked').map(function(){
+            return this.value;
+        }).get()
+        color=getcolor[0]
+        var getsize = $('input[name="variantSize"]:checked').map(function(){
+            return this.value;
+        }).get()
+        size=getsize[0]
         str = "#" + id;
         $.ajax({
             type: "POST", 
             url: 'addcart/',
-            data: { 'id':id, 'num': num, 'csrfmiddlewaretoken': csrftokenCart},
+            data: { 'id':id, 'num': num, 'color':color, 'size':size ,'csrfmiddlewaretoken': csrftokenCart},
             dataType: "json",
             success: function (data) {
                 $("#cartquantity").text(data.quantity)
-                if (data.quantitproduct>=10){
-                    $(str).remove()
-                }
+                // if (data.quantitproduct>=10){
+                //     $(str).remove()
+                // }
             }
         });
         // $.post("addcart/", {'id':id, 'num': num, 'csrfmiddlewaretoken': csrftoken},

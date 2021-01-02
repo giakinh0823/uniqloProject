@@ -46,6 +46,9 @@
             <div class="outer">
                 {% if variantImageProduct %}
                 <div id="thumbs" class="owl-carousel owl-theme" style=" min-width: 12.625rem;">
+                    <div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div>
                     {% for image in variantImageProduct %}
                     <div class="item">
                         <img src="{{image.image.url}}" alt="">
@@ -67,6 +70,9 @@
                 {% endif %}
                 {% if variantImageProduct %}
                 <div id="big" class="owl-carousel owl-theme">
+                    <div class="item">
+                        <img src="{{product.image.url}}" alt="">
+                    </div>
                     {% for image in variantImageProduct %}
                     <div class="item" style="max-height: 600px!important;">
                         <img src="{{image.image.url}}" alt="">
@@ -239,7 +245,7 @@
                                                     <div class="product__details--chip">
                                                         <img alt="" class="product__details--chip--img">
                                                         <input type="radio" id="{{size.id}}"
-                                                            class="product__details--chip--radio" name="variantSize"
+                                                            class="product__details--chip--radio getsizeproduct" name="variantSize"
                                                             value="{{size.id}}" onmouseover="changeSize(this.value)">
                                                         <label for="{{size.id}}" class="product__details--chip--label">
                                                             <div class="product__details--chip--label--short">
@@ -396,7 +402,7 @@
                             <p style=" height: 1rem; "></p>
                         </div>
                         <div class="product__details--button--group" style="display: flex;">
-                            <a class="button--secondary button--secondary--light">
+                            <a href="{% url 'appProduct:product' %}" class="button--secondary button--secondary--light">
                                 <p class="button--secondary--label">
                                     <font style="vertical-align: inherit;">
                                         <font style="vertical-align: inherit;">Tìm kiếm kho hàng</font>

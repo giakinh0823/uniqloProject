@@ -1,0 +1,354 @@
+.basket__layout {
+    margin-bottom: 3.125rem;
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+}
+
+.basket__container {
+    border: 1px solid #dadada;
+    padding: 0 2.5rem;
+    display: block;
+    width: 100%;
+    background-color: #fff;
+}
+
+.basket__list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.basket__item {
+    padding-top: 0;
+    border-top: none;
+    padding: 2.5rem 0;
+    margin: 0;
+    border: none;
+    border-bottom: 1px solid #dadada;
+
+    &--container {}
+}
+
+
+.basket__media {
+    &--object {
+        display: flex;
+    }
+
+    &--image {
+        height: auto;
+        width: 16.5rem;
+        margin-right: 2.5rem;
+        flex-shrink: 0;
+        flex-grow: 0;
+
+        &--container {
+            margin: 0;
+            position: relative;
+        }
+    }
+
+    &--link {
+        cursor: pointer;
+        text-decoration: none;
+        color: #1b1b1b;
+        width: 100%;
+        height: auto;
+        display: block;
+        position: relative;
+        outline: 0;
+
+        &--image {
+            padding-top: 100%;
+            background-color: #f4f4f4;
+            display: block;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+
+            &--img {
+                opacity: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border-style: none;
+            }
+        }
+    }
+}
+
+
+.basket__favourite {
+    top: 0;
+    right: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+}
+
+
+.basket__info {
+    &--layout {
+        max-width: 44.35%;
+        display: flex;
+        margin: -1rem 0 0 -1.5rem;
+    }
+
+    &--container {
+        width: 100%;
+        margin-top: 1rem;
+        margin-left: 1.5rem;
+        flex-grow: 999;
+    }
+
+    &--link--title {
+        text-decoration: none;
+        color: #1b1b1b;
+        margin-bottom: 1rem;
+        width: 100%;
+        height: auto;
+        display: block;
+        position: relative;
+        outline: 0;
+
+        &:not(:disabled) {
+            cursor: pointer;
+        }
+
+        &:hover {
+            color: #1b1b1b;
+        }
+
+        &--h3 {
+            font-size: 1.7375rem;
+            color: #1b1b1b;
+            font-weight: 500;
+            margin: 0;
+            font-style: normal;
+            line-height: 1.5;
+        }
+    }
+
+    &--label {
+        font-size: 1.4125rem;
+        font-weight: 300;
+        margin: 0;
+        margin-bottom: .6rem;
+        color: #1b1b1b;
+        font-style: normal;
+        line-height: 1.5;
+    }
+
+    &--price {
+        color: #1b1b1b;
+        margin: 0;
+        font-style: normal;
+        line-height: 1.5;
+
+        span {
+            font-size: 1.4125rem;
+            font-weight: 300;
+            color: #1b1b1b;
+            font-style: normal;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .basket__info--price--red {
+            font-weight: 500;
+            font-size: 1.4125rem;
+            color: red;
+            font-style: normal;
+            line-height: 1.5;
+            margin: 0;
+        }
+    }
+}
+
+
+.basket__delete {
+    margin: 1rem 0 0 0;
+    padding: 0;
+
+    &--container {
+        padding-bottom: 0;
+        padding-top: 0;
+        display: inline-block;
+
+    }
+
+    &--button {
+        &:not(:disabled) {
+            cursor: pointer;
+            display: inline;
+            overflow: visible;
+            text-decoration: underline;
+            margin: 0;
+            outline: 0;
+            text-align: left;
+            color: #1b1b1b;
+            position: relative;
+            padding: 0;
+            border: none;
+            background: 0 0;
+            font: inherit;
+
+        }
+    }
+
+    &--span {
+        font-weight: 500;
+        font-size: 1.3625rem;
+        letter-spacing: normal;
+        color: #1b1b1b;
+        text-transform: none;
+        margin: 0;
+        padding: 0;
+        line-height: 1.25;
+        font-style: normal;
+    }
+}
+
+
+.basket__actions {
+    max-width: 30%;
+    margin-top: 0.6rem;
+    min-width: 10.5rem;
+    margin-left: auto;
+    flex-grow: 1;
+}
+
+.basket__quantity--price {
+    span {
+        padding: 0;
+        font-size: 1.4375rem;
+        color: #1b1b1b;
+        font-weight: 500;
+        margin: 0;
+        font-style: normal;
+        line-height: 1.5;
+    }
+
+    &--red {
+        display: inline-block;
+        font-size: 1.6rem !important;
+        color: red !important;
+        padding: 0;
+        margin: 0;
+        font-style: normal;
+        line-height: 1.5;
+    }
+}
+
+
+.basket__bill {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    vertical-align: top;
+    display: inline-block;
+
+    &--container {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        flex-wrap: nowrap;
+        vertical-align: top;
+        display: inline-block;
+    }
+
+    &--details {
+        width: 100%;
+        margin-bottom: 3rem;
+    }
+
+    &--header {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: stretch;
+        margin-bottom: 2rem;
+        padding: 0;
+    }
+
+    &--span {
+        display: inline-block;
+        font-size: 1.6125rem;
+        color: #1b1b1b;
+        font-weight: 500;
+        font-style: normal;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+    }
+
+    &--border--bottom {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        margin: 0;
+        padding: 0;
+        margin-bottom: .5rem;
+        border-bottom: 1px solid #dadada;
+        overflow: visible;
+    }
+
+    &--info {
+        padding: 0;
+        margin-bottom: 1rem;
+    }
+
+    &--table {
+        margin: 0;
+        width: 100%;
+        border-collapse: collapse;
+
+        td {
+            &:not(:last-child) {
+                padding-right: 1.5rem;
+            }
+        }
+        tfoot{
+            border-top: 1px solid #dadada;
+        }
+    }
+
+    &--td--start {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        text-align: left;
+
+    }
+
+    &--td--end {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        text-align: right;
+
+    }
+
+    &--td--span {
+        font-weight: 300;
+        font-size: 1.6375rem;
+        color: #1b1b1b;
+        font-style: normal;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+    }
+
+}
+
+.basket__bill--td--span--weight {
+    font-weight: 500;
+}

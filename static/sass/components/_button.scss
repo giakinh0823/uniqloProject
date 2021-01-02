@@ -204,6 +204,9 @@ svg:not(:root) {
     &:hover {
         background-color: #ff5959;
     }
+    &:disabled{
+        background-color: #ff5959e8!important;
+    }
 }
 
 

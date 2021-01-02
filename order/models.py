@@ -1,5 +1,5 @@
 from django.db import models
-from appProduct.models import Product, Gender
+from appProduct.models import Product, Gender, Color, Size
 from django.contrib.auth.models import User
 
 
@@ -8,7 +8,11 @@ from django.contrib.auth.models import User
 class Cart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    color = models.CharField(max_length=20,default=None, blank=True, null=True)
+    size = models.CharField(max_length=20,default=None, blank=True, null=True)
+    image = models.ImageField(upload_to='cartImages', default=None, blank=True, null=True)
     quantity = models.IntegerField(default=1)
+    totalprice = models.DecimalField(default=None, blank=True, null=True,max_digits = 20,decimal_places=2)
     def __str__(self) -> str:
         return self.product.name 
     

@@ -292,12 +292,12 @@
                                             {% if variant.color %}
                                             {% for color in variant.color.all %}
                                             <div class="product__details--color__color--container">
-                                                <div class="product__details--chip" style="width: 1.95rem; height:1.9rem">
+                                                <div class="product__details--chip"
+                                                    style="width: 1.95rem; height:1.9rem">
                                                     <img src="{{color.image.url}}" alt=""
                                                         class="product__details--chip--img">
-                                                    <input id="{{color.id}}"
-                                                        class="product__details--chip--radio" name="variantColor"
-                                                         onmouseover="changeColor(this.value)"
+                                                    <input id="{{color.id}}" class="product__details--chip--radio"
+                                                        name="variantColor" onmouseover="changeColor(this.value)"
                                                         style="width: 1.95rem; height:1.9rem;">
                                                     <label for="{{color.id}}" class="product__details--chip--label"
                                                         style="background-image: url({{color.image.url}}); width: 1.6rem; height:1.6rem; left:0.165rem; top:0.165rem">
@@ -319,8 +319,7 @@
                                                     <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg"
                                                         alt="" class="product__details--chip--img">
                                                     <input id="" class="product__details--chip--radio"
-                                                        name="variantColor" 
-                                                        onmouseover="changeColor(this.value)"
+                                                        name="variantColor" onmouseover="changeColor(this.value)"
                                                         style="width: 1.95rem; height:1.9rem; ">
                                                     <label for="" class="product__details--chip--label"
                                                         style="background-image: url(https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/439193/chip/goods_09_439193_chip.jpg);width: 1.6rem; height:1.6rem; left:0.165rem; top:0.165rem">
@@ -350,7 +349,7 @@
                                             {% for variant in variants %}
                                             {% if variant.product.id == product.id %}
                                             {% if variant.size %}
-                                            {% for size in variant.size.all  %}
+                                            {% for size in variant.size.all %}
                                             {{size}}
                                             {% endfor %}
                                             {% endif %}
@@ -378,62 +377,44 @@
                                         </p>
                                     </div>
                                 </div>
-                                {% if request.session.carts %}
-                                {% if product.id|slugify in request.session.carts.keys %}
-                                <span style="display: none;">{{ product.id|stringformat:"product" }}</span>
-                                {% if request.session.carts.product.num < 10 %} <a onclick="addCart({{ product.id }})"
+                                <a onclick="addCart({{ product.id }})"
                                     class="btn btn-outline-dark" style="margin: 20px 0; padding: 7px 12px;"
-                                    id="{{ product.id }}">Add to
-                                    card
+                                    id="{{ product.id }}">Add to card</a>
+                            </div>
                         </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="nav_page" style="display: flex; justify-content: center; margin-top:3.25rem">
+                    {% if products.has_other_pages %}
+                    <div class="btn-group me-2" role="group" aria-label="Second group"
+                        style="height:34px; width:30px; text-align:center">
+                        {% if products.has_previous %}
+                        <a class="btn btn-outline-secondary" href="?page={{ products.previous_page_number }}"
+                            style="display: block; padding: 1rem 1.6rem;">&laquo;</a>
+                        {% else %}
+                        <a class="btn btn-outline-secondary disabled" style="display: block; "><span>&laquo;</span></li>
+                            </a>
+                        {% endif %}
+                        {% for i in products.paginator.page_range %}
+                        {% if products.number == i %}
+                        <a class="btn btn-outline-secondary active" style="display: block;"><span>{{ i }}</span></a>
+                        {% else %}
+                        <a class="btn btn-outline-secondary" href="?page={{ i }}"
+                            style="display:block;padding: 1rem 1.6rem;">{{i}}</a>
+                        {% endif %}
+                        {% endfor %}
+                        {% if products.has_next %}
+                        <a class="btn btn-outline-secondary" href="?page={{ products.next_page_number }}"
+                            style="display: block; padding: 1rem 1.6rem;">&raquo;</a>
+                        {% else %}
+                        <a class="btn btn-outline-secondary disabled" style="display: block;"><span>&raquo;</span></a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
             </div>
-            </a>
-            {% endif %}
-            {% else %}
-            {% if product.id|slugify not in request.session.carts.keys %}
-            <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
-                style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
-                card</a>
-            {% endif %}
-            {% endif %}
-            {% else %}
-            <a onclick="addCart({{ product.id }})" class="btn btn-outline-dark"
-                style="margin: 20px 0; padding: 7px 12px;" id="{{ product.id }}">Add to
-                card</a>
-            {% endif %}
         </div>
-        </a>
-        </li>
-        {% endfor %}
-        </ul>
-        <div class="nav_page" style="display: flex; justify-content: center; margin-top:3.25rem">
-            {% if products.has_other_pages %}
-            <div class="btn-group me-2" role="group" aria-label="Second group"
-                style="height:34px; width:30px; text-align:center">
-                {% if products.has_previous %}
-                <a class="btn btn-outline-secondary" href="?page={{ products.previous_page_number }}"
-                    style="display: block; padding: 1rem 1.6rem;">&laquo;</a>
-                {% else %}
-                <a class="btn btn-outline-secondary disabled" style="display: block; "><span>&laquo;</span></li></a>
-                {% endif %}
-                {% for i in products.paginator.page_range %}
-                {% if products.number == i %}
-                <a class="btn btn-outline-secondary active" style="display: block;"><span>{{ i }}</span></a>
-                {% else %}
-                <a class="btn btn-outline-secondary" href="?page={{ i }}" style="display:block;padding: 1rem 1.6rem;">{{i}}</a>
-                {% endif %}
-                {% endfor %}
-                {% if products.has_next %}
-                <a class="btn btn-outline-secondary" href="?page={{ products.next_page_number }}"
-                    style="display: block; padding: 1rem 1.6rem;">&raquo;</a>
-                {% else %}
-                <a class="btn btn-outline-secondary disabled" style="display: block;"><span>&raquo;</span></a>
-                {% endif %}
-            </div>
-            {% endif %}
-        </div>
-    </div>
-    </div>
     </div>
 </section>
 

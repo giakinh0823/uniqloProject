@@ -15,18 +15,28 @@ function getCookie(name) {
 }
 const csrftoken = getCookie('csrftoken');
 
-function changeQuantityCart(obj, id){
+function changeQuantityCart(obj, cartid, id){
     num = obj.value; //lấy ở product detail đưa ra số lượng bao nhiêu đểu mình mua
     if (!num) { //nếu không tồn tại num thì tức là lấy ở product ở phần home..show product
         num = 1;
     }
+    strproductpriceid= "#productprice--" + cartid
+    strcartcolorid = "#getCartColor--"+cartid
+    strcartsizeid = "#getCartSize--"+cartid
+    color = $(strcartcolorid).text()
+    size = $(strcartsizeid).text()
     $.ajax({
         type: 'POST',
         url: 'addcart/',
-        data: { 'id':id, 'num': num, 'csrfmiddlewaretoken': csrftoken},
+        data: { 'id':id, 'num': num,'color':color, 'size':size, 'csrfmiddlewaretoken': csrftoken},
         dataType: "json",
         success: function (data) {
-            $("#cartquantity").text(data.quantity)
+            $("#cartquantity").text(data.quantity);
+            $("#totalquantity").text(data.quantity);
+            $("#totalpricecart").text(data.totalprice);
+            totalpricetax= parseInt(data.totalprice)+2000;
+            $("#totalpricecarttax").text(totalpricetax);
+            $(strproductpriceid).text(data.productprice);
         }
     });
 }
