@@ -43,7 +43,7 @@ def addcart(request):
             itemCart = {
                 'name': productDetail.name,
                 'price': str(productDetail.price),
-                'image': str(productDetail.image),  #nếu có hình ảnh thì convert sang string
+                'image': productDetail.image.url,  #nếu có hình ảnh thì convert sang string
                 'num': int(carts[id_product]['num'])+1,
                 'gender': str(productDetail.gender),
                 'color': str(color),
@@ -54,7 +54,7 @@ def addcart(request):
             itemCart = {
                 'name': productDetail.name,
                 'price': str(productDetail.price),
-                'image': str(productDetail.image),  #nếu có hình ảnh thì convert sang string
+                'image': productDetail.image.url,  #nếu có hình ảnh thì convert sang string
                 'num': num,
                 'gender': str(productDetail.gender),
                 'color': str(color),
@@ -88,7 +88,7 @@ def addcart(request):
             totalprice=0
             for key, value in cartInfo.items():
                 quantity += int(value['num'])
-                totalprice += int(value['num'])*int(value['price'])
+                totalprice += int(value['num'])*int(float(value['price']))
             request.session['quantity']=quantity
         # html = render_to_string('product/addcart.html',{'carts': cartInfo})
     return JsonResponse({'quantity': quantity, 'quantitproduct': itemCart['num'], 'carts': request.session['carts'], 'totalprice': totalprice})
@@ -119,30 +119,56 @@ def addcartdetail(request, product_pk):
                 variant = None
         else:
             variant = None
-        
-        if id_product in carts.keys():
-            itemCart = {
-                'name': productDetail.name,
-                'price': str(productDetail.price),
-                'image': str(productDetail.image),  #nếu có hình ảnh thì convert sang string
-                'num': int(carts[id_product]['num']) + int(num),
-                'gender': str(productDetail.gender),
-                'color': str(color),
-                'size': str(size),
-                'totalprice':  int(int(num) * int(productDetail.price))
-            }
+        if request.user.is_authenticated:
+            if id_product in carts.keys():
+                itemCart = {
+                    'name': productDetail.name,
+                    'price': str(productDetail.price),
+                    'image': productDetail.image.url,   #nếu có hình ảnh thì convert sang string
+                    'num': int(carts[id_product]['num']) + int(num),
+                    'gender': str(productDetail.gender),
+                    'color': str(color),
+                    'size': str(size),
+                    'totalprice':  int(int(num) * int(float(productDetail.price)))
+                }
+            else:
+                itemCart = {
+                    'name': productDetail.name,
+                    'price': str(productDetail.price),
+                    'image': productDetail.image.url,  #nếu có hình ảnh thì convert sang string
+                    'num': num,
+                    'gender': str(productDetail.gender),
+                    'color': str(color),
+                    'size': str(size),
+                    'totalprice':  int(int(num) * int(float(productDetail.price)))
+                }
         else:
-            itemCart = {
-                'name': productDetail.name,
-                'price': str(productDetail.price),
-                'image': str(productDetail.image),  #nếu có hình ảnh thì convert sang string
-                'num': num,
-                'gender': str(productDetail.gender),
-                'color': str(color),
-                'size': str(size),
-                'totalprice':  int(int(num) * int(productDetail.price))
-            }
-        carts[id_product]= itemCart
+            if str(id_product)+str(colorid)+str(sizeid) in carts.keys():
+                itemCart = {
+                    'name': productDetail.name,
+                    'price': str(productDetail.price),
+                    'image': productDetail.image.url,   #nếu có hình ảnh thì convert sang string
+                    'num': int(carts[id_product+colorid+sizeid]['num']) + int(num),
+                    'gender': str(productDetail.gender),
+                    'color': str(color),
+                    'size': str(size),
+                    'totalprice':  int(int(num) * int(float(productDetail.price)))
+                }
+            else:
+                itemCart = {
+                    'name': productDetail.name,
+                    'price': str(productDetail.price),
+                    'image': productDetail.image.url,  #nếu có hình ảnh thì convert sang string
+                    'num': num,
+                    'gender': str(productDetail.gender),
+                    'color': str(color),
+                    'size': str(size),
+                    'totalprice':  int(int(num) * int(float(productDetail.price)))
+                }
+        if request.user.is_authenticated:
+            carts[id_product]= itemCart
+        else:
+            carts[str(id_product)+str(colorid)+str(sizeid)]=itemCart
         request.session['carts'] = carts
         cartInfo = request.session['carts']
         if request.user.is_authenticated:
@@ -169,7 +195,7 @@ def addcartdetail(request, product_pk):
             totalprice=0
             for key, value in cartInfo.items():
                 quantity += int(value['num'])
-                totalprice += int(value['num'])*int(value['price'])
+                totalprice += int(value['num'])*int(float(value['price']))
             request.session['quantity']=quantity
         # quantity=0   
         # for key, value in cartInfo.items():
@@ -182,24 +208,52 @@ def addcartbasket(request):
         id_product = request.POST.get('id')
         num = request.POST.get('num')
         color = request.POST.get('color')
-        size = request.POST.get('size')
-        productDetail = Product.objects.get(id=id_product)
-        if productDetail:
-            try:
-                variant = Variants.objects.get(product= productDetail)
-            except Variants.DoesNotExist:
-                variant = None
+        size = request.POST.get('size') 
+        name = request.POST.get('name') 
+        gender = request.POST.get('gender') 
+        price = request.POST.get('price') 
+        image = request.POST.get('image') 
+        if request.user.is_authenticated:
+            pass
         else:
-            variant = None
-        itemCart = {
-            'name': productDetail.name,
-            'price': str(productDetail.price),
-            'image': str(productDetail.image),  #nếu có hình ảnh thì convert sang string
-            'num': num,
-            'gender': str(productDetail.gender),
-            'color': color,
-            'size': size,
-        }
+            colorid = Color.objects.filter(name=color)[0].id
+            sizeid = Size.objects.filter(name = size)[0].id
+        if request.user.is_authenticated:
+            productDetail = Product.objects.get(id=id_product)
+            if productDetail:
+                try:
+                    variant = Variants.objects.get(product= productDetail)
+                except Variants.DoesNotExist:
+                    variant = None
+            else:
+                variant = None
+            itemCart = {
+                'name': productDetail.name,
+                'price': str(productDetail.price),
+                'image': productDetail.image.url,  #nếu có hình ảnh thì convert sang string
+                'num': int(num),
+                'gender': str(productDetail.gender),
+                'color': color,
+                'size': size,
+                'totalprice':  int(int(num) * int(float(productDetail.price)))
+            }
+        else:
+            itemCart = {
+                'name': name,
+                'price': price,
+                'image': image,  #nếu có hình ảnh thì convert sang string
+                'num': int(num),
+                'gender': gender,
+                'color': color,
+                'size': size,
+                'totalprice':  int(int(num) * int(float(price)))
+            }
+        if request.user.is_authenticated:
+            carts[id_product]= itemCart
+        else:
+            # carts[str(id_product)+str(colorid)+str(sizeid)]=itemCart
+            carts[id_product]= itemCart
+            print(str(id_product)+str(colorid)+str(sizeid))
         carts[id_product]= itemCart
         request.session['carts'] = carts
         if request.user.is_authenticated:
@@ -220,12 +274,15 @@ def addcartbasket(request):
                 quantity += int(item.quantity)
                 totalprice += int(item.quantity) * int(item.product.price)
             request.session['quantity']=quantity
-        # quantity=0   
-        # for key, value in cartInfo.items():
-        #     quantity += int(value['num'])  
-    
+        else:
+            quantity=0
+            totalprice=0   
+            for key, value in carts.items():
+                quantity += int(value['num'])  
+                totalprice += int(value['num']) * int(float(value['price']))    
+            request.session['quantity']=quantity
     productprice = int(itemCart['num']) * int(float(itemCart['price']))
-    return JsonResponse({'quantity': quantity, 'totalprice': totalprice, 'productprice':productprice})
+    return JsonResponse({'quantity': quantity, 'totalprice': totalprice, 'productprice':productprice, 'carts': request.session['carts']})
 
 
 

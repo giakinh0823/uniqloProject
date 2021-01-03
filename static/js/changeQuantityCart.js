@@ -23,12 +23,20 @@ function changeQuantityCart(obj, cartid, id){
     strproductpriceid= "#productprice--" + cartid
     strcartcolorid = "#getCartColor--"+cartid
     strcartsizeid = "#getCartSize--"+cartid
+    strcartgender = "#getCartgender--"+cartid
+    strcartname = "#getCartName--"+cartid
+    strcartprice = "#getCartPrice--"+cartid
+    strcartimage = "#getImageCart--"+cartid;
     color = $(strcartcolorid).text()
     size = $(strcartsizeid).text()
+    namecart = $(strcartname).text()
+    gender = $(strcartgender).text()
+    price = $(strcartprice).text()
+    image = $(strcartimage).attr('src')
     $.ajax({
         type: 'POST',
         url: 'addcart/',
-        data: { 'id':id, 'num': num,'color':color, 'size':size, 'csrfmiddlewaretoken': csrftoken},
+        data: { 'id':id,'name':namecart,'gender':gender, 'price':price,  'num': num,'color':color, 'size':size,'image':image, 'csrfmiddlewaretoken': csrftoken},
         dataType: "json",
         success: function (data) {
             $("#cartquantity").text(data.quantity);
