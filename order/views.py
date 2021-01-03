@@ -39,29 +39,58 @@ def addcart(request):
         else:
             color = "None+"
             size = "None+"
-        if id_product in carts.keys():
-            itemCart = {
-                'name': productDetail.name,
-                'price': str(productDetail.price),
-                'image': productDetail.image.url,  #nếu có hình ảnh thì convert sang string
-                'num': int(carts[id_product]['num'])+1,
-                'gender': str(productDetail.gender),
-                'color': str(color),
-                'size': str(size),
-                'totalprice':  int((int(carts[id_product]['num'])+1) * int(productDetail.price))
-            }
+            sizeid=1010
+            colorid=1010
+        if request.user.is_authenticated:       
+            if id_product in carts.keys():
+                itemCart = {
+                    'name': productDetail.name,
+                    'price': str(productDetail.price),
+                    'image': productDetail.image.url,  #nếu có hình ảnh thì convert sang string
+                    'num': int(carts[id_product]['num'])+1,
+                    'gender': str(productDetail.gender),
+                    'color': str(color),
+                    'size': str(size),
+                    'totalprice':  int((int(carts[id_product]['num'])+1) * int(productDetail.price))
+                }
+            else:
+                itemCart = {
+                    'name': productDetail.name,
+                    'price': str(productDetail.price),
+                    'image': productDetail.image.url,  #nếu có hình ảnh thì convert sang string
+                    'num': num,
+                    'gender': str(productDetail.gender),
+                    'color': str(color),
+                    'size': str(size),
+                    'totalprice':  int(int(num) * int(productDetail.price))
+                }
         else:
-            itemCart = {
-                'name': productDetail.name,
-                'price': str(productDetail.price),
-                'image': productDetail.image.url,  #nếu có hình ảnh thì convert sang string
-                'num': num,
-                'gender': str(productDetail.gender),
-                'color': str(color),
-                'size': str(size),
-                'totalprice':  int(int(num) * int(productDetail.price))
-            }
-        carts[id_product]= itemCart
+            if str(id_product)+str(colorid)+str(sizeid) in carts.keys():
+                itemCart = {
+                    'name': productDetail.name,
+                    'price': str(productDetail.price),
+                    'image': productDetail.image.url,  #nếu có hình ảnh thì convert sang string
+                    'num': int(carts[str(id_product)+str(colorid)+str(sizeid)]['num'])+1,
+                    'gender': str(productDetail.gender),
+                    'color': str(color),
+                    'size': str(size),
+                    'totalprice':  int((int(carts[str(id_product)+str(colorid)+str(sizeid)]['num'])+1) * int(productDetail.price))
+                }
+            else:
+                itemCart = {
+                    'name': productDetail.name,
+                    'price': str(productDetail.price),
+                    'image': productDetail.image.url,  #nếu có hình ảnh thì convert sang string
+                    'num': num,
+                    'gender': str(productDetail.gender),
+                    'color': str(color),
+                    'size': str(size),
+                    'totalprice':  int(int(num) * int(productDetail.price))
+                }
+        if request.user.is_authenticated:
+            carts[id_product]= itemCart
+        else:
+            carts[str(id_product)+str(colorid)+str(sizeid)]=itemCart
         request.session['carts'] = carts
         cartInfo = request.session['carts']
         if request.user.is_authenticated:
@@ -103,12 +132,12 @@ def addcartdetail(request, product_pk):
             color = Color.objects.get(id=colorid)
         else: 
             color = "None+"
-            colorid=10101010
+            colorid=1010
         if sizeid:
             size = Size.objects.get(id=sizeid)
         else:
             size = "None+"
-            sizeid=10101010
+            sizeid=1010
         if num:
             num=num
         else:
@@ -219,13 +248,19 @@ def addcartbasket(request):
             pass
         else:
             if color == "None+":
-                colorid=10101010
+                colorid=1010
             else:
-                colorid = Color.objects.filter(name=color)[0].id
+                try:
+                    colorid = Color.objects.filter(name=color)[0].id
+                except Color.DoesNotExist:
+                    colorid=1010
             if size == "None+":
-                sizeid=10101010
+                sizeid=1010
             else:
-                sizeid = Size.objects.filter(name = size)[0].id
+                try:
+                    sizeid = Size.objects.filter(name = size)[0].id
+                except Size.DoesNotExist:
+                    sizeid=1010
         if request.user.is_authenticated:
             productDetail = Product.objects.get(id=id_product)
             if productDetail:
