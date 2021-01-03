@@ -56,16 +56,20 @@ def loginuser(request):
                 cartInfo = None
             if cartInfo != None:
                 for key, value in cartInfo.items():
-                    productDetail = Product.objects.get(id=key)
                     try:
-                        cartItem = Cart.objects.get(product = productDetail,user = user)
+                        productDetail = Product.objects.filter(name = value['name'], price = value['price'])[0]
+                    except Product.DoesNotExist:
+                        productDetail = None
+                    try:
+                        cartItem = Cart.objects.get(product = productDetail,user = request.user, color = value['color'], size = value['size'])
+                        # cartItem = Cart.objects.get(product = productDetail,user = user)
                     except Cart.DoesNotExist:
                         cartItem = None
                     if cartItem != None:
                         cartItem.quantity = int(value['num'])
                         cartItem.save()
                     else:
-                        newCartItem = Cart(user = request.user, product = productDetail,quantity = int(value['num'])) 
+                        newCartItem = Cart(user = request.user, product = productDetail,quantity = int(value['num']), color = value['color'], size = value['size']) 
                         newCartItem.save()
                         
                 #cập nhật cart vào session user
