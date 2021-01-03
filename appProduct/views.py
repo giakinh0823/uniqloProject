@@ -372,6 +372,8 @@ def editcreateimageproduct(request, product_pk):
     
 def getnamecolor(request, product_pk):
     if request.is_ajax():
+        if request.POST.get('id') == "None":
+            return JsonResponse({'name': "None"})
         color = Color.objects.get(id=request.POST.get('id'))
         return JsonResponse({'name': color.name})
     

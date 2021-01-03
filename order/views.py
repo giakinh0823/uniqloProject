@@ -103,10 +103,12 @@ def addcartdetail(request, product_pk):
             color = Color.objects.get(id=colorid)
         else: 
             color = "None+"
+            colorid=10101010
         if sizeid:
             size = Size.objects.get(id=sizeid)
         else:
             size = "None+"
+            sizeid=10101010
         if num:
             num=num
         else:
@@ -148,7 +150,7 @@ def addcartdetail(request, product_pk):
                     'name': productDetail.name,
                     'price': str(productDetail.price),
                     'image': productDetail.image.url,   #nếu có hình ảnh thì convert sang string
-                    'num': int(carts[id_product+colorid+sizeid]['num']) + int(num),
+                    'num': int(carts[str(id_product)+str(colorid)+str(sizeid)]['num']) + int(num),
                     'gender': str(productDetail.gender),
                     'color': str(color),
                     'size': str(size),
@@ -216,8 +218,14 @@ def addcartbasket(request):
         if request.user.is_authenticated:
             pass
         else:
-            colorid = Color.objects.filter(name=color)[0].id
-            sizeid = Size.objects.filter(name = size)[0].id
+            if color == "None+":
+                colorid=10101010
+            else:
+                colorid = Color.objects.filter(name=color)[0].id
+            if size == "None+":
+                sizeid=10101010
+            else:
+                sizeid = Size.objects.filter(name = size)[0].id
         if request.user.is_authenticated:
             productDetail = Product.objects.get(id=id_product)
             if productDetail:
