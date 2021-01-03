@@ -36,6 +36,8 @@ def addcart(request):
             sizelist = variant.size.all()
             color = colorlist[0]
             size = sizelist[0]
+            colorid = Color.objects.filter(name=color)[0].id
+            sizeid = Size.objects.filter(name=size)[0].id
         else:
             color = "None+"
             size = "None+"
