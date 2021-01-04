@@ -1,7 +1,7 @@
 from typing import cast
 from django.forms.models import modelform_factory
 from django.http.response import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404, render_to_response
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Category, Size, Color, Gender, ImageProduct, Variants
 from .forms import ProductForm, VariantsForm,ImageProductForm
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required

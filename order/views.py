@@ -1,7 +1,7 @@
 from appProduct.views import product
 from django.contrib.auth import SESSION_KEY
 from django.http.response import HttpResponse,JsonResponse
-from django.shortcuts import render, redirect,get_object_or_404, render_to_response
+from django.shortcuts import render, redirect,get_object_or_404
 from .models import Order, OrderDetail, Cart
 from appProduct.models import Product, Gender, Color, ImageProduct, Size, Variants
 from django.contrib.auth.decorators import login_required,user_passes_test ,permission_required
