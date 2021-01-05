@@ -1,35 +1,362 @@
-{% extends "base/base.html" %}
-{% load static %}
-{% block block_body%}
+{% extends "base/base.html" %} {% block block_body %} {% load static %}
 
 
-<div class="container" style="padding: 75px 0;">
-    <form action="" method="POST" >
+<div style="padding-top: 85px;"></div>
+
+<div class="container">
+    <div class="banner__select">
+        <nav class="banner__nav">
+            <ol class="banner__nav--group">
+                <li class="banner__nav--item">
+                    <a href="{% url 'home:index' %}" class="banner__nav--link" style="color: #212529;">
+                        <span class="banner__nav--span label--primary">
+                            HOME
+                        </span>
+                    </a>
+                </li>
+                <li class="banner__nav--item active">
+                    <span class="banner__nav--span label--primary">
+                        FAVOURITE
+                    </span>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+
+<section class="container" style="margin-bottom: 3.125rem;">
+    <div class="product__header" style="margin-bottom: 1rem;">
+        <h1 class="product__header--h1">
+            FAVOURITE
+        </h1>
+    </div>
+</section>
+
+{% if user.is_authenticated %}
+<div class="container">
+    <div class="row row-cols-md-1 row-cols-lg-2">
+        <div class="col col-lg-7">
+            <section class="basket__layout">
+                <div class="basket__container">
+                    <ul class="basket__list">
+                        {% for favourite in favouritelist %}
+                        <li class="basket__item">
+                            <div class="basket__item--container">
+                                <div class="basket__media--object">
+                                    <div class="basket__media--image">
+                                        <div class="basket__media--image--container">
+                                            <a href="{% url 'appProduct:detailproduct' favourite.product.id %}" class="basket__media--link">
+                                                <div class="basket__media--link--image" style="background-image: url({{favourite.product.image.url}});">
+                                                    <img src="{{favourite.product.image.url}}" alt="" class="basket__media--link--image--img">
+                                                </div>
+                                            </a>
+                                            <div class="basket__favourite">
+                                                {% if favourite.product.id|slugify in request.session.favourites %}
+                                                <a onclick="addFavourite({{ favourite.product.id }})" for="" style="margin-left: auto; padding: 0.6rem">
+                                                    <button class="product__img--heart" id="addFavourite">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                            focusable="false" class="" role="presentation">
+                                                            <title></title>
+                                                            <g fill-rule="evenodd"
+                                                                id="favourite--icon--black--{{favourite.product.id}}"
+                                                                style="opacity: 0;">
+                                                                <path
+                                                                    d="M16.4917746,17.6146815 C16.4819588,17.6984682 16.5400359,17.7737915 16.6201988,17.7839475 C16.6316507,17.7856401 16.6439205,17.7856401 16.6553723,17.7839475 L18.0050535,17.7839475 C18.0852164,17.7991814 18.1612893,17.7433236 18.1760131,17.6612297 C18.1784671,17.6451494 18.1784671,17.6307618 18.1768311,17.6146815 L18.1768311,14.9572065 C18.1719232,14.9064268 18.2079147,14.860725 18.257812,14.855647 C18.2635379,14.8548006 18.2692638,14.8548006 18.2749898,14.855647 L20.8271142,14.855647 C20.9064591,14.8708809 20.98335,14.8150232 20.9972558,14.7329292 C21.0005277,14.7168489 21.0005277,14.7024613 20.9988918,14.6863811 L20.9988918,13.3322537 C21.0087076,13.2493134 20.9522664,13.1722974 20.8712855,13.1621414 C20.8565618,13.1596024 20.841838,13.1604487 20.8271142,13.1629877 L18.2749898,13.1629877 C18.2250924,13.1680657 18.1809211,13.1299809 18.1768311,13.0800474 C18.1760131,13.0732768 18.1760131,13.0673525 18.1768311,13.0614282 L18.1768311,10.3954899 C18.186647,10.3125496 18.1293878,10.2355336 18.0492249,10.2253776 C18.0345011,10.223685 18.0197773,10.223685 18.0050535,10.226224 L16.6553723,10.226224 C16.5743915,10.216068 16.5015905,10.2761574 16.4917746,10.359944 C16.4901386,10.3717927 16.4901386,10.3836413 16.4917746,10.3954899 L16.4917746,13.0529649 C16.4958646,13.104591 16.4598731,13.1502928 16.4107937,13.1545244 L16.393616,13.1545244 L13.8414916,13.1545244 C13.7605107,13.1452148 13.6868917,13.2044579 13.6778939,13.2882445 C13.6762579,13.2992468 13.6762579,13.3119418 13.6778939,13.3237904 L13.6778939,14.6703008 C13.668078,14.7532411 13.7261552,14.8285644 13.8063181,14.8387204 C13.8177699,14.840413 13.8300397,14.840413 13.8414916,14.8387204 L16.393616,14.8387204 C16.4426953,14.8336424 16.4868667,14.8717272 16.4917746,14.922507 C16.4917746,14.9284313 16.4917746,14.9343556 16.4917746,14.9402799 L16.4917746,17.6146815 Z M15.0521147,18.1478692 L13.3343386,19.7728221 L12.017377,21 L10.7085953,19.7728221 C7.55115929,16.827595 4.2873848,13.7808084 3.34669791,10.7340217 C2.32421217,7.34870326 3.62481404,4.20035708 6.4386948,3.23554132 C8.67998355,2.47384466 10.7331349,3.65024283 12.0010172,5.46138822 C13.2770794,3.65024283 15.3302308,2.47384466 17.5633397,3.23554132 C20.3772204,4.20035708 21.6532826,7.34870326 20.6553366,10.7255584 C20.6062572,10.8948244 20.5162785,11.0725536 20.4508394,11.2418195 L19.0929783,9.71842619 C19.5919514,7.4925793 18.7903226,5.57987436 17.0234672,4.97898033 C15.027575,4.29345334 13.4243174,6.21462158 12.8271857,7.67030852 L12.017377,9.68457301 L11.1993884,7.67030852 C10.7004154,6.42620398 9.44889282,4.8351043 7.84563518,4.8351043 C7.56670107,4.83848962 7.29103891,4.8867304 7.02764659,4.97898033 C5.12991305,5.62219084 4.32010434,7.77186807 5.05629407,10.1923708 C5.83338324,12.7313596 9.04807841,15.762066 11.8946787,18.4186947 L12.0255569,18.5371808 L12.1564351,18.4186947 L13.8578513,16.8106684 L15.0521147,18.1478692 Z">
+                                                                </path>
+                                                            </g>
+                                                            <g fill-rule="evenodd" style="opacity: 1; fill:red"
+                                                                id="favourite--icon--red--{{favourite.product.id}}">
+                                                                <path
+                                                                    d="M12.2888591,21 C12.1039902,21 11.9191214,20.9335494 11.7742933,20.8015003 L10.5347349,19.6769525 C7.46949013,16.9158468 4.29775412,14.058473 3.36403866,11.0647904 C2.27016032,7.55313424 3.70821844,4.26638765 6.78198249,3.2508869 C8.72012362,2.61364313 10.7613483,3.2142539 12.289711,4.82014226 C13.8189257,3.2142539 15.8592984,2.61193927 17.7948838,3.2508869 C20.8712036,4.26723958 22.3084098,7.55313424 21.2128276,11.0647904 C20.280816,14.0559172 17.1107838,16.9141429 14.0455391,19.6778044 L12.8034249,20.8015003 C12.6577449,20.9335494 12.472876,21 12.2888591,21">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </button>
+                                                </a>
+                                                {% else %}
+                                                <a onclick="addFavourite({{ favourite.product.id }})" style="margin-left: auto; padding: 0.6rem">
+                                                    <button class="product__img--heart" id="addFavourite">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                            focusable="false" class="" role="presentation">
+                                                            <title></title>
+                                                            <g fill-rule="evenodd"
+                                                                id="favourite--icon--black--{{favourite.product.id}}">
+                                                                <path
+                                                                    d="M16.4917746,17.6146815 C16.4819588,17.6984682 16.5400359,17.7737915 16.6201988,17.7839475 C16.6316507,17.7856401 16.6439205,17.7856401 16.6553723,17.7839475 L18.0050535,17.7839475 C18.0852164,17.7991814 18.1612893,17.7433236 18.1760131,17.6612297 C18.1784671,17.6451494 18.1784671,17.6307618 18.1768311,17.6146815 L18.1768311,14.9572065 C18.1719232,14.9064268 18.2079147,14.860725 18.257812,14.855647 C18.2635379,14.8548006 18.2692638,14.8548006 18.2749898,14.855647 L20.8271142,14.855647 C20.9064591,14.8708809 20.98335,14.8150232 20.9972558,14.7329292 C21.0005277,14.7168489 21.0005277,14.7024613 20.9988918,14.6863811 L20.9988918,13.3322537 C21.0087076,13.2493134 20.9522664,13.1722974 20.8712855,13.1621414 C20.8565618,13.1596024 20.841838,13.1604487 20.8271142,13.1629877 L18.2749898,13.1629877 C18.2250924,13.1680657 18.1809211,13.1299809 18.1768311,13.0800474 C18.1760131,13.0732768 18.1760131,13.0673525 18.1768311,13.0614282 L18.1768311,10.3954899 C18.186647,10.3125496 18.1293878,10.2355336 18.0492249,10.2253776 C18.0345011,10.223685 18.0197773,10.223685 18.0050535,10.226224 L16.6553723,10.226224 C16.5743915,10.216068 16.5015905,10.2761574 16.4917746,10.359944 C16.4901386,10.3717927 16.4901386,10.3836413 16.4917746,10.3954899 L16.4917746,13.0529649 C16.4958646,13.104591 16.4598731,13.1502928 16.4107937,13.1545244 L16.393616,13.1545244 L13.8414916,13.1545244 C13.7605107,13.1452148 13.6868917,13.2044579 13.6778939,13.2882445 C13.6762579,13.2992468 13.6762579,13.3119418 13.6778939,13.3237904 L13.6778939,14.6703008 C13.668078,14.7532411 13.7261552,14.8285644 13.8063181,14.8387204 C13.8177699,14.840413 13.8300397,14.840413 13.8414916,14.8387204 L16.393616,14.8387204 C16.4426953,14.8336424 16.4868667,14.8717272 16.4917746,14.922507 C16.4917746,14.9284313 16.4917746,14.9343556 16.4917746,14.9402799 L16.4917746,17.6146815 Z M15.0521147,18.1478692 L13.3343386,19.7728221 L12.017377,21 L10.7085953,19.7728221 C7.55115929,16.827595 4.2873848,13.7808084 3.34669791,10.7340217 C2.32421217,7.34870326 3.62481404,4.20035708 6.4386948,3.23554132 C8.67998355,2.47384466 10.7331349,3.65024283 12.0010172,5.46138822 C13.2770794,3.65024283 15.3302308,2.47384466 17.5633397,3.23554132 C20.3772204,4.20035708 21.6532826,7.34870326 20.6553366,10.7255584 C20.6062572,10.8948244 20.5162785,11.0725536 20.4508394,11.2418195 L19.0929783,9.71842619 C19.5919514,7.4925793 18.7903226,5.57987436 17.0234672,4.97898033 C15.027575,4.29345334 13.4243174,6.21462158 12.8271857,7.67030852 L12.017377,9.68457301 L11.1993884,7.67030852 C10.7004154,6.42620398 9.44889282,4.8351043 7.84563518,4.8351043 C7.56670107,4.83848962 7.29103891,4.8867304 7.02764659,4.97898033 C5.12991305,5.62219084 4.32010434,7.77186807 5.05629407,10.1923708 C5.83338324,12.7313596 9.04807841,15.762066 11.8946787,18.4186947 L12.0255569,18.5371808 L12.1564351,18.4186947 L13.8578513,16.8106684 L15.0521147,18.1478692 Z">
+                                                                </path>
+                                                            </g>
+                                                            <g fill-rule="evenodd" style="opacity: 0;"
+                                                                id="favourite--icon--red--{{favourite.product.id}}">
+                                                                <path
+                                                                    d="M12.2888591,21 C12.1039902,21 11.9191214,20.9335494 11.7742933,20.8015003 L10.5347349,19.6769525 C7.46949013,16.9158468 4.29775412,14.058473 3.36403866,11.0647904 C2.27016032,7.55313424 3.70821844,4.26638765 6.78198249,3.2508869 C8.72012362,2.61364313 10.7613483,3.2142539 12.289711,4.82014226 C13.8189257,3.2142539 15.8592984,2.61193927 17.7948838,3.2508869 C20.8712036,4.26723958 22.3084098,7.55313424 21.2128276,11.0647904 C20.280816,14.0559172 17.1107838,16.9141429 14.0455391,19.6778044 L12.8034249,20.8015003 C12.6577449,20.9335494 12.472876,21 12.2888591,21">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </button>
+                                                </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="basket__info--layout" style="flex-wrap: nowrap;">
+                                        <div class="basket__info--container">
+                                            <a href="{% url 'appProduct:detailproduct' favourite.product.id %}" class="basket__info--link--title">
+                                                <h3 class="basket__info--link--title--h3">
+                                                    <font style="vertical-align: inherit;">
+                                                        <font style="vertical-align: inherit;">{{favourite.product.name}}</font>
+                                                    </font>
+                                                </h3>
+                                            </a>
+                                            <p class="basket__info--label">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">Mã số </font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">: </font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">439272</font>
+                                                </font>
+                                            </p>
+                                            <p class="basket__info--label">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">Category </font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">: </font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;" id="getCartColor--{{favourite.id}}">{{favourite.product.category}}</font>
+                                                </font>
+                                            </p>
+                                            <p class="basket__info--label">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">Giới tính </font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">: </font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">{{favourite.product.gender}}</font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;" id="getCartSize--{{cart.id}}"></font>
+                                                </font>
+                                            </p>
+                                            <div>
+                                                <p class="basket__info--price"><span>
+                                                        <font style="vertical-align: inherit;">
+                                                            <font style="vertical-align: inherit;">Giá: </font>
+                                                        </font>
+                                                    </span><span class="basket__info--price--red">
+                                                        <font style="vertical-align: inherit;">
+                                                            <font style="vertical-align: inherit;">¥ {{favourite.product.price}}</font>
+                                                        </font>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="basket__delete">
+                                                <div class="basket__delete--container">
+                                                    <button class="basket__delete--button deletefavourite" data-id='{{favourite.id}}'>
+                                                        {% csrf_token %}
+                                                        <span class="basket__delete--span">
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">Xóa bỏ</font>
+                                                            </font>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="col col-lg-5" style="padding: 0 6.5rem">
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container">
+    <div class="row row-cols-md-1 row-cols-lg-2">
+        <div class="col col-lg-7">
+            <section class="basket__layout">
+                <div class="basket__container">
+                    <ul class="basket__list">
+                        {% for key,value in favouritelist.items %}
+                        <li class="basket__item">
+                            <div class="basket__item--container">
+                                <div class="basket__media--object">
+                                    <div class="basket__media--image">
+                                        <div class="basket__media--image--container">
+                                            <a href="{% url 'appProduct:detailproduct' key %}" class="basket__media--link">
+                                                <div class="basket__media--link--image" style="background-image: url({{value.image}});">
+                                                    <img src="{{value.image}}" alt="" class="basket__media--link--image--img">
+                                                </div>
+                                            </a>
+                                            <div class="basket__favourite">
+                                                {% if key|slugify in request.session.favourites %}
+                                                <a for="" style="margin-left: auto; padding: 0.6rem">
+                                                    <button class="product__img--heart" id="addFavourite">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                            focusable="false" class="" role="presentation">
+                                                            <title></title>
+                                                            <g fill-rule="evenodd"
+                                                                id="favourite--icon--black--{{key}}"
+                                                                style="opacity: 0;">
+                                                                <path
+                                                                    d="M16.4917746,17.6146815 C16.4819588,17.6984682 16.5400359,17.7737915 16.6201988,17.7839475 C16.6316507,17.7856401 16.6439205,17.7856401 16.6553723,17.7839475 L18.0050535,17.7839475 C18.0852164,17.7991814 18.1612893,17.7433236 18.1760131,17.6612297 C18.1784671,17.6451494 18.1784671,17.6307618 18.1768311,17.6146815 L18.1768311,14.9572065 C18.1719232,14.9064268 18.2079147,14.860725 18.257812,14.855647 C18.2635379,14.8548006 18.2692638,14.8548006 18.2749898,14.855647 L20.8271142,14.855647 C20.9064591,14.8708809 20.98335,14.8150232 20.9972558,14.7329292 C21.0005277,14.7168489 21.0005277,14.7024613 20.9988918,14.6863811 L20.9988918,13.3322537 C21.0087076,13.2493134 20.9522664,13.1722974 20.8712855,13.1621414 C20.8565618,13.1596024 20.841838,13.1604487 20.8271142,13.1629877 L18.2749898,13.1629877 C18.2250924,13.1680657 18.1809211,13.1299809 18.1768311,13.0800474 C18.1760131,13.0732768 18.1760131,13.0673525 18.1768311,13.0614282 L18.1768311,10.3954899 C18.186647,10.3125496 18.1293878,10.2355336 18.0492249,10.2253776 C18.0345011,10.223685 18.0197773,10.223685 18.0050535,10.226224 L16.6553723,10.226224 C16.5743915,10.216068 16.5015905,10.2761574 16.4917746,10.359944 C16.4901386,10.3717927 16.4901386,10.3836413 16.4917746,10.3954899 L16.4917746,13.0529649 C16.4958646,13.104591 16.4598731,13.1502928 16.4107937,13.1545244 L16.393616,13.1545244 L13.8414916,13.1545244 C13.7605107,13.1452148 13.6868917,13.2044579 13.6778939,13.2882445 C13.6762579,13.2992468 13.6762579,13.3119418 13.6778939,13.3237904 L13.6778939,14.6703008 C13.668078,14.7532411 13.7261552,14.8285644 13.8063181,14.8387204 C13.8177699,14.840413 13.8300397,14.840413 13.8414916,14.8387204 L16.393616,14.8387204 C16.4426953,14.8336424 16.4868667,14.8717272 16.4917746,14.922507 C16.4917746,14.9284313 16.4917746,14.9343556 16.4917746,14.9402799 L16.4917746,17.6146815 Z M15.0521147,18.1478692 L13.3343386,19.7728221 L12.017377,21 L10.7085953,19.7728221 C7.55115929,16.827595 4.2873848,13.7808084 3.34669791,10.7340217 C2.32421217,7.34870326 3.62481404,4.20035708 6.4386948,3.23554132 C8.67998355,2.47384466 10.7331349,3.65024283 12.0010172,5.46138822 C13.2770794,3.65024283 15.3302308,2.47384466 17.5633397,3.23554132 C20.3772204,4.20035708 21.6532826,7.34870326 20.6553366,10.7255584 C20.6062572,10.8948244 20.5162785,11.0725536 20.4508394,11.2418195 L19.0929783,9.71842619 C19.5919514,7.4925793 18.7903226,5.57987436 17.0234672,4.97898033 C15.027575,4.29345334 13.4243174,6.21462158 12.8271857,7.67030852 L12.017377,9.68457301 L11.1993884,7.67030852 C10.7004154,6.42620398 9.44889282,4.8351043 7.84563518,4.8351043 C7.56670107,4.83848962 7.29103891,4.8867304 7.02764659,4.97898033 C5.12991305,5.62219084 4.32010434,7.77186807 5.05629407,10.1923708 C5.83338324,12.7313596 9.04807841,15.762066 11.8946787,18.4186947 L12.0255569,18.5371808 L12.1564351,18.4186947 L13.8578513,16.8106684 L15.0521147,18.1478692 Z">
+                                                                </path>
+                                                            </g>
+                                                            <g fill-rule="evenodd" style="opacity: 1; fill:red"
+                                                                id="favourite--icon--red--{{key}}">
+                                                                <path
+                                                                    d="M12.2888591,21 C12.1039902,21 11.9191214,20.9335494 11.7742933,20.8015003 L10.5347349,19.6769525 C7.46949013,16.9158468 4.29775412,14.058473 3.36403866,11.0647904 C2.27016032,7.55313424 3.70821844,4.26638765 6.78198249,3.2508869 C8.72012362,2.61364313 10.7613483,3.2142539 12.289711,4.82014226 C13.8189257,3.2142539 15.8592984,2.61193927 17.7948838,3.2508869 C20.8712036,4.26723958 22.3084098,7.55313424 21.2128276,11.0647904 C20.280816,14.0559172 17.1107838,16.9141429 14.0455391,19.6778044 L12.8034249,20.8015003 C12.6577449,20.9335494 12.472876,21 12.2888591,21">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </button>
+                                                </a>
+                                                {% else %}
+                                                <a onclick="addFavourite({{ key }})" style="margin-left: auto; padding: 0.6rem">
+                                                    <button class="product__img--heart" id="addFavourite">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                            focusable="false" class="" role="presentation">
+                                                            <title></title>
+                                                            <g fill-rule="evenodd"
+                                                                id="favourite--icon--black--{{key}}">
+                                                                <path
+                                                                    d="M16.4917746,17.6146815 C16.4819588,17.6984682 16.5400359,17.7737915 16.6201988,17.7839475 C16.6316507,17.7856401 16.6439205,17.7856401 16.6553723,17.7839475 L18.0050535,17.7839475 C18.0852164,17.7991814 18.1612893,17.7433236 18.1760131,17.6612297 C18.1784671,17.6451494 18.1784671,17.6307618 18.1768311,17.6146815 L18.1768311,14.9572065 C18.1719232,14.9064268 18.2079147,14.860725 18.257812,14.855647 C18.2635379,14.8548006 18.2692638,14.8548006 18.2749898,14.855647 L20.8271142,14.855647 C20.9064591,14.8708809 20.98335,14.8150232 20.9972558,14.7329292 C21.0005277,14.7168489 21.0005277,14.7024613 20.9988918,14.6863811 L20.9988918,13.3322537 C21.0087076,13.2493134 20.9522664,13.1722974 20.8712855,13.1621414 C20.8565618,13.1596024 20.841838,13.1604487 20.8271142,13.1629877 L18.2749898,13.1629877 C18.2250924,13.1680657 18.1809211,13.1299809 18.1768311,13.0800474 C18.1760131,13.0732768 18.1760131,13.0673525 18.1768311,13.0614282 L18.1768311,10.3954899 C18.186647,10.3125496 18.1293878,10.2355336 18.0492249,10.2253776 C18.0345011,10.223685 18.0197773,10.223685 18.0050535,10.226224 L16.6553723,10.226224 C16.5743915,10.216068 16.5015905,10.2761574 16.4917746,10.359944 C16.4901386,10.3717927 16.4901386,10.3836413 16.4917746,10.3954899 L16.4917746,13.0529649 C16.4958646,13.104591 16.4598731,13.1502928 16.4107937,13.1545244 L16.393616,13.1545244 L13.8414916,13.1545244 C13.7605107,13.1452148 13.6868917,13.2044579 13.6778939,13.2882445 C13.6762579,13.2992468 13.6762579,13.3119418 13.6778939,13.3237904 L13.6778939,14.6703008 C13.668078,14.7532411 13.7261552,14.8285644 13.8063181,14.8387204 C13.8177699,14.840413 13.8300397,14.840413 13.8414916,14.8387204 L16.393616,14.8387204 C16.4426953,14.8336424 16.4868667,14.8717272 16.4917746,14.922507 C16.4917746,14.9284313 16.4917746,14.9343556 16.4917746,14.9402799 L16.4917746,17.6146815 Z M15.0521147,18.1478692 L13.3343386,19.7728221 L12.017377,21 L10.7085953,19.7728221 C7.55115929,16.827595 4.2873848,13.7808084 3.34669791,10.7340217 C2.32421217,7.34870326 3.62481404,4.20035708 6.4386948,3.23554132 C8.67998355,2.47384466 10.7331349,3.65024283 12.0010172,5.46138822 C13.2770794,3.65024283 15.3302308,2.47384466 17.5633397,3.23554132 C20.3772204,4.20035708 21.6532826,7.34870326 20.6553366,10.7255584 C20.6062572,10.8948244 20.5162785,11.0725536 20.4508394,11.2418195 L19.0929783,9.71842619 C19.5919514,7.4925793 18.7903226,5.57987436 17.0234672,4.97898033 C15.027575,4.29345334 13.4243174,6.21462158 12.8271857,7.67030852 L12.017377,9.68457301 L11.1993884,7.67030852 C10.7004154,6.42620398 9.44889282,4.8351043 7.84563518,4.8351043 C7.56670107,4.83848962 7.29103891,4.8867304 7.02764659,4.97898033 C5.12991305,5.62219084 4.32010434,7.77186807 5.05629407,10.1923708 C5.83338324,12.7313596 9.04807841,15.762066 11.8946787,18.4186947 L12.0255569,18.5371808 L12.1564351,18.4186947 L13.8578513,16.8106684 L15.0521147,18.1478692 Z">
+                                                                </path>
+                                                            </g>
+                                                            <g fill-rule="evenodd" style="opacity: 0;"
+                                                                id="favourite--icon--red--{{key}}">
+                                                                <path
+                                                                    d="M12.2888591,21 C12.1039902,21 11.9191214,20.9335494 11.7742933,20.8015003 L10.5347349,19.6769525 C7.46949013,16.9158468 4.29775412,14.058473 3.36403866,11.0647904 C2.27016032,7.55313424 3.70821844,4.26638765 6.78198249,3.2508869 C8.72012362,2.61364313 10.7613483,3.2142539 12.289711,4.82014226 C13.8189257,3.2142539 15.8592984,2.61193927 17.7948838,3.2508869 C20.8712036,4.26723958 22.3084098,7.55313424 21.2128276,11.0647904 C20.280816,14.0559172 17.1107838,16.9141429 14.0455391,19.6778044 L12.8034249,20.8015003 C12.6577449,20.9335494 12.472876,21 12.2888591,21">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </button>
+                                                </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="basket__info--layout" style="flex-wrap: nowrap;">
+                                        <div class="basket__info--container">
+                                            <a href="{% url 'appProduct:detailproduct' key %}" class="basket__info--link--title">
+                                                <h3 class="basket__info--link--title--h3">
+                                                    <font style="vertical-align: inherit;">
+                                                        <font style="vertical-align: inherit;">{{value.name}}</font>
+                                                    </font>
+                                                </h3>
+                                            </a>
+                                            <p class="basket__info--label">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">Mã số </font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">: </font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">439272</font>
+                                                </font>
+                                            </p>
+                                            <p class="basket__info--label">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">Category </font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">: </font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;" id="getCartColor--{{key}}">{{value.category}}</font>
+                                                </font>
+                                            </p>
+                                            <p class="basket__info--label">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">Giới tính </font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">: </font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">{{value.gender}}</font>
+                                                </font>
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;" id="getCartSize--{{cart.id}}"></font>
+                                                </font>
+                                            </p>
+                                            <div>
+                                                <p class="basket__info--price"><span>
+                                                        <font style="vertical-align: inherit;">
+                                                            <font style="vertical-align: inherit;">Giá: </font>
+                                                        </font>
+                                                    </span><span class="basket__info--price--red">
+                                                        <font style="vertical-align: inherit;">
+                                                            <font style="vertical-align: inherit;">¥ {{value.price}}</font>
+                                                        </font>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="basket__delete">
+                                                <div class="basket__delete--container">
+                                                    <button class="basket__delete--button deletefavourite" data-id='{{key}}'>
+                                                        {% csrf_token %}
+                                                        <span class="basket__delete--span">
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">Xóa bỏ</font>
+                                                            </font>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <div class="col col-lg-5" style="padding: 0 6.5rem">
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+<!-- <div class="container" style="padding: 75px 0;">
+    <form action="" method="POST">
         <table class="table">
             <tr>
                 <th>Name</th>
                 <th>Price</th>
                 <th>quantity</th>
             </tr>
-            {% if user.is_authenticated %}
-            {% for favourite in favouritelist %}
+            {% if user.is_authenticated %} {% for favourite in favouritelist %}
             <tr class="">
                 <td>{{favourite.product.name}}</td>
-                <td>{{favourite.product.price}}</td>   
+                <td>{{favourite.product.price}}</td>
                 <td> <button class="btn btn-danger deletefavourite" data-id='{{favourite.id}}'>{% csrf_token %}delete</button></td>
-            </tr>    
-            {% endfor %}
-            {% else %} 
-            {% for key,value in favouritelist.items %}
+            </tr>
+            {% endfor %} {% else %} {% for key,value in favouritelist.items %}
             <tr>
                 <td>{{value.name}}</td>
-                <td>{{value.price}}</td>   
-                <td> <button class="btn btn-danger deletefavourite" data-id= '{{key}}' name="{{key}}">{% csrf_token %}delete</button></td>
-            </tr>    
-            {% endfor %}
-            {% endif %}
+                <td>{{value.price}}</td>
+                <td> <button class="btn btn-danger deletefavourite" data-id='{{key}}' name="{{key}}">{% csrf_token %}delete</button></td>
+            </tr>
+            {% endfor %} {% endif %}
         </table>
     </form>
-</div>
+</div> -->
 
 {% endblock %}

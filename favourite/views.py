@@ -42,7 +42,9 @@ def addFavourite(request):
             itemFavourite = {
                 'name': productDetail.name,
                 'price': str(productDetail.price),
-            #   'image': str(productDetail.image)  #nếu có hình ảnh thì convert sang string
+                'image': productDetail.image.url,
+                'gender': str(productDetail.gender),
+                'category': str(productDetail.category),
             }
             favourites[id_product]= itemFavourite
             request.session['favourites'] = favourites
@@ -72,7 +74,7 @@ def addFavourite(request):
                     quantity += 1
             request.session['quantityfavourite']=quantity
         print(request.session['favourites'])
-    return JsonResponse({'quantityfavourite': quantity, 'check': check})
+    return JsonResponse({'quantityfavourite': quantity, 'check': check, 'favourites':request.session['favourites']})
 
 def deletefavourite(request, favourite_pk):
     quantity=0
