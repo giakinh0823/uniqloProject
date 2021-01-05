@@ -31,6 +31,8 @@ class Order(models.Model):
     totalprice = models.IntegerField(default=0)
     quantity = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)
+    phonenumber = models.CharField(max_length=20, default=None, blank=True, null=True)
+    address = models.CharField(max_length=200, default=None, blank=True, null=True)
     def __str__(self) -> str:
         return 'Order {}'.format(self.id)
     
@@ -40,7 +42,10 @@ class Order(models.Model):
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True)
     gender = models.ForeignKey(Gender, on_delete=models.CASCADE, default=None, blank=True, null=True)
+    color = models.CharField(max_length=20,default=None, blank=True, null=True)
+    size = models.CharField(max_length=20,default=None, blank=True, null=True)
     quantity = models.IntegerField(default=0)
     totalprice = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True)

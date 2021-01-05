@@ -5,6 +5,7 @@ from .models import Category, Product, Gender, Color, Size, Variants, ImageProdu
 
 class VariantsItemInline(admin.TabularInline):
     model = Variants
+    readonly_fields =('id',)
     raw_id_fields = ['product']
     
 

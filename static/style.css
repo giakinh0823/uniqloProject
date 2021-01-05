@@ -870,7 +870,8 @@ svg:not(:root) {
   background-color: #dc3545;
   color: #fff; }
   .button--primary--red:hover {
-    background-color: #ff5959; }
+    background-color: #ff5959;
+    color: #fff; }
   .button--primary--red:disabled {
     background-color: #ff5959e8 !important; }
 

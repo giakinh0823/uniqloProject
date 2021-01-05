@@ -1,5 +1,165 @@
+{% extends "base/base.html" %} {% block block_body %} {% load static %}
 
-<div style="padding-top: 85px;"></div>
+<div style="padding-top: 85px;">
+</div>
 
+<div class="container">
+    <div class="banner__select">
+        <nav class="banner__nav">
+            <ol class="banner__nav--group">
+                <li class="banner__nav--item">
+                    <a href="{% url 'home:index' %}" class="banner__nav--link" style="color: #212529;">
+                        <span class="banner__nav--span label--primary">
+                            HOME
+                        </span>
+                    </a>
+                </li>
+                <li class="banner__nav--item">
+                    <a href="{% url 'order:basket' %}" class="banner__nav--link" style="color: #212529;">
+                        <span class="banner__nav--span label--primary">
+                            Basket
+                        </span>
+                    </a>
+                </li>
+                <li class="banner__nav--item active">
+                    <span class="banner__nav--span label--primary">
+                        Checkout
+                    </span>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+
+<section class="container" style="margin-bottom: 3.125rem;">
+    <div class="product__header" style="margin-bottom: 1rem;">
+        <h1 class="product__header--h1">
+            Checkout
+        </h1>
+    </div>
+    <p style="font-weight: 300; font-size:1.4rem; color:#1b1b1b ">
+        Giao hàng miễn phí cho các giao dịch mua trên 3.000 yên. Miễn phí vận chuyển nếu bạn nhận nó tại cửa hàng.
+    </p>
+</section>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-7" style="padding: 3.25rem 0">
+            <div class="basket__bill">
+                <div class="basket__bill--container">
+                    <div class="basket__bill--details">
+                        <div class="basket__bill--header">
+                            <span class="basket__bill--span" style="margin-right: auto;">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">Chi tiết đơn hàng</font>
+                                </font>
+                            </span>
+                            <span class="basket__bill--span">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;" id="listCartQuantity">{{cartlist|length}} </font>
+                                </font>
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">trường hợp</font>
+                                </font>
+                            </span>
+                        </div>
+                        <hr class="basket__bill--border--bottom">
+                        <div class="basket__bill--info">
+                            <table class="basket__bill--table">
+                                <tbody>
+                                    <tr>
+                                        <td class="basket__bill--td--start">
+                                            <span class="basket__bill--td--span">
+                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tổng sản phẩm</font></font>
+                                            </span>
+                                        </td>
+                                        <td class="basket__bill--td--end">
+                                            <span class="basket__bill--td--span">
+                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="totalquantity">{{quantity}}</font></font>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="basket__bill--td--start">
+                                            <span class="basket__bill--td--span">
+                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Trạng thái</font></font>
+                                            </span>
+                                        </td>
+                                        <td class="basket__bill--td--end">
+                                            <span class="basket__bill--td--span">
+                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Chưa quyết định</font></font>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="basket__bill--td--start">
+                                            <span class="basket__bill--td--span basket__bill--td--span--weight">
+                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tổng Phụ</font></font>
+                                            </span>
+                                        </td>
+                                        <td class="basket__bill--td--end">
+                                            <span class="basket__bill--td--span basket__bill--td--span--weight">
+                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">¥ </font></font>
+                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="totalpricecart">{{totalprice}}</font></font>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="basket__bill--td--start">
+                                            <span class="basket__bill--td--span">
+                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Thuế tiêu dùng</font></font>
+                                            </span>
+                                        </td>
+                                        <td class="basket__bill--td--end">
+                                            <span class="basket__bill--td--span">
+                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">¥ 2000</font></font>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td class="basket__bill--td--start">
+                                            <span class="basket__bill--td--span basket__bill--td--span--weight">
+                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tổng (đã bao gồm thuê)</font></font>
+                                            </span>
+                                        </td>
+                                        <td class="basket__bill--td--end">
+                                            <span class="basket__bill--td--span basket__bill--td--span--weight">
+                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">¥ </font></font>
+                                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="totalpricecarttax">{{totalprice|add:2000}}</font></font>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="product__details--button" id="deleteCartCheckout">
+                    <a class="button--secondary button--primary--red" href="{% url 'order:confirmcheckout' %}" id="disabledCartCheckout">
+                        <p class="button--secondary--label">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">xác nhận thanh toán</font>
+                            </font>
+                        </p>
+                    </a>
+                    <p style=" height: 1rem; "></p>
+                </div>
+                <a href="{% url 'order:basket' %}" class="button--secondary button--secondary--light">
+                    <p class="button--secondary--label">
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">BACK CART</font>
+                        </font>
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 
 <h1>Vui Lòng xác nhận</h1>
-<a href="{% url 'order:confirmcheckout' %}">confirm</a>
+<a href="{% url 'order:confirmcheckout' %}">confirm</a> -->
+
+{% endblock %}

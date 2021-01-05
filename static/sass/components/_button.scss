@@ -34,16 +34,13 @@
     margin: 0;
     text-decoration: none;
     outline: 0;
-
     &:focus {
         outline: none;
     }
-
     &--container {
         position: relative;
         fill: inherit;
     }
-
     &--sgv {
         display: block;
         fill: inherit;
@@ -57,18 +54,15 @@ svg:not(:root) {
     overflow: hidden;
 }
 
-
 .section__button {
     margin-bottom: 3.95rem;
     display: flex;
-
     &--div {
         width: 44%;
         margin: auto;
         display: inline-block;
         vertical-align: top;
     }
-
     &--link {
         text-decoration: none;
         display: flex;
@@ -77,12 +71,10 @@ svg:not(:root) {
         border: 1px solid $color-primary;
         width: 100%;
         cursor: pointer;
-
         &:hover .section__button--caption {
             color: #212529bb;
         }
     }
-
     &--link__dark {
         text-decoration: none;
         display: flex;
@@ -91,26 +83,20 @@ svg:not(:root) {
         border: 1px solid $color-primary;
         width: 100%;
         cursor: pointer;
-
         &:hover {
             background-color: #212529d0;
         }
     }
-
     &--button {
         width: 100%;
         color: var($color-primary);
-
         &:not(:disabled) {
             cursor: pointer;
         }
-
         &:focus {
             outline: none;
         }
     }
-
-
     &--caption {
         font-size: 1.6rem;
         font-weight: 600;
@@ -124,7 +110,6 @@ svg:not(:root) {
         font-style: normal;
         vertical-align: inherit;
     }
-
     &--caption--light {
         font-size: 1.6rem;
         font-weight: 600;
@@ -139,8 +124,6 @@ svg:not(:root) {
         vertical-align: inherit;
     }
 }
-
-
 
 .button--secondary {
     display: block;
@@ -163,13 +146,10 @@ svg:not(:root) {
     transition-duration: 180ms;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     color: #fff;
-
     &:not(:disabled) {
         cursor: pointer;
     }
-
     &:hover {}
-
     &::after {
         position: absolute;
         content: '';
@@ -181,7 +161,6 @@ svg:not(:root) {
         transition-duration: 180ms;
         transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     }
-
     &--label {
         margin: 0;
         font-size: 1.4rem;
@@ -200,26 +179,23 @@ svg:not(:root) {
 .button--primary--red {
     background-color: $color-red;
     color: #fff;
-
     &:hover {
         background-color: #ff5959;
+        color: #fff;
     }
-    &:disabled{
+    &:disabled {
         background-color: #ff5959e8!important;
     }
 }
 
-
 .button--secondary--light {
     border: 1px solid #212529;
     color: #212529;
-
     &:hover {
         border: 1px solid #212529cb;
         color: #212529cb;
     }
 }
-
 
 .button--third {
     width: 50%;
@@ -227,7 +203,6 @@ svg:not(:root) {
     font-size: 13px;
     letter-spacing: normal;
     line-height: 1.5;
-
     .button--third--button {
         line-height: 1.2;
         border: 1px solid black;
@@ -249,7 +224,7 @@ svg:not(:root) {
         background: #1b1b1b;
         border-color: #1b1b1b;
         color: #fff;
-        &:hover{
+        &:hover {
             opacity: 0.9;
         }
     }

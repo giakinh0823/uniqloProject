@@ -23,11 +23,13 @@ from django.db.models import Sum, F, FloatField
 
 class OrderItemInline(admin.TabularInline):
     model = OrderDetail
+    readonly_fields =('id',)
     raw_id_fields = ['product']
 
 class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ('date', 'get_total_cost')
     list_display = ['id','user','code', 'state', 'quantity','date']
+    readonly_fields =('id',)
     list_editable = ['state']
     list_per_page = 15
     list_filter = ['state']
@@ -38,6 +40,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 class OrderDetailAdmin(admin.ModelAdmin):
     readonly_fields = ('date',)
+    readonly_fields =('id',)
     list_display = ['id','product','gender', 'quantity', 'totalprice','date']
     list_per_page = 15
     search_fields = ('id',)

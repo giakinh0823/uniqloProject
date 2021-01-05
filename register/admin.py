@@ -6,7 +6,7 @@ from .models import UserProfile
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['user','birth_date', 'site','id',]
+    list_display = ['user','phonenumber','birth_date', 'site','id',]
 
 admin.site.register(UserProfile, UserProfileAdmin)
 

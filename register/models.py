@@ -11,7 +11,8 @@ class UserProfile(models.Model):
     birth_date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
     site = models.URLField(blank=True) #blank=true có nghĩa là để trống không cần điền vẫn ok
     avatar = models.ImageField(upload_to='images', blank=True) 
-    
+    address = models.CharField(max_length=200, default=None, blank=True, null=True)
+    phonenumber = models.CharField(max_length=20, default=None, blank=True, null=True)
     def __str__(self) -> str:
         return self.user.username
     

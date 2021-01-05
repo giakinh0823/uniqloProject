@@ -1,6 +1,4 @@
-{% extends "base/base.html" %}
-{% block block_body %}
-{% load static %}
+{% extends "base/base.html" %} {% block block_body %} {% load static %}
 
 
 <div style="padding-top: 85px;"></div>
@@ -52,16 +50,13 @@
                                     <div class="basket__media--image">
                                         <div class="basket__media--image--container">
                                             <a href="{% url 'appProduct:detailproduct' cart.product.id %}" class="basket__media--link">
-                                                <div class="basket__media--link--image"
-                                                    style="background-image: url({{cart.product.image.url}});">
-                                                    <img src="{{cart.product.image.url}}"
-                                                        alt="" class="basket__media--link--image--img">
+                                                <div class="basket__media--link--image" style="background-image: url({{cart.product.image.url}});">
+                                                    <img src="{{cart.product.image.url}}" alt="" class="basket__media--link--image--img">
                                                 </div>
                                             </a>
                                             <div class="basket__favourite">
                                                 {% if cart.product.id|slugify in request.session.favourites %}
-                                                <a onclick="addFavourite({{ cart.product.id }})" for=""
-                                                    style="margin-left: auto; padding: 0.6rem">
+                                                <a onclick="addFavourite({{ cart.product.id }})" for="" style="margin-left: auto; padding: 0.6rem">
                                                     <button class="product__img--heart" id="addFavourite">
                                                         <svg width="24" height="24" viewBox="0 0 24 24"
                                                             focusable="false" class="" role="presentation">
@@ -83,8 +78,7 @@
                                                     </button>
                                                 </a>
                                                 {% else %}
-                                                <a onclick="addFavourite({{ cart.product.id }})"
-                                                    style="margin-left: auto; padding: 0.6rem">
+                                                <a onclick="addFavourite({{ cart.product.id }})" style="margin-left: auto; padding: 0.6rem">
                                                     <button class="product__img--heart" id="addFavourite">
                                                         <svg width="24" height="24" viewBox="0 0 24 24"
                                                             focusable="false" class="" role="presentation">
@@ -181,12 +175,10 @@
                                     </div>
                                     <div class="basket__actions">
                                         <div style="position: relative;">
-                                            <div class="product__dropdown"
-                                                style="width:100% ;margin-bottom:2rem; margin-left: 2rem">
+                                            <div class="product__dropdown" style="width:100% ;margin-bottom:2rem; margin-left: 2rem">
                                                 <div class="product__dropdown--container">
                                                     <div class="product__dropdown--header">
-                                                        <label for="" class="product__dropdown--header--label"
-                                                            style="font-size: 1.6125rem;">
+                                                        <label for="" class="product__dropdown--header--label" style="font-size: 1.6125rem;">
                                                             <font style="vertical-align: inherit;">
                                                                 <font style="vertical-align: inherit;">định lượng</font>
                                                             </font>
@@ -194,8 +186,7 @@
                                                     </div>
                                                     <div class="product__dropdown--input" style="width:80%;">
                                                         {% if cart.quantity > 10 %}
-                                                        <select name="quantitys" onchange="changeQuantityCart(this,  {{cart.id}},{{cart.product.id}})" class="product__dropdown--select"
-                                                        data-test="quantity-dropdown" id="number">
+                                                        <select name="quantitys" onchange="changeQuantityCart(this,  {{cart.id}},{{cart.product.id}})" class="product__dropdown--select" data-test="quantity-dropdown" id="number">
                                                         {% with ''|center:cart.quantity as range %}
                                                         {% for _ in range %}
                                                         <option  value="{{ forloop.counter }}" {% if forloop.counter == cart.quantity %}selected{% endif %} class="uq-uikit-dropdown__hidden-option"
@@ -206,10 +197,8 @@
                                                         </option>
                                                         {% endfor %}
                                                         {% endwith %}
-                                                        </select>
-                                                        {% else %}
-                                                        <select name="quantitys" onchange="changeQuantityCart(this,  {{cart.id}},{{cart.product.id}})" class="product__dropdown--select"
-                                                            data-test="quantity-dropdown" id="number">
+                                                        </select> {% else %}
+                                                        <select name="quantitys" onchange="changeQuantityCart(this,  {{cart.id}},{{cart.product.id}})" class="product__dropdown--select" data-test="quantity-dropdown" id="number">
                                                             {% for i in "0123456789" %}
                                                             <option  value="{{ forloop.counter }}" {% if forloop.counter == cart.quantity %}selected{% endif %} class="uq-uikit-dropdown__hidden-option"
                                                                 aria-selected="true">
@@ -218,13 +207,9 @@
                                                                 </font>
                                                             </option>
                                                             {% endfor %}
-                                                        </select>
-                                                        {% endif %}
+                                                        </select> {% endif %}
                                                         <div class="product__dropdown--input--inner">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                focusable="false"
-                                                                class="uq-uikit-icon uq-uikit-icon--default uq-uikit-dropdown__icon"
-                                                                role="presentation">
+                                                            <svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="uq-uikit-icon uq-uikit-icon--default uq-uikit-dropdown__icon" role="presentation">
                                                                 <title></title>
                                                                 <g fill-rule="evenodd">
                                                                     <polygon points="12 15 18 9 6 9"></polygon>
@@ -264,14 +249,12 @@
                 <div class="basket__bill--container">
                     <div class="basket__bill--details">
                         <div class="basket__bill--header">
-                            <span
-                                class="basket__bill--span" style="margin-right: auto;">
+                            <span class="basket__bill--span" style="margin-right: auto;">
                                 <font style="vertical-align: inherit;">
                                     <font style="vertical-align: inherit;">Chi tiết đơn hàng</font>
                                 </font>
                             </span>
-                            <span
-                                class="basket__bill--span">
+                            <span class="basket__bill--span">
                                 <font style="vertical-align: inherit;">
                                     <font style="vertical-align: inherit;" id="listCartQuantity">{{listCart|length}} </font>
                                 </font>
@@ -355,21 +338,20 @@
                 </div>
                 <div class="product__details--button" id="deleteCartCheckout">
                     {% if quantity > 0 %}
-                    <button class="button--secondary button--primary--red" id="disabledCartCheckout">
-                        <p class="button--secondary--label" >
+                    <a class="button--secondary button--primary--red" href="{% url 'order:checkout' %}" id="disabledCartCheckout">
+                        <p class="button--secondary--label">
                             <font style="vertical-align: inherit;">
                                 <font style="vertical-align: inherit;">Thanh toán</font>
                             </font>
                         </p>
-                    </button>
-                    {% else %}
-                    <button class="button--secondary button--primary--red" id="disabledCartCheckout" disabled>
-                        <p class="button--secondary--label" >
+                    </a> {% else %}
+                    <a class="button--secondary button--primary--red" id="disabledCartCheckout" disabled>
+                        <p class="button--secondary--label">
                             <font style="vertical-align: inherit;">
                                 <font style="vertical-align: inherit;">Thanh toán</font>
                             </font>
                         </p>
-                    </button>
+                    </a>
                     {% endif %}
                     <p style=" height: 1rem; "></p>
                 </div>
@@ -398,16 +380,13 @@
                                     <div class="basket__media--image">
                                         <div class="basket__media--image--container">
                                             <a href="{% url 'appProduct:detailproduct' key %}" class="basket__media--link">
-                                                <div class="basket__media--link--image"
-                                                    style="background-image: url({{ value.image }});">
-                                                    <img src="{{ value.image }}"
-                                                        alt="" class="basket__media--link--image--img" id="getImageCart--{{key}}">
+                                                <div class="basket__media--link--image" style="background-image: url({{ value.image }});">
+                                                    <img src="{{ value.image }}" alt="" class="basket__media--link--image--img" id="getImageCart--{{key}}">
                                                 </div>
                                             </a>
                                             <div class="basket__favourite">
                                                 {% if key|slugify in request.session.favourites %}
-                                                <a onclick="addFavourite({{ key }})" for=""
-                                                    style="margin-left: auto; padding: 0.6rem">
+                                                <a onclick="addFavourite({{ key }})" for="" style="margin-left: auto; padding: 0.6rem">
                                                     <button class="product__img--heart" id="addFavourite">
                                                         <svg width="24" height="24" viewBox="0 0 24 24"
                                                             focusable="false" class="" role="presentation">
@@ -429,8 +408,7 @@
                                                     </button>
                                                 </a>
                                                 {% else %}
-                                                <a onclick="addFavourite({{ key }})"
-                                                    style="margin-left: auto; padding: 0.6rem">
+                                                <a onclick="addFavourite({{ key }})" style="margin-left: auto; padding: 0.6rem">
                                                     <button class="product__img--heart" id="addFavourite">
                                                         <svg width="24" height="24" viewBox="0 0 24 24"
                                                             focusable="false" class="" role="presentation">
@@ -530,12 +508,10 @@
                                     </div>
                                     <div class="basket__actions">
                                         <div style="position: relative;">
-                                            <div class="product__dropdown"
-                                                style="width:100% ;margin-bottom:2rem; margin-left: 2rem">
+                                            <div class="product__dropdown" style="width:100% ;margin-bottom:2rem; margin-left: 2rem">
                                                 <div class="product__dropdown--container">
                                                     <div class="product__dropdown--header">
-                                                        <label for="" class="product__dropdown--header--label"
-                                                            style="font-size: 1.6125rem;">
+                                                        <label for="" class="product__dropdown--header--label" style="font-size: 1.6125rem;">
                                                             <font style="vertical-align: inherit;">
                                                                 <font style="vertical-align: inherit;">định lượng</font>
                                                             </font>
@@ -543,8 +519,7 @@
                                                     </div>
                                                     <div class="product__dropdown--input" style="width:80%;">
                                                         {% if value.num > 10 %}
-                                                        <select name="quantitys" onchange="changeQuantityCart(this,  {{key}},{{key}})" class="product__dropdown--select"
-                                                        data-test="quantity-dropdown" id="number">
+                                                        <select name="quantitys" onchange="changeQuantityCart(this,  {{key}},{{key}})" class="product__dropdown--select" data-test="quantity-dropdown" id="number">
                                                         {% with ''|center:value.num as range %}
                                                         {% for _ in range %}
                                                         <option  value="{{ forloop.counter }}" {% if forloop.counter == value.num %}selected{% endif %} class="uq-uikit-dropdown__hidden-option"
@@ -555,10 +530,8 @@
                                                         </option>
                                                         {% endfor %}
                                                         {% endwith %}
-                                                        </select>
-                                                        {% else %}
-                                                        <select name="quantitys" onchange="changeQuantityCart(this,  {{key}},{{key}})" class="product__dropdown--select"
-                                                            data-test="quantity-dropdown" id="number">
+                                                        </select> {% else %}
+                                                        <select name="quantitys" onchange="changeQuantityCart(this,  {{key}},{{key}})" class="product__dropdown--select" data-test="quantity-dropdown" id="number">
                                                             {% for i in "0123456789" %}
                                                             <option  value="{{ forloop.counter }}" {% if forloop.counter == value.num %}selected{% endif %} class="uq-uikit-dropdown__hidden-option"
                                                                 aria-selected="true">
@@ -567,13 +540,9 @@
                                                                 </font>
                                                             </option>
                                                             {% endfor %}
-                                                        </select>
-                                                        {% endif %}
+                                                        </select> {% endif %}
                                                         <div class="product__dropdown--input--inner">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                focusable="false"
-                                                                class="uq-uikit-icon uq-uikit-icon--default uq-uikit-dropdown__icon"
-                                                                role="presentation">
+                                                            <svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="uq-uikit-icon uq-uikit-icon--default uq-uikit-dropdown__icon" role="presentation">
                                                                 <title></title>
                                                                 <g fill-rule="evenodd">
                                                                     <polygon points="12 15 18 9 6 9"></polygon>
@@ -613,14 +582,12 @@
                 <div class="basket__bill--container">
                     <div class="basket__bill--details">
                         <div class="basket__bill--header">
-                            <span
-                                class="basket__bill--span" style="margin-right: auto;">
+                            <span class="basket__bill--span" style="margin-right: auto;">
                                 <font style="vertical-align: inherit;">
                                     <font style="vertical-align: inherit;">Chi tiết đơn hàng</font>
                                 </font>
                             </span>
-                            <span
-                                class="basket__bill--span">
+                            <span class="basket__bill--span">
                                 <font style="vertical-align: inherit;">
                                     <font style="vertical-align: inherit;" id="listCartQuantity">{{listCart|length}} </font>
                                 </font>
@@ -704,22 +671,20 @@
                 </div>
                 <div class="product__details--button" id="deleteCartCheckout">
                     {% if quantity > 0 %}
-                    <button class="button--secondary button--primary--red" id="disabledCartCheckout">
-                        <p class="button--secondary--label" >
+                    <a class="button--secondary button--primary--red" href="{% url 'order:checkout' %}" id="disabledCartCheckout">
+                        <p class="button--secondary--label">
                             <font style="vertical-align: inherit;">
                                 <font style="vertical-align: inherit;">Thanh toán</font>
                             </font>
                         </p>
-                    </button>
-                    {% else %}
+                    </a> {% else %}
                     <button class="button--secondary button--primary--red" id="disabledCartCheckout" disabled>
                         <p class="button--secondary--label" >
                             <font style="vertical-align: inherit;">
                                 <font style="vertical-align: inherit;">Thanh toán</font>
                             </font>
                         </p>
-                    </button>
-                    {% endif %}
+                    </button> {% endif %}
                     <p style=" height: 1rem; "></p>
                 </div>
                 <a href="{% url 'appProduct:product' %}" class="button--secondary button--secondary--light">

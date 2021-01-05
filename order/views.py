@@ -7,6 +7,7 @@ from appProduct.models import Product, Gender, Color, ImageProduct, Size, Varian
 from django.contrib.auth.decorators import login_required,user_passes_test ,permission_required
 from django.template.loader import render_to_string, get_template
 from django.views.decorators.csrf import csrf_protect
+from register.models import  UserProfile
 import random
 
 
@@ -353,11 +354,16 @@ def basket(request):
 
 @login_required
 def checkout(request):
-    return render(request,'order/checkout.html')
+    cartlist = Cart.objects.filter(user = request.user)
+    quantity=0
+    totalprice=0
+    for cart in cartlist:
+        quantity += cart.quantity
+        totalprice +=  quantity * cart.product.price
+    return render(request,'order/checkout.html', {'cartlist': cartlist, 'quantity': quantity, 'totalprice': totalprice})
 
 def confirmcheckout(request): 
     carts.clear()
-    Cart.objects.filter(user = request.user).delete()
     request.session['quantity']=0
     listcarts={}
     totalprice=0
@@ -371,11 +377,13 @@ def confirmcheckout(request):
     code = "";
     while len(code)<8:
         code += random.choice(CODERANDOM)
-    order = Order(user = request.user, state = "Waiting",code = code, totalprice = totalprice, quantity = quantity)
+    order = Order(user = request.user, state = "Waiting",code = code, totalprice = totalprice, quantity = quantity, address = UserProfile.objects.get(user= request.user).address, phonenumber = UserProfile.objects.get(user= request.user).phonenumber)
     order.save()
-    for key, value in listcarts.items():
-        orderDetail = OrderDetail(order = order, product = Product.objects.get(id=key),quantity=int(value['num']), totalprice = int(value['num']) * int(float(value['price'])))
+    listcart = Cart.objects.filter(user = request.user)
+    for item in listcart:
+        orderDetail = OrderDetail(order = order, product = Product.objects.get(id=item.product.id),quantity=item.quantity, totalprice = item.totalprice, size=item.size, color = item.color,user = request.user, gender = Product.objects.get(id = item.product.id).gender )
         orderDetail.save()
+    Cart.objects.filter(user = request.user).delete()
     try:
         del request.session['carts']
     except KeyError:
