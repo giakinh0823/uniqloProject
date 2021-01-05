@@ -388,7 +388,11 @@ def confirmcheckout(request):
         del request.session['carts']
     except KeyError:
         pass
-    return  redirect('home:index')
+    return  redirect('order:sucesscheckout')
+
+
+def sucesscheckout(request):
+    return render(request, 'order/sucesscheckout.html')
 
 
 

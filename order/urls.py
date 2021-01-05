@@ -15,6 +15,7 @@ urlpatterns = [
     path('basket/<int:cart_pk>/deletecart/', views.deletecart , name ="deletecart"),
     path('checkout/', views.checkout , name ="checkout"),
     path('confirmcheckout/', views.confirmcheckout , name ="confirmcheckout"),
+    path('sucesscheckout/', views.sucesscheckout , name ="sucesscheckout"),
 ]
 
 
