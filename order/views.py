@@ -370,9 +370,10 @@ def confirmcheckout(request):
     quantity=0
     if  request.session.get('carts'): #kiếm trong trong session có carts không
         listcarts = request.session['carts']
-    for key, value in listcarts.items():
-        quantity += int(value['num'])
-        totalprice +=  int(value['num']) * int(float(value['price']))
+    listcart = Cart.objects.filter(user = request.user)
+    for item in listcart:
+        quantity += int(item.quantity)
+        totalprice =  item.totalprice
     CODERANDOM = "1234567890QWERTYUIOPASDFGHJKLZXCVBNM"
     code = "";
     while len(code)<8:
