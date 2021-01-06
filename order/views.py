@@ -377,7 +377,7 @@ def confirmcheckout(request):
     code = "";
     while len(code)<8:
         code += random.choice(CODERANDOM)
-    order = Order(user = request.user, state = "Waiting",code = code, totalprice = totalprice, quantity = quantity, address = UserProfile.objects.get(user= request.user).address, phonenumber = UserProfile.objects.get(user= request.user).phonenumber)
+    order = Order(user = request.user, code = code, totalprice = totalprice, quantity = quantity, address = UserProfile.objects.get(user= request.user).address, phonenumber = UserProfile.objects.get(user= request.user).phonenumber)
     order.save()
     listcart = Cart.objects.filter(user = request.user)
     for item in listcart:

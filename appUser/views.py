@@ -7,7 +7,7 @@ from appProduct.models import  Product
 
 #order
 
-from order.models import Order
+from order.models import Order, OrderDetail
 
 
 #import register

@@ -74,8 +74,17 @@ def searchProduct(request):
 
 @login_required
 def productuser(request):
-    products = Product.objects.filter(user=request.user)
-    return render(request, 'product/productuser.html', {'products': products})
+    variants = Variants.objects.all()
+    productlist = Product.objects.filter(user=request.user)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(productlist, 12)
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+    return render(request, 'product/productuser.html', {'products': products, 'variants': variants})
 
 
 @login_required

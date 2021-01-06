@@ -873,7 +873,9 @@ svg:not(:root) {
     background-color: #ff5959;
     color: #fff; }
   .button--primary--red:disabled {
-    background-color: #ff5959e8 !important; }
+    background-color: #ff5959e8 !important;
+    pointer-events: none;
+    cursor: default; }
 
 .button--secondary--light {
   border: 1px solid #212529;

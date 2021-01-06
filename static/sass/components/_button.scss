@@ -185,6 +185,8 @@ svg:not(:root) {
     }
     &:disabled {
         background-color: #ff5959e8!important;
+        pointer-events: none;
+        cursor: default;
     }
 }
 
