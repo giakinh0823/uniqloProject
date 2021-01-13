@@ -1,0 +1,231 @@
+{% extends "base/base.html" %}
+{% block block_body %}
+{% load static %}
+
+<!-- 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-md">
+    <a class="navbar-brand" href="{% url 'home:index' %}">Uniqlo</a>
+  </div>
+</nav>
+
+<h1 class="text-center mt-5 mb-4 display-3">Edit Info</h1>
+
+{% if error %}
+  <div class="alert alert-warning" role="alert">
+    <span>{{ error }}</span> 
+</div>
+{% endif %}
+<form enctype="multipart/form-data" method="POST" class="d-flex flex-column align-items-center mb-5">
+  {% csrf_token %}
+  <div class="mb-3 w-50">
+    <label for="id_first_name" class="form-label">First Name</label>
+    <input  type="text" name="first_name" maxlength="256" required="" id="id_first_name" class="form-control" value="{{userProfile.first_name}}">
+  </div>
+  <div class="mb-3 w-50">
+    <label for="id_last_name" class="form-label">Last Name</label>
+    <input  type="text" name="last_name" maxlength="256" required="" id="id_last_name" class="form-control" value="{{userProfile.last_name}}">
+  </div>
+  <div class="mb-3 w-50">
+    <label for="id_birth_date" class="form-label">Birth Day</label>
+    <input type="text" name="birth_date" required="" id="id_birth_date" class="form-control" value="{{userProfile.birth_date|date:'d/m/Y'}}">
+  </div>
+  <div class="mb-3 w-50">
+    <label for="id_site" class="form-label">Url</label>
+    <input type="url" name="site" maxlength="200" id="id_site" class="form-control" value="{{userProfile.site}}">
+  </div>
+  <div class="mb-3 w-50">
+    <label for="id_avatar" class="form-label">Default file input example</label>
+    <input class="form-control"  type="file" name="avatar" accept="image/*" id="id_avatar">
+  </div>
+  <button type="submit" class="btn btn-outline-dark mb-5">Register</button>
+</form>
+
+
+
+ -->
+
+
+
+
+<div style="padding-top: 85px;"></div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<div class="container">
+
+  <form action="">
+    {{form.as_p}}
+  </form>
+
+
+  <div class="form__layout">
+    <div class="form__container">
+      <div class="form__header">
+        <header class="form__header--header">
+          <h1 class="form__header--h1">
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">Edit Profile</font>
+            </font>
+          </h1>
+        </header>
+      </div>
+      <div class="form__form--layout">
+        <div class="form__form--container">
+          <form action="" method="POST" enctype="multipart/form-data">
+            <div style="display: flex; flex-wrap:wrap">
+              {% csrf_token %}
+              <div class="form__form--content" style="max-width:60rem; min-width:40rem">
+                <div class="form__row">
+                  <div class="from__row--field">
+                    <div class="form__text--field">
+                      <div class="input__text--wrap">
+                        <input type="text" name="productForm-name" maxlength="256" required="" id="id_productForm-name"
+                          class="input__text--wrap--input" placeholder="{{user}}" disabled>
+                      </div>
+                      <div class="form__text--title">
+                        <div class="form__text--label">
+                          <label for="id_productForm-name" class="form__text--label--label">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">User name</font>
+                            </font>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form__row">
+                  <div class="from__row--field">
+                    <div class="form__text--field">
+                      <div class="input__text--wrap">
+                        <input type="text" name="productForm-name" maxlength="256" required="" id="id_productForm-name"
+                          class="input__text--wrap--input" placeholder="First name" value="{{userProfile.first_name}}">
+                      </div>
+                      <div class="form__text--title">
+                        <div class="form__text--label">
+                          <label for="id_productForm-name" class="form__text--label--label">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">First Name</font>
+                            </font>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form__row">
+                  <div class="from__row--field">
+                    <div class="form__text--field">
+                      <div class="input__text--wrap">
+                        <input type="text" name="productForm-name" maxlength="256" required="" id="id_productForm-name"
+                          class="input__text--wrap--input" placeholder="Last name" value="{{userProfile.last_name}}">
+                      </div>
+                      <div class="form__text--title">
+                        <div class="form__text--label">
+                          <label for="id_productForm-name" class="form__text--label--label">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">Last Name</font>
+                            </font>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form__row">
+                  <div class="from__row--field">
+                    <div class="form__text--field">
+                      <div class="input__text--wrap">
+                        <input type="date" name="birth_date" required="" id="id_birth_date"
+                          class="input__text--wrap--input" value="{{userProfile.birth_date|date:'Y-m-d'}}">
+                      </div>
+                      <div class="form__text--title">
+                        <div class="form__text--label">
+                          <label for="id_productForm-name" class="form__text--label--label">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">Birthday</font>
+                            </font>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form__row">
+                  <div class="from__row--field">
+                    <div class="form__text--field">
+                      <div class="input__text--wrap">
+                        <input type="text" name="productForm-name" maxlength="256" required="" id="id_productForm-name"
+                          class="input__text--wrap--input" value="{{userProfile.phonenumber}}">
+                      </div>
+                      <div class="form__text--title">
+                        <div class="form__text--label">
+                          <label for="id_productForm-name" class="form__text--label--label">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">Phone</font>
+                            </font>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form__row">
+                  <div class="from__row--field">
+                    <div class="form__text--field">
+                      <div class="input__text--wrap">
+                        <input type="email" name="productForm-name" maxlength="256" required="" id="id_productForm-name"
+                          class="input__text--wrap--input" placeholder="url" value="{{userProfile.site}}">
+                      </div>
+                      <div class="form__text--title">
+                        <div class="form__text--label">
+                          <label for="" class="form__text--label--label">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">SITE</font>
+                            </font>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form__row">
+                  <div class="from__row--field">
+                    <div class="form__text--field">
+                      <div class="input__text--wrap">
+                        <input type="email" name="productForm-name" maxlength="256" required="" id="id_productForm-name"
+                          class="input__text--wrap--input" value="{{userProfile.phonenumber}}">
+                      </div>
+                      <div class="form__text--title">
+                        <div class="form__text--label">
+                          <label for="" class="form__text--label--label">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">LOCATION</font>
+                            </font>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style="margin: 0 auto; margin-top: 50px; " class="text-center">
+                <div class="">
+                  <img src="{{userProfile.avatar.url}}" alt="avatar"
+                    style="border-radius: 50%; width:190px;height:190px;object-fit:cover">
+                </div>
+                <div class="" style="font-size: 14px; margin: 30px auto">
+                  <input class="form-control" type="file" name="avatar" accept="image/*" id="id_avatar">
+                </div>
+                <div class="" style="font-size: 14px; margin: 30px auto">
+                  <button type="submit"
+                    style="text-decoration: none; background-color: black; color: white; margin: 0 px; padding: 10px 20px 10px 20px">Submit</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
